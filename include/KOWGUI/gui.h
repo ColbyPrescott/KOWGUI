@@ -1,24 +1,28 @@
-#ifndef KOW_GUI_H
-#define KOW_GUI_H
+#ifndef KOWGUI_GUI_H
+#define KOWGUI_GUI_H
+
+#include "KOWGUI/globalSystems.h"
+
+#include "KOWGUI/color.h"
+
+#include "KOWGUI/Nodes/baseNode.h"
+#include "KOWGUI/Nodes/group.h"
+#include "KOWGUI/Nodes/rectangle.h"
+
+
+#include "v5.h"
+#include "v5_vcs.h"
 
 namespace KOWGUI {
 
-    enum ElementType {
-        Button,
-        Text
-    };
-
-    struct vagueElement {
-        void* pElement;
-        ElementType type;
-    };
-
     class GUI {
         private:
+            vex::brain* mpVexBrain = nullptr;
 
         public:
-            // Slide vector...
-            // Slide is vector of vagueElements...
+            GUI(vex::brain& vexBrain);
+
+            Group* root = new Group;
     };
 
 }

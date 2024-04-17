@@ -8,12 +8,20 @@
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
 
+#include "KOWGUI/gui.h"
+
 using namespace vex;
 
 vex::brain Brain;
 
+KOWGUI::GUI gui = KOWGUI::GUI(Brain);
+
 int main() {
     Brain.Screen.print("Hewwo UwU");
+
+    KOWGUI::Rectangle* rect = (new KOWGUI::Rectangle);
+    
+    rect->Draw(Brain.Screen);
 
         while(1) {
             

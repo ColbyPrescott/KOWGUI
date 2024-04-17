@@ -1,0 +1,62 @@
+#ifndef KOWGUI_BASE_NODE_H
+#define KOWGUI_BASE_NODE_H
+
+#include "KOWGUI/globalSystems.h"
+
+#include <string>
+#include <vector>
+
+namespace KOWGUI {
+
+    class BaseNode {
+    protected:
+        // Value is set in constructors of derived classes so a void* can be interpreted as BaseNode,
+        // have its type read, then get casted to the correct class
+        NodeType mType;
+
+        // X coordinate
+        int mX = 0;
+        // Y coordinate
+        int mY = 0;
+        // Width
+        int mWidth = undefinedNumber;
+        // Height
+        int mHeight = undefinedNumber;
+
+        std::string mId = undefinedString;
+        std::string mShallowId = undefinedString;
+
+        void* mpParent = nullptr;
+        std::vector<void*> mpChildren;
+    
+    public:
+        // All of these BaseNode* returning functions need to be redefined in the derived classes
+        BaseNode* SetX(int x);
+        BaseNode* SetY(int y);
+        BaseNode* SetPosition(int x, int y);
+        BaseNode* SetWidth(int width);
+        BaseNode* SetHeight(int height);
+        BaseNode* SetSize(int width, int height);
+        // BaseNode* SetId(std::string id);
+        // BaseNode* SetShallowId(std::string shallowId);
+        // BaseNode* AddChildren(std::vector<void*> children);
+        // void* AddChild(void* child);
+
+        int GetX();
+        // int CalculateX();
+        int GetY();
+        // int CalculateY();
+        int GetWidth();
+        // int CalculateWidth();
+        int GetHeight();
+        // int CalculateHeight();
+        // std::string GetID();
+        // std::string GetShallowId();
+
+        // void* FindShallowId(std::string shallowId);
+
+    };
+
+}
+
+#endif
