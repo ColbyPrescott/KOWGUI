@@ -19,7 +19,10 @@ KOWGUI::GUI gui = KOWGUI::GUI(Brain);
 int main() {
     Brain.Screen.print("Hewwo UwU");
 
-    KOWGUI::Rectangle* rect = (new KOWGUI::Rectangle);
+    KOWGUI::Rectangle* rect = (new KOWGUI::Rectangle)->
+        SetPosition(50, 50)->
+        SetSize(200, 100)->
+        SetFillColor((new KOWGUI::Color)->SetRGB(50, 200, 50));
     
     rect->Draw(Brain.Screen);
 

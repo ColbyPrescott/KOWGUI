@@ -13,8 +13,8 @@ namespace KOWGUI {
 
     class Rectangle : BaseNode {
         private:
-            std::shared_ptr<Color> mpFillColor = nullptr;
-            std::shared_ptr<Color> mpOutlineColor = nullptr;
+            std::shared_ptr<Color> mpFillColor = std::make_shared<Color>(*Color::transparent);
+            std::shared_ptr<Color> mpOutlineColor = std::make_shared<Color>(*Color::transparent);
             int mOutlineWidth = 1;
 
         public:

@@ -10,7 +10,14 @@ Color* Color::SetRGB(uint8_t red, uint8_t green, uint8_t blue) {
     return this;
 }
 
+Color* Color::SetTransparent(bool transparent) {
+    mTransparent = transparent;
+    return this;
+}
+
 vex::color Color::GetVexColor() {
     if(mTransparent) return vex::color::transparent;
     else return vex::color(mR, mG, mB);
 }
+
+const Color* Color::transparent = (new Color)->SetTransparent(true);

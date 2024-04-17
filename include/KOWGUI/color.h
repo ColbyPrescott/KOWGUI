@@ -18,9 +18,14 @@ namespace KOWGUI {
 
         public:
             Color* SetRGB(uint8_t red, uint8_t green, uint8_t blue);
+            Color* SetTransparent(bool transparent);
 
             vex::color GetVexColor();
+
+            static const Color* transparent;
     };
+
+    
 
 }
 
