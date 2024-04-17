@@ -67,8 +67,36 @@ int BaseNode::GetX() {
     return mX;
 }
 
+// Get screen X coordinate by adding X coordinates up the parent tree
+int BaseNode::CalculateX() {
+    int sumX = GetX();
+
+    BaseNode* currentNode = (BaseNode*)this;
+
+    while(currentNode->parent != nullptr) {
+        currentNode = (BaseNode*)currentNode->parent;
+        sumX += currentNode->GetX();
+    }
+
+    return sumX;
+}
+
 int BaseNode::GetY() {
     return mY;
+}
+
+// Get screen Y coordinate by adding Y coordinates up the parent tree
+int BaseNode::CalculateY() {
+    int sumY = GetY();
+
+    BaseNode* currentNode = (BaseNode*)this;
+
+    while(currentNode->parent != nullptr) {
+        currentNode = (BaseNode*)currentNode->parent;
+        sumY += currentNode->GetY();
+    }
+
+    return sumY;
 }
 
 int BaseNode::GetWidth() {

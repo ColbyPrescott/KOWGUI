@@ -52,9 +52,9 @@ namespace KOWGUI {
         }
 
         int GetX();
-        // int CalculateX();
+        int CalculateX();
         int GetY();
-        // int CalculateY();
+        int CalculateY();
         int GetWidth();
         // int CalculateWidth();
         int GetHeight();

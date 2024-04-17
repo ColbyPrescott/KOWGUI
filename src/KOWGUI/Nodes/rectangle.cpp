@@ -23,5 +23,5 @@ void Rectangle::Draw(vex::brain::lcd& rScreen) {
     rScreen.setFillColor(mpFillColor->GetVexColor());
     rScreen.setPenColor(mpOutlineColor->GetVexColor());
     rScreen.setPenWidth(mOutlineWidth);
-    rScreen.drawRectangle(GetX(), GetY(), GetWidth(), GetHeight());
+    rScreen.drawRectangle(CalculateX(), CalculateY(), GetWidth(), GetHeight());
 }

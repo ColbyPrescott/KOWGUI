@@ -7,10 +7,15 @@ using namespace KOWGUI;
 
 GUI::GUI(vex::brain& vexBrain) {
     mpVexBrain = &vexBrain;
+
+    root->SetSize(480, 240);
 }
 
 // Render screen and detect inputs
 void GUI::Tick() {
+    // Clear screen for new frame
+    mpVexBrain->Screen.clearScreen();
+
     // Recurse through tree
     std::vector<void*> remainingNodes = {root};
 
@@ -28,7 +33,7 @@ void GUI::Tick() {
         switch(currentNode->mType) {
             case NodeType::group:
                 break;
-                
+
             case NodeType::rectangle:
                 Rectangle* node = (Rectangle*)currentNode;
                 node->Draw(mpVexBrain->Screen);
@@ -38,4 +43,7 @@ void GUI::Tick() {
         // Remove node from remainingNodes
         remainingNodes.erase(remainingNodes.begin());
     }
+
+    // Render screen to stop flickering
+    mpVexBrain->Screen.render();
 }
