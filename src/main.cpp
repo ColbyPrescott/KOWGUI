@@ -19,16 +19,27 @@ KOWGUI::GUI gui = KOWGUI::GUI(Brain);
 int main() {
     Brain.Screen.print("Hewwo UwU");
 
-    KOWGUI::Rectangle* rect = (new KOWGUI::Rectangle)->
+    KOWGUI::Rectangle* rect = gui.root->AddChild((new KOWGUI::Rectangle)->
         SetPosition(50, 50)->
         SetSize(200, 100)->
-        SetFillColor((new KOWGUI::Color)->SetRGB(50, 200, 50));
+        SetFillColor((new KOWGUI::Color)->SetRGB(50, 200, 50))->
+        AddChildren({
+            (new KOWGUI::Rectangle)->
+                SetPosition(100, 100)->
+                SetSize(50, 100)->
+                SetOutlineColor((new KOWGUI::Color)->SetRGB(200, 0, 0))->
+                SetOutlineWidth(5)
+        })
+    );
     
-    rect->Draw(Brain.Screen);
+    // rect->Draw(Brain.Screen);
+    // ((KOWGUI::Rectangle*)((KOWGUI::BaseNode*)gui.root->children[0])->children[0])->Draw(Brain.Screen);
 
         while(1) {
             
+            gui.Tick();
+
             // Allow other tasks to run
-            this_thread::sleep_for(10);
+            this_thread::sleep_for(20);
         }
 }

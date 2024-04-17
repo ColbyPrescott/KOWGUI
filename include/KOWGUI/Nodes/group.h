@@ -8,12 +8,15 @@ namespace KOWGUI {
 
     class Group : public BaseNode {
         public:
+            Group() {mType = NodeType::group;}
+
             Group* SetX(int x) {BaseNode::SetX(x); return this;}
             Group* SetY(int y) {BaseNode::SetY(y); return this;}
             Group* SetPosition(int x, int y) {BaseNode::SetPosition(x, y); return this;}
             Group* SetWidth(int width) {BaseNode::SetWidth(width); return this;}
             Group* SetHeight(int height) {BaseNode::SetHeight(height); return this;}
             Group* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
+            Group* AddChildren(std::vector<void*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
     };
 
 }

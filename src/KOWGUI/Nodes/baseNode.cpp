@@ -1,5 +1,8 @@
 #include "KOWGUI/Nodes/baseNode.h"
 
+#include "KOWGUI/Nodes/group.h"
+#include "KOWGUI/Nodes/rectangle.h"
+
 using namespace KOWGUI;
 
 // Set the X coordinate
@@ -40,7 +43,25 @@ BaseNode* BaseNode::SetSize(int width, int height) {
     return this;
 }
 
+BaseNode* BaseNode::SetId(std::string id) {
+    mId = id;
+    return this;
+}
 
+BaseNode* BaseNode::AddChildren(std::vector<void*> newChildren) {
+    for(int i = 0; i < newChildren.size(); i++) {
+        switch(((BaseNode*)newChildren[i])->mType) {
+            case NodeType::group:
+                AddChild((Group*)newChildren[i]);
+                break;
+            case NodeType::rectangle:
+                AddChild((Rectangle*)newChildren[i]);
+                break;
+        }
+    }
+
+    return this;
+}
 
 int BaseNode::GetX() {
     return mX;

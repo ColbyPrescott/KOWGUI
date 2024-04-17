@@ -20,9 +20,11 @@ namespace KOWGUI {
             vex::brain* mpVexBrain = nullptr;
 
         public:
+            Group* root = new Group;
+
             GUI(vex::brain& vexBrain);
 
-            Group* root = new Group;
+            void Tick();
     };
 
 }

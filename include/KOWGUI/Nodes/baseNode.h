@@ -10,10 +10,6 @@ namespace KOWGUI {
 
     class BaseNode {
     protected:
-        // Value is set in constructors of derived classes so a void* can be interpreted as BaseNode,
-        // have its type read, then get casted to the correct class
-        NodeType mType;
-
         // X coordinate
         int mX = 0;
         // Y coordinate
@@ -26,10 +22,16 @@ namespace KOWGUI {
         std::string mId = undefinedString;
         std::string mShallowId = undefinedString;
 
-        void* mpParent = nullptr;
-        std::vector<void*> mpChildren;
+        
     
     public:
+        // Value is set in constructors of derived classes so a void* can be interpreted as BaseNode,
+        // have its type read, then get casted to the correct class
+        NodeType mType;
+
+        void* parent = nullptr;
+        std::vector<void*> children;
+
         // All of these BaseNode* returning functions need to be redefined in the derived classes
         BaseNode* SetX(int x);
         BaseNode* SetY(int y);
@@ -37,10 +39,17 @@ namespace KOWGUI {
         BaseNode* SetWidth(int width);
         BaseNode* SetHeight(int height);
         BaseNode* SetSize(int width, int height);
-        // BaseNode* SetId(std::string id);
+        BaseNode* SetId(std::string id);
         // BaseNode* SetShallowId(std::string shallowId);
-        // BaseNode* AddChildren(std::vector<void*> children);
-        // void* AddChild(void* child);
+
+        BaseNode* AddChildren(std::vector<void*> newChildren);
+
+        template <typename T>
+        T* AddChild(T* newChild) {
+            ((BaseNode*)newChild)->parent = this;
+            children.push_back(newChild);
+            return newChild;
+        }
 
         int GetX();
         // int CalculateX();
