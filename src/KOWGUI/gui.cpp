@@ -14,7 +14,7 @@ GUI::GUI(vex::brain& vexBrain) {
 // Render screen and detect inputs
 void GUI::Tick() {
     // Clear screen for new frame
-    mpVexBrain->Screen.clearScreen();
+    // mpVexBrain->Screen.clearScreen();
 
     // Recurse through tree
     std::vector<void*> remainingNodes = {root};
