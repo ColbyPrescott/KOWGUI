@@ -1,9 +1,19 @@
 #include "KOWGUI/Nodes/baseNode.h"
 
 #include "KOWGUI/Nodes/group.h"
+#include "KOWGUI/Nodes/clickable.h"
 #include "KOWGUI/Nodes/rectangle.h"
 
 using namespace KOWGUI;
+
+// Recurse up tree until pointer to a GUI object is found. Every node should store
+// this so something like the focused node can be 
+GUI* BaseNode::GetContainingGUI() {
+    if(mpContainingGUI != nullptr) return mpContainingGUI;
+    if(parent == nullptr) return nullptr;
+    mpContainingGUI = ((BaseNode*)parent)->GetContainingGUI();
+    return mpContainingGUI;
+}
 
 // Set the X coordinate
 BaseNode* BaseNode::SetX(int x) {
@@ -48,11 +58,16 @@ BaseNode* BaseNode::SetId(std::string id) {
     return this;
 }
 
+// This function has a chance of being refactored. None of the AddChild functions use their returned value
+// so a function taking void* and returning void could be created
 BaseNode* BaseNode::AddChildren(std::vector<void*> newChildren) {
     for(int i = 0; i < newChildren.size(); i++) {
         switch(((BaseNode*)newChildren[i])->mType) {
             case NodeType::group:
                 AddChild((Group*)newChildren[i]);
+                break;
+            case NodeType::clickable:
+                AddChild((Clickable*)newChildren[i]);
                 break;
             case NodeType::rectangle:
                 AddChild((Rectangle*)newChildren[i]);

@@ -7,6 +7,7 @@
 
 #include "KOWGUI/Nodes/baseNode.h"
 #include "KOWGUI/Nodes/group.h"
+#include "KOWGUI/Nodes/clickable.h"
 #include "KOWGUI/Nodes/rectangle.h"
 
 
@@ -18,6 +19,9 @@ namespace KOWGUI {
     class GUI {
         private:
             vex::brain* mpVexBrain = nullptr;
+
+            bool mPrevTickScreenPressed = false;
+            BaseNode* mpFocusedNode = nullptr;
 
         public:
             Group* root = new Group;

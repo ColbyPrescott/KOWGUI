@@ -38,35 +38,22 @@ int main() {
                 })
         })
     );
-    
-    int floatDirection = 1;
-    float lastDuration = 0;
+
+    gui.root->AddChild((new KOWGUI::Clickable)->
+        SetPosition(350, 100)->
+        SetSize(75, 75)->
+        SetPress([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(0);})->
+        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(100);})->
+        AddChildren({
+            (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(150, 150, 150))
+        })
+    );
 
     while(1) {
         
-        uint32_t startTime = Brain.Timer.systemHighResolution();
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1, 1);
-        Brain.Screen.setFillColor(vex::color::black);
-        Brain.Screen.setPenColor(vex::color::white);
-        Brain.Screen.print("%d nodes - %.3fms", rect->children.size(), lastDuration);
         gui.Tick();
-        uint32_t endTime = Brain.Timer.systemHighResolution();
-        lastDuration = (endTime - startTime) / 1000.0;
 
-        if(rect->CalculateX() < 0 || rect->CalculateX() + rect->GetWidth() > 480) {
-            floatDirection *= -1;
-            
-            for(int i = 0; i < rect->children.size() * 0.25; i++) rect->AddChild((new KOWGUI::Rectangle)->
-                SetX(rand() % 300 - 50)->
-                SetY(rand() % 200 - 50)->
-                SetWidth(rand() % 100)->
-                SetHeight(rand() % 100)->
-                SetOutlineColor((new KOWGUI::Color)->SetRGB(rand() % 256, rand() % 256, rand() % 256)));
-        }
-        rect->SetX(rect->GetX() + floatDirection);
         rect->SetY((sin(Brain.Timer.system() / 1000.0) / 2.0 + 0.5) * 140);
-
         // Allow other tasks to run
         this_thread::sleep_for(20);
     }

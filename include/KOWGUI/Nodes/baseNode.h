@@ -8,6 +8,8 @@
 
 namespace KOWGUI {
 
+    class GUI;
+
     class BaseNode {
     protected:
         // X coordinate
@@ -22,7 +24,9 @@ namespace KOWGUI {
         std::string mId = undefinedString;
         std::string mShallowId = undefinedString;
 
-        
+        GUI* mpContainingGUI = nullptr;
+
+        GUI* GetContainingGUI();
     
     public:
         // Value is set in constructors of derived classes so a void* can be interpreted as BaseNode,

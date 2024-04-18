@@ -45,6 +45,7 @@
 //         custom,
         
 //         // Interactable
+//         static / absorber // Stops inputs from going behind visible components meant to cover a button. Could also just be made by a clickable with no functions assigned
 //         clickable,
 //         draggable,
 //         toggleable,

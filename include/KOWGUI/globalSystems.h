@@ -9,7 +9,13 @@ namespace KOWGUI {
     static const std::string undefinedString = "";
 
     enum NodeType {
+        // Other
         group,
+
+        // Interactable
+        clickable,
+
+        // Visible
         rectangle
     };
 
