@@ -80,6 +80,8 @@ void GUI::Tick() {
     // TO DO Should this ticking be moved to a function in an interactable class that interactables inherit and override?
     if(mpSelectedNode != nullptr) switch(mpSelectedNode->mType) {
         case NodeType::clickable: {
+            ((Clickable*)mpSelectedNode)->SetX(screenX);
+            ((Clickable*)mpSelectedNode)->SetY(screenY);
             bool focused = ((Clickable*)mpSelectedNode)->TestCollision(screenX, screenY);
             if(!mPrevTickFocusedNode && focused) ((Clickable*)mpSelectedNode)->CallFocus();
             if(mPrevTickFocusedNode && !focused) ((Clickable*)mpSelectedNode)->CallUnfocus();

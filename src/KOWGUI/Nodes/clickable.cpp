@@ -54,9 +54,9 @@ Clickable* Clickable::ClearUnfocus() {
 
 // Get whether or not a screen coordinate intersects the node
 bool Clickable::TestCollision(int x, int y) {
-    return x > CalculateX() &&
+    return x >= CalculateX() &&
            x < CalculateX() + CalculateWidth() &&
-           y > CalculateY() &&
+           y >= CalculateY() &&
            y < CalculateY() + CalculateHeight();
 }
 
