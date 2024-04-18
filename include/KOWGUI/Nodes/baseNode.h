@@ -35,6 +35,7 @@ namespace KOWGUI {
 
         void* parent = nullptr;
         std::vector<void*> children;
+        // TO DO Should these three variables be public or accessed with friendship?
 
         // All of these BaseNode* returning functions need to be redefined in the derived classes
         BaseNode* SetX(int x);
@@ -67,6 +68,8 @@ namespace KOWGUI {
         // std::string GetShallowId();
 
         // void* FindShallowId(std::string shallowId);
+
+        friend class GUI;
 
     };
 

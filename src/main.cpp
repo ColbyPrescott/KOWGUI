@@ -44,6 +44,8 @@ int main() {
         SetSize(75, 75)->
         SetPress([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(0);})->
         SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(100);})->
+        SetFocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(0);})->
+        SetUnfocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(140);})->
         AddChildren({
             (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(150, 150, 150))
         })
@@ -53,7 +55,7 @@ int main() {
         
         gui.Tick();
 
-        rect->SetY((sin(Brain.Timer.system() / 1000.0) / 2.0 + 0.5) * 140);
+        // rect->SetY((sin(Brain.Timer.system() / 1000.0) / 2.0 + 0.5) * 140);
         // Allow other tasks to run
         this_thread::sleep_for(20);
     }

@@ -11,10 +11,16 @@ namespace KOWGUI {
             void (*mpPressFunc)() = nullptr;
             // Called when input ends in node area
             void (*mpReleaseFunc)() = nullptr;
-            // Called when continuous input leaves node area
-            void (*mpFocusFunc)() = nullptr;
             // Called when continuous input re-enters node area
+            void (*mpFocusFunc)() = nullptr;
+            // Called when continuous input leaves node area
             void (*mpUnfocusFunc)() = nullptr;
+
+            bool TestCollision(int x, int y);
+            void CallPress();
+            void CallRelease();
+            void CallFocus();
+            void CallUnfocus();
 
         public:
             Clickable() {mType = NodeType::clickable;}
@@ -29,13 +35,15 @@ namespace KOWGUI {
 
             Clickable* SetPress(void (*callback)());
             Clickable* SetRelease(void (*callback)());
+            Clickable* SetFocus(void (*callback)());
+            Clickable* SetUnfocus(void (*callback)());
 
             Clickable* ClearPress();
             Clickable* ClearRelease();
+            Clickable* ClearFocus();
+            Clickable* ClearUnfocus();
 
-            bool TestCollision(int x, int y);
-            bool TryPress(int x, int y);
-            bool TryRelease(int x, int y);
+            friend class GUI;
     };
 
 }

@@ -21,7 +21,8 @@ namespace KOWGUI {
             vex::brain* mpVexBrain = nullptr;
 
             bool mPrevTickScreenPressed = false;
-            BaseNode* mpFocusedNode = nullptr;
+            BaseNode* mpSelectedNode = nullptr;
+            bool mPrevTickFocusedNode = false;
 
         public:
             Group* root = new Group;
@@ -29,6 +30,8 @@ namespace KOWGUI {
             GUI(vex::brain& vexBrain);
 
             void Tick();
+
+            friend class BaseNode;
     };
 
 }

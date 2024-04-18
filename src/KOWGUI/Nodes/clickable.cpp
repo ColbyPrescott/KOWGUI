@@ -14,6 +14,18 @@ Clickable* Clickable::SetRelease(void (*callback)()) {
     return this;
 }
 
+// Set the function to be called upon input sliding back onto node
+Clickable* Clickable::SetFocus(void (*callback)()) {
+    mpFocusFunc = callback;
+    return this;
+}
+
+// Set the function to be called upon input sliding off of node
+Clickable* Clickable::SetUnfocus(void (*callback)()) {
+    mpUnfocusFunc = callback;
+    return this;
+}
+
 // Remove the function that would get called upon pressing down on the node
 Clickable* Clickable::ClearPress() {
     mpPressFunc = nullptr;
@@ -23,6 +35,18 @@ Clickable* Clickable::ClearPress() {
 // Remove the function that would get called upon releasing input from the node
 Clickable* Clickable::ClearRelease() {
     mpReleaseFunc = nullptr;
+    return this;
+}
+
+// Remove the function that would get called upon input sliding back onto node
+Clickable* Clickable::ClearFocus() {
+    mpFocusFunc = nullptr;
+    return this;
+}
+
+// Remove the function that would get called upon input sliding off of node
+Clickable* Clickable::ClearUnfocus() {
+    mpUnfocusFunc = nullptr;
     return this;
 }
 
@@ -36,14 +60,18 @@ bool Clickable::TestCollision(int x, int y) {
            y < CalculateY() + CalculateHeight();
 }
 
-bool Clickable::TryPress(int x, int y) {
-    if(!TestCollision(x, y)) return false;
+void Clickable::CallPress() {
     if(mpPressFunc != nullptr) mpPressFunc();
-    return true;
 }
 
-bool Clickable::TryRelease(int x, int y) {
-    if(!TestCollision(x, y)) return false;
+void Clickable::CallRelease() {
     if(mpReleaseFunc != nullptr) mpReleaseFunc();
-    return true;
+}
+
+void Clickable::CallFocus() {
+    if(mpFocusFunc != nullptr) mpFocusFunc();
+}
+
+void Clickable::CallUnfocus() {
+    if(mpUnfocusFunc != nullptr) mpUnfocusFunc();
 }

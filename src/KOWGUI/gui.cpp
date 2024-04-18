@@ -9,9 +9,7 @@ GUI::GUI(vex::brain& vexBrain) {
     mpVexBrain = &vexBrain;
 
     root->SetSize(480, 240);
-    // Try using friend keyword
-    // Stop working on the focusing here though and make a commit for working press function
-    // root->mpContainingGUI = this;
+    root->mpContainingGUI = this;
 }
 
 // Render screen and detect inputs
@@ -48,29 +46,67 @@ void GUI::Tick() {
         remainingNodes.erase(remainingNodes.begin());
     }
 
-    // Write input code n stuff. 
-    // Iterate through allNodes backwards to achieve front to back order
-    // Copy KOWController button ticking here to detect press and release
+
+
+    // Loop through all nodes front to back to run input functions
     bool screenPressed = mpVexBrain->Screen.pressing();
     int screenX = mpVexBrain->Screen.xPosition();
     int screenY = mpVexBrain->Screen.yPosition();
 
+    // If input just started, look for a node front to back to select
+    if(screenPressed && !mPrevTickScreenPressed) 
     for(int i = allNodes.size() - 1; i >= 0; i--) {
         // Get current node in a form where mType can be accessed
         BaseNode* currentNode = (BaseNode*)allNodes[i];
 
-        // Run input functions associated with node
+        // Set selected and run input functions associated with interactable nodes
         switch(currentNode->mType) {
             case NodeType::clickable:
-                if(screenPressed && !mPrevTickScreenPressed) ((Clickable*)currentNode)->TryPress(screenX, screenY);
-                if(!screenPressed && mPrevTickScreenPressed) ((Clickable*)currentNode)->TryRelease(screenX, screenY);
+                if(!((Clickable*)currentNode)->TestCollision(screenX, screenY)) continue;
+                mpSelectedNode = currentNode;
+                mPrevTickFocusedNode = true;
+                ((Clickable*)currentNode)->CallPress();
+                ((Clickable*)currentNode)->CallFocus();
                 break;
             default:
                 break;
         }
+
+        // Stop searching through nodes if one got selected
+        if(mpSelectedNode != nullptr) break;
+    }
+
+    // If node is selected, just process that
+    // TO DO Should this ticking be moved to a function in an interactable class that interactables inherit and override?
+    if(mpSelectedNode != nullptr) switch(mpSelectedNode->mType) {
+        case NodeType::clickable: {
+            bool focused = ((Clickable*)mpSelectedNode)->TestCollision(screenX, screenY);
+            if(!mPrevTickFocusedNode && focused) ((Clickable*)mpSelectedNode)->CallFocus();
+            if(mPrevTickFocusedNode && !focused) ((Clickable*)mpSelectedNode)->CallUnfocus();
+            mPrevTickFocusedNode = focused;
+            break;
+        }
+        default:
+            break;
+    }
+
+    // If input ended, run functions and remove selection
+    if(mpSelectedNode != nullptr && !screenPressed && mPrevTickScreenPressed) switch(mpSelectedNode->mType) {
+        case NodeType::clickable:
+            if(((Clickable*)mpSelectedNode)->TestCollision(screenX, screenY)) {
+                ((Clickable*)mpSelectedNode)->CallUnfocus();
+                ((Clickable*)mpSelectedNode)->CallRelease();
+            }
+            mpSelectedNode = nullptr;
+            mPrevTickFocusedNode = false;
+            break;
+        default:
+            break;
     }
 
     mPrevTickScreenPressed = screenPressed;
+
+
 
     // Render screen to stop flickering
     mpVexBrain->Screen.render();

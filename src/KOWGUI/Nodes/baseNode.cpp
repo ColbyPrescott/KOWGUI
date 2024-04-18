@@ -58,8 +58,8 @@ BaseNode* BaseNode::SetId(std::string id) {
     return this;
 }
 
-// This function has a chance of being refactored. None of the AddChild functions use their returned value
-// so a function taking void* and returning void could be created
+// TO DO This function has a chance of being refactored. None of the AddChild functions use their returned value
+// TO DO so a function taking void* and returning void could be created
 BaseNode* BaseNode::AddChildren(std::vector<void*> newChildren) {
     for(int i = 0; i < newChildren.size(); i++) {
         switch(((BaseNode*)newChildren[i])->mType) {
