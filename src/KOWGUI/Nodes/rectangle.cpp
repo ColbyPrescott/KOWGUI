@@ -22,6 +22,6 @@ Rectangle* Rectangle::SetOutlineWidth(int outlineWidth) {
 void Rectangle::Draw(vex::brain::lcd& rScreen) {
     rScreen.setFillColor(mpFillColor->GetVexColor());
     rScreen.setPenColor(mpOutlineColor->GetVexColor());
-    rScreen.setPenWidth(mOutlineWidth);
-    rScreen.drawRectangle(CalculateX(), CalculateY(), GetWidth(), GetHeight());
+    rScreen.setPenWidth(mpOutlineColor->GetTransparent() ? 0 : mOutlineWidth); // Ternary because the fill can be vex::color::transparent but not the pen outline...?
+    rScreen.drawRectangle(CalculateX(), CalculateY(), CalculateWidth(), CalculateHeight());
 }

@@ -15,9 +15,27 @@ Color* Color::SetTransparent(bool transparent) {
     return this;
 }
 
+uint8_t Color::GetR() {
+    return mR;
+}
+
+uint8_t Color::GetG() {
+    return mG;
+}
+
+uint8_t Color::GetB() {
+    return mB;
+}
+
+bool Color::GetTransparent() {
+    return mTransparent;
+}
+
 vex::color Color::GetVexColor() {
     if(mTransparent) return vex::color::transparent;
     else return vex::color(mR, mG, mB);
 }
 
-const Color* Color::transparent = (new Color)->SetTransparent(true);
+Color* Color::transparent = (new Color)->SetTransparent(true);
+
+Color* Color::red = (new Color)->SetRGB(255, 0, 0);

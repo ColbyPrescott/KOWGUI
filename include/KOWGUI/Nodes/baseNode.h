@@ -56,9 +56,9 @@ namespace KOWGUI {
         int GetY();
         int CalculateY();
         int GetWidth();
-        // int CalculateWidth();
+        int CalculateWidth();
         int GetHeight();
-        // int CalculateHeight();
+        int CalculateHeight();
         // std::string GetID();
         // std::string GetShallowId();
 

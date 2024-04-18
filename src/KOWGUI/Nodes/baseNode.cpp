@@ -63,6 +63,7 @@ BaseNode* BaseNode::AddChildren(std::vector<void*> newChildren) {
     return this;
 }
 
+// Get internal X coordinate
 int BaseNode::GetX() {
     return mX;
 }
@@ -81,6 +82,7 @@ int BaseNode::CalculateX() {
     return sumX;
 }
 
+// Get internal Y coordinate
 int BaseNode::GetY() {
     return mY;
 }
@@ -99,10 +101,34 @@ int BaseNode::CalculateY() {
     return sumY;
 }
 
+// Get internal width
 int BaseNode::GetWidth() {
     return mWidth;
 }
 
+// Climb tree until a node's width is defined
+int BaseNode::CalculateWidth() {
+    BaseNode* currentNode = (BaseNode*)this;
+
+    while(currentNode->GetWidth() == undefinedNumber && currentNode->parent != nullptr) {
+        currentNode = (BaseNode*)currentNode->parent;
+    }
+
+    return currentNode->GetWidth();
+}
+
+// Get internal height
 int BaseNode::GetHeight() {
     return mHeight;
+}
+
+// Climb tree until a node's height is defined
+int BaseNode::CalculateHeight() {
+    BaseNode* currentNode = (BaseNode*)this;
+
+    while(currentNode->GetHeight() == undefinedNumber && currentNode->parent != nullptr) {
+        currentNode = (BaseNode*)currentNode->parent;
+    }
+
+    return currentNode->GetHeight();
 }

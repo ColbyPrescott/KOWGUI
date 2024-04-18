@@ -27,22 +27,29 @@ int main() {
             (new KOWGUI::Rectangle)->
                 SetPosition(-20, -20)->
                 SetSize(50, 100)->
-                SetOutlineColor((new KOWGUI::Color)->SetRGB(200, 0, 0))->
-                SetOutlineWidth(5)
+                SetOutlineColor((new KOWGUI::Color)->SetRGB(0, 0, 200))->
+                SetOutlineWidth(5),
+            (new KOWGUI::Group)->
+                SetPosition(100, 50)->
+                SetSize(50, 30)->
+                AddChildren({
+                    (new KOWGUI::Rectangle)->
+                        SetFillColor(KOWGUI::Color::red)
+                })
         })
     );
     
     int floatDirection = 1;
 
-        while(1) {
-            
-            gui.Tick();
+    while(1) {
+        
+        gui.Tick();
 
-            if(rect->CalculateX() < 0 || rect->CalculateX() + rect->GetWidth() > 480) floatDirection *= -1;
-            rect->SetX(rect->GetX() + floatDirection);
-            rect->SetY((sin(Brain.Timer.system() / 1000.0) / 2.0 + 0.5) * 140);
+        if(rect->CalculateX() < 0 || rect->CalculateX() + rect->GetWidth() > 480) floatDirection *= -1;
+        rect->SetX(rect->GetX() + floatDirection);
+        rect->SetY((sin(Brain.Timer.system() / 1000.0) / 2.0 + 0.5) * 140);
 
-            // Allow other tasks to run
-            this_thread::sleep_for(20);
-        }
+        // Allow other tasks to run
+        this_thread::sleep_for(20);
+    }
 }
