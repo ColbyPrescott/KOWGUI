@@ -2,7 +2,7 @@
 #define KOWGUI_GROUP_NODE_H
 
 #include "KOWGUI/globalSystems.h"
-#include "KOWGUI/Nodes/baseNode.h"
+#include "KOWGUI/BaseNodes/baseNode.h"
 
 namespace KOWGUI {
 

@@ -1,7 +1,7 @@
 #ifndef KOWGUI_RECTANGLE_NODE_H
 #define KOWGUI_RECTANGLE_NODE_H
 
-#include "KOWGUI/Nodes/baseNode.h"
+#include "KOWGUI/BaseNodes/baseNode.h"
 #include "KOWGUI/color.h"
 
 #include "v5.h"

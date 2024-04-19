@@ -1,7 +1,7 @@
 #ifndef KOWGUI_CLICKABLE_NODE_H
 #define KOWGUI_CLICKABLE_NODE_H
 
-#include "KOWGUI/Nodes/baseNode.h"
+#include "KOWGUI/BaseNodes/baseNode.h"
 
 namespace KOWGUI {
 

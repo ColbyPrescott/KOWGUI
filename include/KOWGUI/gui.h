@@ -5,7 +5,7 @@
 
 #include "KOWGUI/color.h"
 
-#include "KOWGUI/Nodes/baseNode.h"
+#include "KOWGUI/BaseNodes/baseNode.h"
 #include "KOWGUI/Nodes/group.h"
 #include "KOWGUI/Nodes/clickable.h"
 #include "KOWGUI/Nodes/rectangle.h"
