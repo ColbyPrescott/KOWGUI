@@ -1,6 +1,5 @@
 #include "KOWGUI/gui.h"
 
-#include <stdio.h>
 #include <vector>
 
 using namespace KOWGUI;
@@ -33,13 +32,8 @@ void GUI::Tick() {
         for(int i = currentNode->children.size() - 1; i >= 0; i--) remainingNodes.insert(remainingNodes.begin() + 1, currentNode->children[i]);
 
         // Run drawing functions associated with node
-        switch(currentNode->mType) {
-            case NodeType::rectangle:
-                ((Rectangle*)currentNode)->Draw(mpVexBrain->Screen);
-                break;
-            default:
-                break;
-        }
+        Visibility* visibilityNode = dynamic_cast<Visibility*>(currentNode);
+        if(visibilityNode != nullptr) visibilityNode->Draw(mpVexBrain->Screen);
 
         // Move currentNode from remainingNodes into the allNodes vector
         allNodes.push_back(remainingNodes[0]);

@@ -38,16 +38,16 @@ namespace KOWGUI {
         // TO DO Should these three variables be public or accessed with friendship?
 
         // All of these BaseNode* returning functions need to be redefined in the derived classes
-        BaseNode* SetX(int x);
-        BaseNode* SetY(int y);
-        BaseNode* SetPosition(int x, int y);
-        BaseNode* SetWidth(int width);
-        BaseNode* SetHeight(int height);
-        BaseNode* SetSize(int width, int height);
-        BaseNode* SetId(std::string id);
+        virtual BaseNode* SetX(int x);
+        virtual BaseNode* SetY(int y);
+        virtual BaseNode* SetPosition(int x, int y);
+        virtual BaseNode* SetWidth(int width);
+        virtual BaseNode* SetHeight(int height);
+        virtual BaseNode* SetSize(int width, int height);
+        virtual BaseNode* SetId(std::string id);
         // BaseNode* SetShallowId(std::string shallowId);
 
-        BaseNode* AddChildren(std::vector<void*> newChildren);
+        virtual BaseNode* AddChildren(std::vector<void*> newChildren);
 
         template <typename T>
         T* AddChild(T* newChild) {

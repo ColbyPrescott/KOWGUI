@@ -2,6 +2,7 @@
 #define KOWGUI_RECTANGLE_NODE_H
 
 #include "KOWGUI/BaseNodes/baseNode.h"
+#include "KOWGUI/BaseNodes/visibility.h"
 #include "KOWGUI/color.h"
 
 #include "v5.h"
@@ -11,7 +12,7 @@
 
 namespace KOWGUI {
 
-    class Rectangle : public BaseNode {
+    class Rectangle : public BaseNode, public Visibility {
         private:
             std::shared_ptr<Color> mpFillColor = std::make_shared<Color>(*Color::transparent);
             std::shared_ptr<Color> mpOutlineColor = std::make_shared<Color>(*Color::transparent);
