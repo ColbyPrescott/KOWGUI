@@ -6,6 +6,7 @@
 #include "KOWGUI/color.h"
 
 #include "KOWGUI/BaseNodes/baseNode.h"
+#include "KOWGUI/BaseNodes/interactableBaseNode.h"
 #include "KOWGUI/BaseNodes/visibleBaseNode.h"
 #include "KOWGUI/Nodes/group.h"
 #include "KOWGUI/Nodes/clickable.h"

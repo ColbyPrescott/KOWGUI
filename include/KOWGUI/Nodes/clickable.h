@@ -1,12 +1,11 @@
 #ifndef KOWGUI_CLICKABLE_NODE_H
 #define KOWGUI_CLICKABLE_NODE_H
 
-#include "KOWGUI/BaseNodes/baseNode.h"
-#include "KOWGUI/BaseNodes/interactability.h"
+#include "KOWGUI/BaseNodes/interactableBaseNode.h"
 
 namespace KOWGUI {
 
-    class Clickable : public BaseNode, public Interactability {
+    class Clickable : public InteractableBaseNode {
         private:
             // Called when input starts on node area
             void (*mpPressFunc)() = nullptr;

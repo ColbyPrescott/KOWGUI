@@ -1,7 +1,6 @@
 #ifndef KOWGUI_GROUP_NODE_H
 #define KOWGUI_GROUP_NODE_H
 
-#include "KOWGUI/globalSystems.h"
 #include "KOWGUI/BaseNodes/baseNode.h"
 
 namespace KOWGUI {

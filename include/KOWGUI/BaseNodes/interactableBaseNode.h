@@ -5,10 +5,8 @@
 
 namespace KOWGUI {
 
-    class Interactability {
+    class InteractableBaseNode : public BaseNode {
         public:
-            // TO DO Do NOT define any variables here. Interactability::TestCollision is REAL SCUFFED with the BaseNode cast
-
             bool TestCollision(int x, int y);
     };
 
