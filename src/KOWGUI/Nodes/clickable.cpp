@@ -52,13 +52,13 @@ Clickable* Clickable::ClearUnfocus() {
 
 
 
-// Get whether or not a screen coordinate intersects the node
-bool Clickable::TestCollision(int x, int y) {
-    return x >= CalculateX() &&
-           x < CalculateX() + CalculateWidth() &&
-           y >= CalculateY() &&
-           y < CalculateY() + CalculateHeight();
-}
+// // Get whether or not a screen coordinate intersects the node
+// bool Clickable::TestCollision(int x, int y) {
+//     return x >= CalculateX() &&
+//            x < CalculateX() + CalculateWidth() &&
+//            y >= CalculateY() &&
+//            y < CalculateY() + CalculateHeight();
+// }
 
 void Clickable::CallPress() {
     if(mpPressFunc != nullptr) mpPressFunc();

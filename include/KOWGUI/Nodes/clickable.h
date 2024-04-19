@@ -2,10 +2,11 @@
 #define KOWGUI_CLICKABLE_NODE_H
 
 #include "KOWGUI/BaseNodes/baseNode.h"
+#include "KOWGUI/BaseNodes/interactability.h"
 
 namespace KOWGUI {
 
-    class Clickable : public BaseNode {
+    class Clickable : public BaseNode, public Interactability {
         private:
             // Called when input starts on node area
             void (*mpPressFunc)() = nullptr;
@@ -16,7 +17,8 @@ namespace KOWGUI {
             // Called when continuous input leaves node area
             void (*mpUnfocusFunc)() = nullptr;
 
-            bool TestCollision(int x, int y);
+            // Wait, everything about Clickable is base Interactability functionality, I'M GONNA NEED TO ADD VARIABLES TO THE SCUFFED UP interactability.h!!
+
             void CallPress();
             void CallRelease();
             void CallFocus();

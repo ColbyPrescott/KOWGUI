@@ -54,17 +54,25 @@ void GUI::Tick() {
         BaseNode* currentNode = (BaseNode*)allNodes[i];
 
         // Set selected and run input functions associated with interactable nodes
-        switch(currentNode->mType) {
-            case NodeType::clickable:
-                if(!((Clickable*)currentNode)->TestCollision(screenX, screenY)) continue;
-                mpSelectedNode = currentNode;
-                mPrevTickFocusedNode = true;
-                ((Clickable*)currentNode)->CallPress();
-                ((Clickable*)currentNode)->CallFocus();
-                break;
-            default:
-                break;
+        Interactability* interactabilityNode = dynamic_cast<Interactability*>(currentNode);
+        if(interactabilityNode != nullptr) {
+            if(!interactabilityNode->TestCollision(screenX, screenY)) continue;
+            mpSelectedNode = currentNode;
+            mPrevTickFocusedNode = true;
+            ((Clickable*)currentNode)->CallPress();
+            ((Clickable*)currentNode)->CallFocus();
         }
+        // switch(currentNode->mType) {
+        //     case NodeType::clickable:
+        //         if(!((Clickable*)currentNode)->TestCollision(screenX, screenY)) continue;
+        //         mpSelectedNode = currentNode;
+        //         mPrevTickFocusedNode = true;
+        //         ((Clickable*)currentNode)->CallPress();
+        //         ((Clickable*)currentNode)->CallFocus();
+        //         break;
+        //     default:
+        //         break;
+        // }
 
         // Stop searching through nodes if one got selected
         if(mpSelectedNode != nullptr) break;
