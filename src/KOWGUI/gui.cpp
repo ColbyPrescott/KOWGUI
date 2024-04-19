@@ -32,8 +32,8 @@ void GUI::Tick() {
         for(int i = currentNode->children.size() - 1; i >= 0; i--) remainingNodes.insert(remainingNodes.begin() + 1, currentNode->children[i]);
 
         // Run drawing functions associated with node
-        Visibility* visibilityNode = dynamic_cast<Visibility*>(currentNode);
-        if(visibilityNode != nullptr) visibilityNode->Draw(mpVexBrain->Screen);
+        VisibleBaseNode* visibleNode = dynamic_cast<VisibleBaseNode*>(currentNode);
+        if(visibleNode != nullptr) visibleNode->Draw(mpVexBrain->Screen);
 
         // Move currentNode from remainingNodes into the allNodes vector
         allNodes.push_back(remainingNodes[0]);
