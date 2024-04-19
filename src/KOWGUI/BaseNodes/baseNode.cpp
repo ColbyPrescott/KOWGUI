@@ -147,3 +147,9 @@ int BaseNode::CalculateHeight() {
 
     return currentNode->GetHeight();
 }
+
+// TO DO Function and variable capitalization is different
+// Get internal ID
+std::string BaseNode::GetID() {
+    return mId;
+}

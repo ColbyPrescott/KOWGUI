@@ -64,7 +64,7 @@ namespace KOWGUI {
         int CalculateWidth();
         int GetHeight();
         int CalculateHeight();
-        // std::string GetID();
+        std::string GetID();
         // std::string GetShallowId();
 
         // void* FindShallowId(std::string shallowId);

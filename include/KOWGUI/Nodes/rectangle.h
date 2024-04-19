@@ -26,6 +26,7 @@ namespace KOWGUI {
             Rectangle* SetWidth(int width) {BaseNode::SetWidth(width); return this;}
             Rectangle* SetHeight(int height) {BaseNode::SetHeight(height); return this;}
             Rectangle* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
+            Rectangle* SetId(std::string id) {BaseNode::SetId(id); return this;}
             Rectangle* AddChildren(std::vector<void*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Rectangle* SetFillColor(Color* fillColor);

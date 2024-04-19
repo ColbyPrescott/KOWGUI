@@ -51,6 +51,19 @@ int main() {
         })
     );
 
+    gui.root->AddChild((new KOWGUI::Clickable)->
+        SetId("hackedDraggable")->
+        SetPosition(350, 20)->
+        SetSize(75, 75)->
+        SetPress([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(0);})->
+        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(100);})->
+        SetFocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(0);})->
+        SetUnfocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(140);})->
+        AddChildren({
+            (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(255, 50, 150))
+        })
+    );
+
     while(1) {
         
         gui.Tick();
