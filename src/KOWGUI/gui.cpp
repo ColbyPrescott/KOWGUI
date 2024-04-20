@@ -25,7 +25,7 @@ void GUI::Tick() {
 
     // Draw and collect all nodes back to front
     while(remainingNodes.size() != 0) {
-        // Get current node in a form where mType can be accessed
+        // Give the current node in the loop a name
         BaseNode* currentNode = (BaseNode*)remainingNodes[0];
 
         // Insert currentNode children into the remainingNodes vector, back to front into index 1 to keep priority order of tree
@@ -40,80 +40,63 @@ void GUI::Tick() {
         remainingNodes.erase(remainingNodes.begin());
     }
 
+    // Render screen to stop flickering
+    mpVexBrain->Screen.render();
 
 
-    // Loop through all nodes front to back to run input functions
+
+    // Process screen input on nodes front to back
     bool screenPressed = mpVexBrain->Screen.pressing();
     int screenX = mpVexBrain->Screen.xPosition();
     int screenY = mpVexBrain->Screen.yPosition();
 
-    // If input just started, look for a node front to back to select
-    if(screenPressed && !mPrevTickScreenPressed) 
-    for(int i = allNodes.size() - 1; i >= 0; i--) {
-        // Get current node in a form where mType can be accessed
+    // If input just started, search front to back for a node to select
+    if(screenPressed && !mPrevTickScreenPressed) for(int i = allNodes.size() - 1; i >= 0; i--) {
+        // Give the current node in the loop a name
         BaseNode* currentNode = (BaseNode*)allNodes[i];
 
-        // Set selected and run input functions associated with interactable nodes
+        // Skip and continue search if currentNode isn't interactable
         InteractableBaseNode* interactableNode = dynamic_cast<InteractableBaseNode*>(currentNode);
-        if(interactableNode != nullptr) {
-            if(!interactableNode->TestCollision(screenX, screenY)) continue;
-            mpSelectedNode = currentNode;
-            mPrevTickFocusedNode = true;
-            ((Clickable*)currentNode)->CallPress();
-            ((Clickable*)currentNode)->CallFocus();
-        }
-        // switch(currentNode->mType) {
-        //     case NodeType::clickable:
-        //         if(!((Clickable*)currentNode)->TestCollision(screenX, screenY)) continue;
-        //         mpSelectedNode = currentNode;
-        //         mPrevTickFocusedNode = true;
-        //         ((Clickable*)currentNode)->CallPress();
-        //         ((Clickable*)currentNode)->CallFocus();
-        //         break;
-        //     default:
-        //         break;
-        // }
+        if(interactableNode == nullptr) continue;
 
-        // Stop searching through nodes if one got selected
-        if(mpSelectedNode != nullptr) break;
+        // Skip and continue search if currentNode isn't the one being touched
+        if(!interactableNode->TestCollision(screenX, screenY)) continue;
+
+        // The current node has been selected! Store this information
+        mpSelectedNode = interactableNode;
+        // Focus function is getting called now, no need to do it again later
+        mPrevTickFocusedNode = true;
+        // Node is getting pressed and brought into focus, so execute the respective callback functions
+        interactableNode->CallPress();
+        interactableNode->CallFocus();
+        // Search is complete, no need to do any more
+        break;
     }
 
-    // If node is selected, just process that
-    // TO DO Should this ticking be moved to a function in an interactable class that interactables inherit and override?
-    if(mpSelectedNode != nullptr) switch(mpSelectedNode->mType) {
-        case NodeType::clickable: {
-            if(((Clickable*)mpSelectedNode)->GetID() == "hackedDraggable") {
-                ((Clickable*)mpSelectedNode)->SetX(screenX);
-                ((Clickable*)mpSelectedNode)->SetY(screenY);
-            }
-            bool focused = ((Clickable*)mpSelectedNode)->TestCollision(screenX, screenY);
-            if(!mPrevTickFocusedNode && focused) ((Clickable*)mpSelectedNode)->CallFocus();
-            if(mPrevTickFocusedNode && !focused) ((Clickable*)mpSelectedNode)->CallUnfocus();
-            mPrevTickFocusedNode = focused;
-            break;
-        }
-        default:
-            break;
-    }
+    // If a node is selected, process its moving and ending input
+    if(mpSelectedNode != nullptr) {
+        // Get whether or not the selected node currently has input on it
+        bool focused = mpSelectedNode->TestCollision(screenX, screenY);
+        // If this is different from last call of Tick(), execute the respective callback
+        if(!mPrevTickFocusedNode && focused) mpSelectedNode->CallFocus();
+        if(mPrevTickFocusedNode && !focused) mpSelectedNode->CallUnfocus();
+        // Push current focus state into memory so the comparison can be made again in next call of Tick()
+        mPrevTickFocusedNode = focused;
 
-    // If input ended, run functions and remove selection
-    if(mpSelectedNode != nullptr && !screenPressed && mPrevTickScreenPressed) switch(mpSelectedNode->mType) {
-        case NodeType::clickable:
-            if(((Clickable*)mpSelectedNode)->TestCollision(screenX, screenY)) {
-                ((Clickable*)mpSelectedNode)->CallUnfocus();
-                ((Clickable*)mpSelectedNode)->CallRelease();
+        // If input ended, run functions and remove selection. Opposite order from how input begins
+        if(!screenPressed && mPrevTickScreenPressed) {
+            // If the node is currently focused, execute the appropriate callbacks to undo that
+            if(focused) {
+                mpSelectedNode->CallUnfocus();
+                mpSelectedNode->CallRelease();
             }
+            // The current node has been deselected so remove the pointer
             mpSelectedNode = nullptr;
+            // Unfocus function was already called, no need to do it again later
             mPrevTickFocusedNode = false;
-            break;
-        default:
-            break;
+        }
     }
 
+    // Push current screen press state into memory so the comparison can be made again in next call of Tick()
     mPrevTickScreenPressed = screenPressed;
-
-
-
-    // Render screen to stop flickering
-    mpVexBrain->Screen.render();
 }

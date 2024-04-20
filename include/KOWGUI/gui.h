@@ -22,11 +22,18 @@ namespace KOWGUI {
         private:
             vex::brain* mpVexBrain = nullptr;
 
+            // Variables for processing screen input
+            // Whether or not the screen was pressed in the last call of Tick()
             bool mPrevTickScreenPressed = false;
-            BaseNode* mpSelectedNode = nullptr;
+            // Whether or not input was inside the selected node in the last call of Tick()
             bool mPrevTickFocusedNode = false;
+            // The node that continuing input had started on
+            InteractableBaseNode* mpSelectedNode = nullptr;
+            // Note the difference: A node can lose and regain "focus" as input moves around, but 
+            // which node in particular is tracked by the currently "selected" or target node
 
         public:
+            // Group node that every other node must be connected to for it to get processed
             Group* root = new Group;
 
             GUI(vex::brain& vexBrain);
