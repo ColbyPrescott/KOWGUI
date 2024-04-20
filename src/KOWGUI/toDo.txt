@@ -1,0 +1,97 @@
+Node types:
+- Custom
+    - Something like the icon system in MTV3GUI
+    - Custom properties should be stored in std::map<std::string, void*>
+      It will be up to the user to cast it to the right type
+    - Icon-like functions will be called with reference to that node, 
+      position and stuff accessed through there
+    - This is designed for something simple like a cross visible node. If the user wants their
+      own actual type of node like rounded rectangle, they can add it to the source code themself
+- Draggable
+    - X and Y range limit
+    - Unfocus will call when input leaves range
+    - While input is outside range, node will still move to closest point along edge of region
+    - Can be used to create scrollable windows
+    - Should maxX take width into account? 
+    - Get function could return percentage to max
+- Toggleable
+    - If supplied an id or something, toggles could store their state on SD card
+    - Basic on off, but also int counter. Custom modulo feedback node
+- Unfocused
+    - Feedback node that will only enable when nearest parent interactable is not focused
+- Focused
+- Activated
+    - Feedback node that will only enable when nearest toggleable parent is set to true
+- Deactivated
+- Circle
+- Line
+- Text
+    - Support for vex::fontType
+    - Maybe add in other fonts too? Could maybe make rotated text possible
+    - Support for custom .ttf files??? Judging by Sebastian Lague's video, no.
+- Image
+    - Must create or take image buffer for faster drawing
+- Polygon
+    - Rotation
+    - Scaling
+    - Gradients
+- Clip
+    - vex::brain::lcd::setClipRegion to mask all children inside node's area
+    - Some possibilities may not work from the parenting system... Maybe make a node that will copy the position of another?
+    - How might each interactable react to being clipped?
+        - Clip should stop interactable from being selected
+        - Clip border should unfocus clickable
+        - Clip border should not stop draggable from moving (for scrollable windows)
+
+
+
+Features:
+- Disablement
+    - Nodes can be disabled, stopping rendering and input of itself and all children
+    - SetEnable and SetDisable callback functions?
+- Animation
+    - Currently possible by constantly updating a value manually, but should specific functionality be added?
+    - Bezier curve animation?
+    - Animation states like Unity?
+    - Whatever CSS does like CSS?
+    - Should be able to attatch an animation to events like node getting enabled. Should user 
+      set this with some sort of node->SetEnable([](){node->Animate();}) thing?
+- Controller input
+    - Integration with WIP KOWGUIController? KOWGUI shouldn't force user into using other KOW libraries
+    - Cursor
+        - Full joystick like MTV3GUI
+        - Joystick or buttons could control velocity
+        - Set which joystick / buttons are being used
+    - Menu
+        - Put a scrollable menu on controller screen while enabled
+        - Do so when a special type of node is enabled?
+
+
+
+Refactoring and other code stuff:
+- Some comments have the text "TO DO" so they can be found with grep
+- Move all cpp files into the headers so a user will only need to copy the include folder
+- Potentially completely purge BaseNode::mType from being needed?
+- Could callback functions also have a version that get a pointer to its own node? That way not EVERYTHING needs an ID to be accessible
+- Capitalization, especially of ID, is inconsistent
+- Use of 'p' before pointer names in inconsistent
+
+
+
+Other:
+- Figure out what email to use when posting to GitHub and figure 
+  out how to update it across all commits
+- Icon of a melting cow lol. Knock On Wood Graphical User Interface. KOWGUI. Gooey cow. :D
+- Um, trailer maybe?? Some sort of cool GitHub page. A brand new GUI library without PROS. 
+  Some people might be like me and dislike the idea of PROS forcing itself into every part
+  of code without choice. If I want KOWGUI to stop drawing on the screen, KOWGUI::Stop().
+  PROS says it ports LVGL which itself has an amazing looking webpage, but then I look for examples 
+  of it being used on the V5 brain and nothing stands out as entirely mind blowing...
+  And no hate on PROS or anything. I just don't see what useful things it can do that VEX C++ can't :/
+- Panels, like the slides in MTV3GUI, should be implemented by the user. FMI, git checkout 3356326
+
+
+
+Current work:
+- Add private virtual TickPress(x, y), TickDrag(x, y), and TickRelease(x, y) functions to InteractableBaseNode. 
+  They should always get called before CallPress() or CallRelease()
