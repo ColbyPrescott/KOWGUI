@@ -29,7 +29,7 @@ int main() {
                 SetSize(50, 100)->
                 SetOutlineColor((new KOWGUI::Color)->SetRGB(0, 0, 200))->
                 SetOutlineWidth(5),
-            (new KOWGUI::Group)->
+            (new KOWGUI::Draggable)->
                 SetPosition(100, 50)->
                 SetSize(50, 30)->
                 AddChildren({

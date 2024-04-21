@@ -10,14 +10,17 @@ void Draggable::TickPress(int x, int y) {
 
 // Move node around while it's being dragged
 void Draggable::TickDrag(int x, int y) {
+    // Turn raw input coordinates into a form that considers parenting and initial press coordinate
     int newX = x - mOffsetX;
     int newY = y - mOffsetY;
-    // Constrain position to be within
+
+    // Constrain position to be within set range
     if(mMinX != undefinedNumber && newX < mMinX) newX = mMinX;
     if(mMinY != undefinedNumber && newY < mMinY) newY = mMinY;
     if(mMaxX != undefinedNumber && newX > mMaxX - mWidth) newX = mMaxX - mWidth;
     if(mMaxY != undefinedNumber && newY > mMaxY - mHeight) newY = mMaxY - mHeight;
-    // Wait... I suspect this will break when parented to a non-origin node! Oh well, TO DO issue for next commit
+
+    // Update to new position
     SetPosition(newX, newY);
 }
 
