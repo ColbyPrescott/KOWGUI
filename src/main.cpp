@@ -54,6 +54,7 @@ int main() {
     gui.root->AddChild((new KOWGUI::Draggable)->
         SetPosition(350, 20)->
         SetSize(75, 75)->
+        SetRange(200, 0, 350, 175)->
         SetPress([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(0);})->
         SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(100);})->
         SetFocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(0);})->

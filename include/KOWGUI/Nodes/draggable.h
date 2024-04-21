@@ -12,6 +12,11 @@ namespace KOWGUI {
             // Where on the node Y input starts
             int mOffsetY = 0;
 
+            int mMinX = undefinedNumber;
+            int mMinY = undefinedNumber;
+            int mMaxX = undefinedNumber;
+            int mMaxY = undefinedNumber;
+
             void TickPress(int x, int y);
             void TickDrag(int x, int y);
 
@@ -35,6 +40,12 @@ namespace KOWGUI {
             Draggable* ClearRelease() {InteractableBaseNode::ClearRelease(); return this;}
             Draggable* ClearFocus() {InteractableBaseNode::ClearFocus(); return this;}
             Draggable* ClearUnfocus() {InteractableBaseNode::ClearUnfocus(); return this;}
+
+            Draggable* SetMinX(int x);
+            Draggable* SetMinY(int y);
+            Draggable* SetMaxX(int x);
+            Draggable* SetMaxY(int y);
+            Draggable* SetRange(int minX, int minY, int maxX, int maxY);
     };
 
 }
