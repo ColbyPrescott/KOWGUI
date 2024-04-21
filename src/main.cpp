@@ -47,7 +47,9 @@ int main() {
         SetFocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(0);})->
         SetUnfocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(140);})->
         AddChildren({
-            (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(150, 150, 150)),
+            (new KOWGUI::Focused)->SetReversed(true)->AddChildren({
+                (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(150, 150, 150))
+            }),
             (new KOWGUI::Focused)->AddChildren({
                 (new KOWGUI::Rectangle)->
                 SetPosition(5, 5)->

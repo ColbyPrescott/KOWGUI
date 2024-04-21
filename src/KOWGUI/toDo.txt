@@ -12,7 +12,6 @@ Node types:
     - Basic on off, but also int counter. Custom modulo feedback node
 - Unfocused
     - Feedback node that will only enable when nearest parent interactable is not focused
-- Focused
 - Activated
     - Feedback node that will only enable when nearest toggleable parent is set to true
 - Deactivated
@@ -88,4 +87,5 @@ Other:
 
 Random notes:
 - Users will have to replace the -fno-rtti compiler flag with -frtti on line 95 of vex/mkenv.mk
+  VEX may have disabled dynamic_cast for a reason, but, I need it. This project will be sooo much messier without it
 - Users will have to add an extra depth to the source code depth in makefile

@@ -8,7 +8,7 @@ namespace KOWGUI {
     class GUI;
 
     class InteractableBaseNode : public BaseNode {
-        private:
+        protected:
             // Called when input starts on node area
             void (*mpPressFunc)() = nullptr;
             // Called when input ends in node area

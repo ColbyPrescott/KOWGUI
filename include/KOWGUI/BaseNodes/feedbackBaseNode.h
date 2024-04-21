@@ -7,8 +7,13 @@ namespace KOWGUI {
 
     // Node that will soft disable itself based on some property, usually based on the closest interactable node up the tree
     class FeedbackBaseNode : public BaseNode {
+        protected:
+            bool mReversed = false;
+
         public:
-            virtual bool GetFeedbackState() {return true;}
+            virtual FeedbackBaseNode* SetReversed(bool reversed);
+
+            virtual bool GetFeedbackState();
     };
 
 }

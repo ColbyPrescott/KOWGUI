@@ -22,7 +22,7 @@ All nodes
 
 
 InteractableBaseNode
-    Add this in public access after the BaseNode stuff
+    Add this in public access
         Type* SetPress(void (*callback)()) {InteractableBaseNode::SetPress(callback); return this;}
         Type* SetRelease(void (*callback)()) {InteractableBaseNode::SetRelease(callback); return this;}
         Type* SetFocus(void (*callback)()) {InteractableBaseNode::SetFocus(callback); return this;}
@@ -33,3 +33,9 @@ InteractableBaseNode
         Type* ClearUnfocus() {InteractableBaseNode::ClearUnfocus(); return this;}
     If something like GUI::mpSelectedNode is needed, add to end of public access in include/KOWGUI/gui.h
         friend class Type;
+
+
+
+FeedbackBaseNode
+    Add this in public access
+        Type* SetReversed(bool reversed) {FeedbackBaseNode::SetReversed(reversed); return this;}
