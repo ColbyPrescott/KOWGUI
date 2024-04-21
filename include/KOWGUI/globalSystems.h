@@ -16,6 +16,9 @@ namespace KOWGUI {
         clickable,
         draggable,
 
+        // Feedback
+        focused,
+
         // Visible
         rectangle
     };

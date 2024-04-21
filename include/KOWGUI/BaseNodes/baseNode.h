@@ -35,6 +35,7 @@ namespace KOWGUI {
         // have its type read, then get casted to the correct class
         NodeType mType;
 
+        // TO DO Should these be of type BaseNode?
         void* parent = nullptr;
         std::vector<void*> children;
         // TO DO Should these three variables be public or accessed with friendship?

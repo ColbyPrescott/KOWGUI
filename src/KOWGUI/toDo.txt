@@ -1,5 +1,5 @@
 Node types:
-- Custom
+- CustomDraw
     - Something like the icon system in MTV3GUI
     - Custom properties should be stored in std::map<std::string, void*>
       It will be up to the user to cast it to the right type
@@ -82,7 +82,7 @@ Other:
   PROS says it ports LVGL which itself has an amazing looking webpage, but then I look for examples 
   of it being used on the V5 brain and nothing stands out as entirely mind blowing...
   And no hate on PROS or anything. I just don't see what useful things it can do that VEX C++ can't :/
-- Panels, like the slides in MTV3GUI, should be implemented by the user. FMI, git checkout 3356326
+- Panels, like the slides in MTV3GUI, should be implemented by the user. FMI, git checkout 3356326ce248446c97b50c49b8326b6143ee4463
 
 
 

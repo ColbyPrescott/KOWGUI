@@ -29,8 +29,9 @@ void GUI::Tick() {
         // Give the current node in the loop a name
         BaseNode* currentNode = (BaseNode*)remainingNodes[0];
 
-        // Skip current node if disabled
-        if(currentNode->GetDisabled()) {
+        // Skip current node if disabled or soft disabled
+        if(currentNode->GetDisabled() ||
+          (dynamic_cast<FeedbackBaseNode*>(currentNode) != nullptr && !((FeedbackBaseNode*)currentNode)->GetFeedbackState())) {
             remainingNodes.erase(remainingNodes.begin());
             continue;
         }
