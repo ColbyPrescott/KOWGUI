@@ -10,6 +10,7 @@
 #include "KOWGUI/BaseNodes/visibleBaseNode.h"
 #include "KOWGUI/Nodes/group.h"
 #include "KOWGUI/Nodes/clickable.h"
+#include "KOWGUI/Nodes/draggable.h"
 #include "KOWGUI/Nodes/rectangle.h"
 
 

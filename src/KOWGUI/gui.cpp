@@ -11,6 +11,7 @@ GUI::GUI(vex::brain& vexBrain) {
     root->mpContainingGUI = this;
 }
 
+// TO DO Split this function into separate functions. The x3 empty line aren't helping much
 // Render screen and detect inputs
 void GUI::Tick() {
     // Clear screen for new frame
@@ -67,6 +68,8 @@ void GUI::Tick() {
         // Focus function is getting called now, no need to do it again later
         mPrevTickFocusedNode = true;
         // Node is getting pressed and brought into focus, so execute the respective callback functions
+        // Ensure TickPress is first function to know about the starting input
+        interactableNode->TickPress(screenX, screenY);
         interactableNode->CallPress();
         interactableNode->CallFocus();
         // Search is complete, no need to do any more
@@ -75,6 +78,9 @@ void GUI::Tick() {
 
     // If a node is selected, process its moving and ending input
     if(mpSelectedNode != nullptr) {
+        // Ensure TickDrag is first function to know about the moving input
+        mpSelectedNode->TickDrag(screenX, screenY);
+
         // Get whether or not the selected node currently has input on it
         bool focused = mpSelectedNode->TestCollision(screenX, screenY);
         // If this is different from last call of Tick(), execute the respective callback
@@ -83,8 +89,10 @@ void GUI::Tick() {
         // Push current focus state into memory so the comparison can be made again in next call of Tick()
         mPrevTickFocusedNode = focused;
 
-        // If input ended, run functions and remove selection. Opposite order from how input begins
+        // If input ended, run functions and remove selection. Opposite order from how input begins, except for TickRelease
         if(!screenPressed && mPrevTickScreenPressed) {
+            // Ensure TickRelease is first function to know about ending input
+            mpSelectedNode->TickRelease(screenX, screenY);
             // If the node is currently focused, execute the appropriate callbacks to undo that
             if(focused) {
                 mpSelectedNode->CallUnfocus();

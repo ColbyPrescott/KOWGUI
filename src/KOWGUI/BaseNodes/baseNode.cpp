@@ -69,6 +69,9 @@ BaseNode* BaseNode::AddChildren(std::vector<void*> newChildren) {
             case NodeType::clickable:
                 AddChild((Clickable*)newChildren[i]);
                 break;
+            case NodeType::draggable:
+            AddChild((Clickable*)newChildren[i]);
+            break;
             case NodeType::rectangle:
                 AddChild((Rectangle*)newChildren[i]);
                 break;

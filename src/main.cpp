@@ -51,8 +51,7 @@ int main() {
         })
     );
 
-    gui.root->AddChild((new KOWGUI::Clickable)->
-        SetId("hackedDraggable")->
+    gui.root->AddChild((new KOWGUI::Draggable)->
         SetPosition(350, 20)->
         SetSize(75, 75)->
         SetPress([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(0);})->
