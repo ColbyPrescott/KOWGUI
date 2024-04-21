@@ -7,13 +7,6 @@ Node types:
       position and stuff accessed through there
     - This is designed for something simple like a cross visible node. If the user wants their
       own actual type of node like rounded rectangle, they can add it to the source code themself
-- Draggable
-    - X and Y range limit
-    - Unfocus will call when input leaves range
-    - While input is outside range, node will still move to closest point along edge of region
-    - Can be used to create scrollable windows
-    - Should maxX take width into account? 
-    - Get function could return percentage to max
 - Toggleable
     - If supplied an id or something, toggles could store their state on SD card
     - Basic on off, but also int counter. Custom modulo feedback node
@@ -89,9 +82,3 @@ Other:
   of it being used on the V5 brain and nothing stands out as entirely mind blowing...
   And no hate on PROS or anything. I just don't see what useful things it can do that VEX C++ can't :/
 - Panels, like the slides in MTV3GUI, should be implemented by the user. FMI, git checkout 3356326
-
-
-
-Current work:
-- Add private virtual TickPress(x, y), TickDrag(x, y), and TickRelease(x, y) functions to InteractableBaseNode. 
-  They should always get called before CallPress() or CallRelease()

@@ -46,6 +46,9 @@ namespace KOWGUI {
             Draggable* SetMaxX(int x);
             Draggable* SetMaxY(int y);
             Draggable* SetRange(int minX, int minY, int maxX, int maxY);
+
+            double GetPercentX();
+            double GetPercentY();
     };
 
 }

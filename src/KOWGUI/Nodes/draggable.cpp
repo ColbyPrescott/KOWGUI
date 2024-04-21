@@ -58,3 +58,17 @@ Draggable* Draggable::SetRange(int minX, int minY, int maxX, int maxY) {
     SetMaxY(maxY);
     return this;
 }
+
+
+
+// Return value 0 - 1 how far the node is from min and max X coordinate
+double Draggable::GetPercentX() {
+    if(mMinX == undefinedNumber || mMaxX == undefinedNumber) return 0;
+    return (double)(mX - mMinX) / (mMaxX - mWidth - mMinX);
+}
+
+// Return value 0 - 1 how far the node is from min and max Y coordinate
+double Draggable::GetPercentY() {
+    if(mMinY == undefinedNumber || mMaxY == undefinedNumber) return 0;
+    return (double)(mY - mMinY) / (mMaxY - mHeight - mMinY);
+}
