@@ -64,6 +64,15 @@ int main() {
         })
     );
 
+    gui.root->AddChild((new KOWGUI::Clickable)->
+        SetPosition(450, 0)->
+        SetSize(30, 30)->
+        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetDisabled(!((KOWGUI::Rectangle*)gui.root->children[0])->GetDisabled());})->
+        AddChildren({
+            (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(255, 255, 255))
+        })
+    );
+
     while(1) {
         
         gui.Tick();

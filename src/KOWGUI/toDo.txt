@@ -40,7 +40,6 @@ Node types:
 
 Features:
 - Disablement
-    - Nodes can be disabled, stopping rendering and input of itself and all children
     - SetEnable and SetDisable callback functions?
 - ID system
 - Animation
@@ -69,6 +68,7 @@ Refactoring and other code stuff:
 - Could callback functions also have a version that get a pointer to its own node? That way not EVERYTHING needs an ID to be accessible
 - Capitalization, especially of ID, is inconsistent
 - Use of 'p' before pointer names in inconsistent
+- Finish adding list of default color names
 
 
 
@@ -83,3 +83,9 @@ Other:
   of it being used on the V5 brain and nothing stands out as entirely mind blowing...
   And no hate on PROS or anything. I just don't see what useful things it can do that VEX C++ can't :/
 - Panels, like the slides in MTV3GUI, should be implemented by the user. FMI, git checkout 3356326
+
+
+
+Random notes:
+- Users will have to replace the -fno-rtti compiler flag with -frtti on line 95 of vex/mkenv.mk
+- Users will have to add an extra depth to the source code depth in makefile

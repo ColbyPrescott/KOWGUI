@@ -58,6 +58,12 @@ BaseNode* BaseNode::SetId(std::string id) {
     return this;
 }
 
+// Set whether or not this and child nodes should be processed
+BaseNode* BaseNode::SetDisabled(bool disabled) {
+    mDisabled = disabled;
+    return this;
+}
+
 // TO DO This function has a chance of being refactored. None of the AddChild functions use their returned value
 // TO DO so a function taking void* and returning void could be created
 BaseNode* BaseNode::AddChildren(std::vector<void*> newChildren) {
@@ -155,4 +161,9 @@ int BaseNode::CalculateHeight() {
 // Get internal ID
 std::string BaseNode::GetID() {
     return mId;
+}
+
+// Get internal disabled state
+bool BaseNode::GetDisabled() {
+    return mDisabled;
 }

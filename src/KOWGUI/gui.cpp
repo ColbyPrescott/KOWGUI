@@ -29,6 +29,12 @@ void GUI::Tick() {
         // Give the current node in the loop a name
         BaseNode* currentNode = (BaseNode*)remainingNodes[0];
 
+        // Skip current node if disabled
+        if(currentNode->GetDisabled()) {
+            remainingNodes.erase(remainingNodes.begin());
+            continue;
+        }
+
         // Insert currentNode children into the remainingNodes vector, back to front into index 1 to keep priority order of tree
         for(int i = currentNode->children.size() - 1; i >= 0; i--) remainingNodes.insert(remainingNodes.begin() + 1, currentNode->children[i]);
 

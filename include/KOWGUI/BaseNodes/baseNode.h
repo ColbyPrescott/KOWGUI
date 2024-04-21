@@ -24,6 +24,8 @@ namespace KOWGUI {
         std::string mId = undefinedString;
         std::string mShallowId = undefinedString;
 
+        bool mDisabled = false;
+
         GUI* mpContainingGUI = nullptr;
 
         GUI* GetContainingGUI();
@@ -46,6 +48,7 @@ namespace KOWGUI {
         virtual BaseNode* SetSize(int width, int height);
         virtual BaseNode* SetId(std::string id);
         // BaseNode* SetShallowId(std::string shallowId);
+        virtual BaseNode* SetDisabled(bool disabled);
 
         virtual BaseNode* AddChildren(std::vector<void*> newChildren);
 
@@ -66,6 +69,7 @@ namespace KOWGUI {
         int CalculateHeight();
         std::string GetID();
         // std::string GetShallowId();
+        bool GetDisabled();
 
         // void* FindShallowId(std::string shallowId);
 

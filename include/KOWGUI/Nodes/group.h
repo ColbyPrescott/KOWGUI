@@ -16,6 +16,7 @@ namespace KOWGUI {
             Group* SetHeight(int height) {BaseNode::SetHeight(height); return this;}
             Group* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Group* SetId(std::string id) {BaseNode::SetId(id); return this;}
+            Group* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
             Group* AddChildren(std::vector<void*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
     };
 
