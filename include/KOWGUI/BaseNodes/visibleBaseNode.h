@@ -1,5 +1,5 @@
-#ifndef KOWGUI_VISIBLE_NODE_H
-#define KOWGUI_VISIBLE_NODE_H
+#ifndef KOWGUI_VISIBLE_BASE_NODE_H
+#define KOWGUI_VISIBLE_BASE_NODE_H
 
 #include "KOWGUI/BaseNodes/baseNode.h"
 

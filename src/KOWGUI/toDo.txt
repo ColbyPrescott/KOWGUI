@@ -42,6 +42,7 @@ Features:
 - Disablement
     - Nodes can be disabled, stopping rendering and input of itself and all children
     - SetEnable and SetDisable callback functions?
+- ID system
 - Animation
     - Currently possible by constantly updating a value manually, but should specific functionality be added?
     - Bezier curve animation?

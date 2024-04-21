@@ -51,7 +51,7 @@ int main() {
         })
     );
 
-    KOWGUI::Draggable* tmpSlider = gui.root->AddChild((new KOWGUI::Draggable)->
+    gui.root->AddChild((new KOWGUI::Draggable)->
         SetPosition(350, 20)->
         SetSize(75, 75)->
         SetRange(200, 0, 350, 175)->
@@ -67,12 +67,6 @@ int main() {
     while(1) {
         
         gui.Tick();
-
-        Brain.Screen.setCursor(1, 1);
-        Brain.Screen.setPenColor(vex::white);
-        Brain.Screen.setFillColor(vex::black);
-        Brain.Screen.print(tmpSlider->GetPercentX());
-        Brain.Screen.render();
 
         // rect->SetY((sin(Brain.Timer.system() / 1000.0) / 2.0 + 0.5) * 140);
         // Allow other tasks to run

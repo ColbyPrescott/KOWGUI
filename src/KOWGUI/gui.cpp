@@ -42,7 +42,7 @@ void GUI::Tick() {
     }
 
     // Render screen to stop flickering
-    // mpVexBrain->Screen.render();
+    mpVexBrain->Screen.render();
 
 
 
