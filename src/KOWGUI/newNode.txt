@@ -1,0 +1,35 @@
+All nodes
+    Add this to top of public access
+        Type() {mType = NodeType::type;}
+
+        Type* SetX(int x) {BaseNode::SetX(x); return this;}
+        Type* SetY(int y) {BaseNode::SetY(y); return this;}
+        Type* SetPosition(int x, int y) {BaseNode::SetPosition(x, y); return this;}
+        Type* SetWidth(int width) {BaseNode::SetWidth(width); return this;}
+        Type* SetHeight(int height) {BaseNode::SetHeight(height); return this;}
+        Type* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
+        Type* SetId(std::string id) {BaseNode::SetId(id); return this;}
+        Type* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+        Type* AddChildren(std::vector<void*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
+    Create the new NodeType enum in include/KOWGUI/globalSystems.h
+    Add include to include/KOWGUI/gui.h
+    Add include to src/KOWGUI/BaseNodes/baseNode.cpp
+    Add to AddChildren switch statement in src/KOWGUI/BaseNodes/baseNode.cpp
+        case NodeType::type:
+        AddChild((Type*)newChildren[i]);
+        break;
+
+
+
+InteractableBaseNode
+    Add this in public access after the BaseNode stuff
+        Type* SetPress(void (*callback)()) {InteractableBaseNode::SetPress(callback); return this;}
+        Type* SetRelease(void (*callback)()) {InteractableBaseNode::SetRelease(callback); return this;}
+        Type* SetFocus(void (*callback)()) {InteractableBaseNode::SetFocus(callback); return this;}
+        Type* SetUnfocus(void (*callback)()) {InteractableBaseNode::SetUnfocus(callback); return this;}
+        Type* ClearPress() {InteractableBaseNode::ClearPress(); return this;}
+        Type* ClearRelease() {InteractableBaseNode::ClearRelease(); return this;}
+        Type* ClearFocus() {InteractableBaseNode::ClearFocus(); return this;}
+        Type* ClearUnfocus() {InteractableBaseNode::ClearUnfocus(); return this;}
+    If something like GUI::mpSelectedNode is needed, add to end of public access in include/KOWGUI/gui.h
+        friend class Type;

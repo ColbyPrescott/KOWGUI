@@ -49,7 +49,10 @@ int main() {
         AddChildren({
             (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(150, 150, 150)),
             (new KOWGUI::Focused)->AddChildren({
-                (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(100, 100, 100))
+                (new KOWGUI::Rectangle)->
+                SetPosition(5, 5)->
+                SetSize(65, 65)->
+                SetFillColor((new KOWGUI::Color)->SetRGB(100, 100, 100))
             })
         })
     );
