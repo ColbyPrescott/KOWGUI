@@ -7,6 +7,12 @@ namespace KOWGUI {
 
     class Draggable : public InteractableBaseNode {
         private:
+            // Where on the node X input starts
+            int mOffsetX = 0;
+            // Where on the node Y input starts
+            int mOffsetY = 0;
+
+            void TickPress(int x, int y);
             void TickDrag(int x, int y);
 
         public:
