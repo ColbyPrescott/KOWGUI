@@ -36,6 +36,8 @@ namespace KOWGUI {
             virtual InteractableBaseNode* SetFocus(void (*callback)());
             virtual InteractableBaseNode* SetUnfocus(void (*callback)());
 
+            // TO DO SetHover, gets called every tick that the node is in focus
+
             virtual InteractableBaseNode* ClearPress();
             virtual InteractableBaseNode* ClearRelease();
             virtual InteractableBaseNode* ClearFocus();

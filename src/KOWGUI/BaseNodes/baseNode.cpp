@@ -5,6 +5,7 @@
 #include "KOWGUI/Nodes/draggable.h"
 #include "KOWGUI/Nodes/focused.h"
 #include "KOWGUI/Nodes/rectangle.h"
+#include "KOWGUI/Nodes/text.h"
 
 using namespace KOWGUI;
 
@@ -78,13 +79,16 @@ BaseNode* BaseNode::AddChildren(std::vector<void*> newChildren) {
                 AddChild((Clickable*)newChildren[i]);
                 break;
             case NodeType::draggable:
-            AddChild((Clickable*)newChildren[i]);
-            break;
+                AddChild((Clickable*)newChildren[i]);
+                break;
             case NodeType::focused:
-            AddChild((Focused*)newChildren[i]);
-            break;
+                AddChild((Focused*)newChildren[i]);
+                break;
             case NodeType::rectangle:
                 AddChild((Rectangle*)newChildren[i]);
+                break;
+            case NodeType::text:
+                AddChild((Text*)newChildren[i]);
                 break;
         }
     }

@@ -48,8 +48,9 @@ namespace KOWGUI {
         virtual BaseNode* SetHeight(int height);
         virtual BaseNode* SetSize(int width, int height);
         virtual BaseNode* SetId(std::string id);
-        // BaseNode* SetShallowId(std::string shallowId);
+        // TO DO BaseNode* SetShallowId(std::string shallowId);
         virtual BaseNode* SetDisabled(bool disabled);
+        // TO DO SetTick
 
         virtual BaseNode* AddChildren(std::vector<void*> newChildren);
 

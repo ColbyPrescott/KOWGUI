@@ -1,6 +1,6 @@
 Node types:
-- CustomDraw
-    - Something like the icon system in MTV3GUI
+- Custom
+    - Custom code will be run through BaseNode::SetTick
     - Custom properties should be stored in std::map<std::string, void*>
       It will be up to the user to cast it to the right type
     - Icon-like functions will be called with reference to that node, 
@@ -30,6 +30,7 @@ Node types:
 - Clip
     - vex::brain::lcd::setClipRegion to mask all children inside node's area
     - Some possibilities may not work from the parenting system... Maybe make a node that will copy the position of another?
+        Keep things simple, user may write location copying code into BaseNode::SetTick
     - How might each interactable react to being clipped?
         - Clip should stop interactable from being selected
         - Clip border should unfocus clickable

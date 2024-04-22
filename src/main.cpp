@@ -34,7 +34,8 @@ int main() {
                 SetSize(50, 30)->
                 AddChildren({
                     (new KOWGUI::Rectangle)->
-                        SetFillColor(KOWGUI::Color::red)
+                        SetFillColor(KOWGUI::Color::red),
+                    (new KOWGUI::Text)
                 })
         })
     );
@@ -43,7 +44,7 @@ int main() {
         SetPosition(350, 100)->
         SetSize(75, 75)->
         SetPress([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(0);})->
-        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(100);})->
+        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(100); vexSystemExitRequest();})-> // DEBUG
         SetFocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(0);})->
         SetUnfocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(140);})->
         AddChildren({

@@ -20,7 +20,8 @@ namespace KOWGUI {
         focused,
 
         // Visible
-        rectangle
+        rectangle,
+        text
     };
 
 }

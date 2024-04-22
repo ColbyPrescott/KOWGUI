@@ -14,7 +14,7 @@
 #include "KOWGUI/Nodes/draggable.h"
 #include "KOWGUI/Nodes/focused.h"
 #include "KOWGUI/Nodes/rectangle.h"
-
+#include "KOWGUI/Nodes/text.h"
 
 #include "v5.h"
 #include "v5_vcs.h"
@@ -45,6 +45,7 @@ namespace KOWGUI {
 
             friend class BaseNode;
             friend class Focused;
+            friend class Text; // DEBUG
     };
 
 }

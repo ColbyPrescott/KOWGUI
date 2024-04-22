@@ -16,8 +16,14 @@ All nodes
     Add include to src/KOWGUI/BaseNodes/baseNode.cpp
     Add to AddChildren switch statement in src/KOWGUI/BaseNodes/baseNode.cpp
         case NodeType::type:
-        AddChild((Type*)newChildren[i]);
-        break;
+            AddChild((Type*)newChildren[i]);
+            break;
+
+
+
+VisibleBaseNode
+    Override public function
+        void Draw(vex::brain::lcd& rScreen);
 
 
 
