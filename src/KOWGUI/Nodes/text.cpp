@@ -87,20 +87,30 @@ void KOWGUI::DrawDebugTextScreen(vex::brain::lcd& rScreen) {
     
     // Set current font being debugged
     // Update font quickly by holding the bumper sensors that happen to be plugged into by brain
-    rScreen.setPenColor(vex::white);
-    rScreen.setFillColor(vex::black);
+    rScreen.setPenColor(vex::color::white);
+    rScreen.setFillColor(vex::color::black);
     rScreen.setCursor(10, 10);
-    vex::fontType currentFont = vex::fontType::mono60;
-    if(vex::bumper(vex::triport(vex::PORT22).C).pressing()) {currentFont = vex::fontType::cjk16; rScreen.print("cjk16");}
-    else if(vex::bumper(vex::triport(vex::PORT22).B).pressing()) {currentFont = vex::fontType::prop60; rScreen.print("prop60");}
-    else {currentFont = vex::fontType::mono60; rScreen.print("mono60");}
+    vex::fontType currentFont;
+    int heightOfCurrentFont;
+    if(vex::bumper(vex::triport(vex::PORT22).C).pressing()) {       currentFont = vex::fontType::cjk16;    heightOfCurrentFont = 17;   rScreen.print("cjk16");}
+    else if(vex::bumper(vex::triport(vex::PORT22).B).pressing()) {  currentFont = vex::fontType::prop60;   heightOfCurrentFont = 54;   rScreen.print("prop60");}
+    else {                                                          currentFont = vex::fontType::mono60;   heightOfCurrentFont = 49;   rScreen.print("mono60");}
+
+    // Set a font size that's being tested
+    static int currentDebuggingSize = 60;
+    if(vex::bumper(vex::triport(vex::PORT22).D).pressing()) currentDebuggingSize--;
+    if(vex::bumper(vex::triport(vex::PORT22).H).pressing()) currentDebuggingSize++;
+    rScreen.setPenColor(vex::color::white);
+    rScreen.setFillColor(vex::color::black);
+    rScreen.setCursor(10, 20);
+    rScreen.print(currentDebuggingSize);
 
     // Draw debugging text
     rScreen.setFillColor(vex::color::blue);
     rScreen.setPenColor(vex::color::white);
     rScreen.setFont(currentFont);
     // Default font size
-    vexDisplayTextSize(1, 1);
+    vexDisplayTextSize(currentDebuggingSize, heightOfCurrentFont);
     // Draw actual text, these four characters seem to demonstrate each height
     rScreen.printAt(textX, textY, "Éghx");
 
