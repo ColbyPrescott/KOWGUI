@@ -44,7 +44,7 @@ int main() {
         SetPosition(350, 100)->
         SetSize(75, 75)->
         SetPress([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(0);})->
-        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(100); vexSystemExitRequest();})-> // DEBUG
+        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(100);})->
         SetFocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(0);})->
         SetUnfocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(140);})->
         AddChildren({
@@ -84,7 +84,9 @@ int main() {
 
     while(1) {
         
-        gui.Tick();
+        // if(vex::motor(vex::PORT1).installed()) KOWGUI::DrawDebugTextScreen(Brain.Screen);
+        // else gui.Tick();
+        KOWGUI::DrawDebugTextScreen(Brain.Screen);
 
         // rect->SetY((sin(Brain.Timer.system() / 1000.0) / 2.0 + 0.5) * 140);
         // Allow other tasks to run

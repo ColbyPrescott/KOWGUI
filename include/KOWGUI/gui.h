@@ -45,7 +45,6 @@ namespace KOWGUI {
 
             friend class BaseNode;
             friend class Focused;
-            friend class Text; // DEBUG
     };
 
 }

@@ -3,10 +3,38 @@
 
 #include "KOWGUI/BaseNodes/visibleBaseNode.h"
 
+#include <string>
+
 namespace KOWGUI {
+
+    // enum FontSize {
+    //     size20 = 20,
+    //     size30 = 30,
+    //     size40 = 40,
+    //     size60 = 60
+    // };
+
+    enum VerticalAlign {
+        bottom,
+        descender,
+        baseline,
+        middle,
+        ascender,
+        top
+    };
+
+    struct Font {
+        vex::fontType vexFont;
+        
+    };
 
     class Text : public VisibleBaseNode {
         private:
+            std::string mText = "";
+            int mFontSize = 30;
+            VerticalAlign mVerticalAlign = VerticalAlign::baseline;
+            bool mHorizontalCentering = false;
+            bool mVerticalCentering = false;
 
         public:
             Text() {mType = NodeType::text;}
@@ -21,8 +49,12 @@ namespace KOWGUI {
             Text* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
             Text* AddChildren(std::vector<void*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
+            Text* SetFontSize(int fontSize);
+
             void Draw(vex::brain::lcd& rScreen);
     };
+
+    void DrawDebugTextScreen(vex::brain::lcd& rScreen);
 
 }
 
