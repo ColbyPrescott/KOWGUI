@@ -38,4 +38,5 @@ vex::color Color::GetVexColor() {
 
 Color* Color::transparent = (new Color)->SetTransparent(true);
 
+Color* Color::white = (new Color)->SetRGB(255, 255, 255);
 Color* Color::red = (new Color)->SetRGB(255, 0, 0);

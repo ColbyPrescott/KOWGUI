@@ -29,6 +29,7 @@ namespace KOWGUI {
 
             static Color* transparent;
 
+            static Color* white;
             static Color* red;
     };
 

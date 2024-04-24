@@ -29,13 +29,22 @@ int main() {
                 SetSize(50, 100)->
                 SetOutlineColor((new KOWGUI::Color)->SetRGB(0, 0, 200))->
                 SetOutlineWidth(5),
+            (new KOWGUI::Text)->
+                SetText("This is some really good text, I hope it doesn't overflow outside of the box!")->
+                SetFontSize(15)->
+                SetVerticalAlign(KOWGUI::VerticalAlign::ascender),
             (new KOWGUI::Draggable)->
                 SetPosition(100, 50)->
                 SetSize(50, 30)->
                 AddChildren({
                     (new KOWGUI::Rectangle)->
                         SetFillColor(KOWGUI::Color::red),
-                    (new KOWGUI::Text)
+                    (new KOWGUI::Text)->
+                        SetText("Hewwo!")->
+                        SetFont(KOWGUI::Fonts::proportional)->
+                        SetFontSize(20)->
+                        SetVerticalAlign(KOWGUI::VerticalAlign::ascender)->
+                        SetColor((new KOWGUI::Color)->SetRGB(0, 150, 255))
                 })
         })
     );
@@ -55,7 +64,12 @@ int main() {
                 (new KOWGUI::Rectangle)->
                 SetPosition(5, 5)->
                 SetSize(65, 65)->
-                SetFillColor((new KOWGUI::Color)->SetRGB(100, 100, 100))
+                SetFillColor((new KOWGUI::Color)->SetRGB(100, 100, 100)),
+                (new KOWGUI::Text)->
+                SetPosition(10, 75 / 2)->
+                SetText("Focused")->
+                SetFontSize(20)->
+                SetVerticalAlign(KOWGUI::VerticalAlign::middle)
             })
         })
     );
@@ -84,9 +98,7 @@ int main() {
 
     while(1) {
         
-        // if(vex::motor(vex::PORT1).installed()) KOWGUI::DrawDebugTextScreen(Brain.Screen);
-        // else gui.Tick();
-        KOWGUI::DrawDebugTextScreen(Brain.Screen);
+        gui.Tick();
 
         // rect->SetY((sin(Brain.Timer.system() / 1000.0) / 2.0 + 0.5) * 140);
         // Allow other tasks to run

@@ -69,6 +69,8 @@ Refactoring and other code stuff:
 - Capitalization, especially of ID, is inconsistent
 - Use of 'p' before pointer names in inconsistent
 - Finish adding list of default color names
+- Should positions be represented by floats and rounded in the screen functions? Increasing a node's 
+  position at a constant rate could have much more precision a lot easier
 
 
 

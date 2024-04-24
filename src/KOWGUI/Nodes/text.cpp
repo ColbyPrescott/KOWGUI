@@ -4,27 +4,39 @@
 
 using namespace KOWGUI;
 
+Text* Text::SetText(std::string text) {
+    mText = text;
+    return this;
+}
+
+Text* Text::SetFont(font& fontName) {
+    mpFont = &fontName;
+    return this;
+}
+
 Text* Text::SetFontSize(int fontSize) {
     mFontSize = fontSize;
     return this;
 }
 
+Text* Text::SetColor(Color* color) {
+    mpColor = std::make_shared<Color>(*color);
+    return this;
+}
+
+Text* Text::SetVerticalAlign(VerticalAlign verticalAlign) {
+    mVerticalAlign = verticalAlign;
+    return this;
+}
+
 void Text::Draw(vex::brain::lcd& rScreen) {
-    // SetFontSize(20);
-    // rScreen.setPenColor(vex::white);
-    // rScreen.setFillColor(vex::blue);
-    // rScreen.setFont(vex::prop30);
+    rScreen.setFont(mpFont->vexFont);
+    vexDisplayTextSize(mFontSize, mpFont->height);
+    rScreen.setPenColor(mpColor->GetVexColor());
 
-    // // vexDisplayFontNamedSet("Barlow");
-    // vexDisplayTextSize(mFontSize, 60);
-    // rScreen.printAt(CalculateX() - 50, CalculateY(), true, "The quick brown fox jumps");
-    // rScreen.printAt(CalculateX() - 50, CalculateY() + 50, true, "over the lazy dog 012345");
+    int verticalAlignmentOffset = mpFont->verticalAlignmentHeights[mVerticalAlign] * mFontSize / (float)mpFont->height;
 
-    // // vexDisplayFontNamedSet("Prop");
-    // rScreen.setFillColor(vex::purple);
-    // rScreen.setFont(vex::mono60);
-    // vexDisplayTextSize(mFontSize, 60);
-    // rScreen.printAt(CalculateX(), CalculateY(), true, "Bg");
+    rScreen.printAt(CalculateX(), CalculateY() - verticalAlignmentOffset, false, mText.c_str());
 }
 
 void KOWGUI::DrawDebugTextScreen(vex::brain::lcd& rScreen) {
@@ -92,25 +104,26 @@ void KOWGUI::DrawDebugTextScreen(vex::brain::lcd& rScreen) {
     rScreen.setCursor(10, 10);
     vex::fontType currentFont;
     int heightOfCurrentFont;
-    if(vex::bumper(vex::triport(vex::PORT22).C).pressing()) {       currentFont = vex::fontType::cjk16;    heightOfCurrentFont = 17;   rScreen.print("cjk16");}
-    else if(vex::bumper(vex::triport(vex::PORT22).B).pressing()) {  currentFont = vex::fontType::prop60;   heightOfCurrentFont = 54;   rScreen.print("prop60");}
+    if(vex::bumper(vex::triport(vex::PORT22).B).pressing()) {       currentFont = vex::fontType::cjk16;    heightOfCurrentFont = 17;   rScreen.print("cjk16");}
+    else if(vex::bumper(vex::triport(vex::PORT22).A).pressing()) {  currentFont = vex::fontType::prop60;   heightOfCurrentFont = 54;   rScreen.print("prop60");}
     else {                                                          currentFont = vex::fontType::mono60;   heightOfCurrentFont = 49;   rScreen.print("mono60");}
 
     // Set a font size that's being tested
     static int currentDebuggingSize = 60;
-    if(vex::bumper(vex::triport(vex::PORT22).D).pressing()) currentDebuggingSize--;
-    if(vex::bumper(vex::triport(vex::PORT22).H).pressing()) currentDebuggingSize++;
+    if(vex::bumper(vex::triport(vex::PORT22).C).pressing()) currentDebuggingSize--;
+    if(vex::bumper(vex::triport(vex::PORT22).D).pressing()) currentDebuggingSize++;
     rScreen.setPenColor(vex::color::white);
     rScreen.setFillColor(vex::color::black);
     rScreen.setCursor(10, 20);
-    rScreen.print(currentDebuggingSize);
+    if(vex::bumper(vex::triport(vex::PORT22).H).pressing()) rScreen.print(currentDebuggingSize);
 
     // Draw debugging text
     rScreen.setFillColor(vex::color::blue);
     rScreen.setPenColor(vex::color::white);
     rScreen.setFont(currentFont);
     // Default font size
-    vexDisplayTextSize(currentDebuggingSize, heightOfCurrentFont);
+    if(vex::bumper(vex::triport(vex::PORT22).H).pressing()) vexDisplayTextSize(currentDebuggingSize, heightOfCurrentFont);
+    else vexDisplayTextSize(1, 1);
     // Draw actual text, these four characters seem to demonstrate each height
     rScreen.printAt(textX, textY, "Éghx");
 
