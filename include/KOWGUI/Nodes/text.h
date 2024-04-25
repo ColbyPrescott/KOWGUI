@@ -28,6 +28,13 @@ namespace KOWGUI {
         scale // Decrement font size until text fits within width and height
     };
 
+    struct ScrollProperties {
+        int offsetX = 0; // Needed to keep track of how far the text is currently scrolled
+
+        int speed = 1; // How fast the text should scroll in pixels per tick
+        int spacing = 50; // How many pixels should separate repeated sections of text
+    };
+
     struct font {
         vex::fontType vexFont;
         int height;
@@ -96,8 +103,11 @@ namespace KOWGUI {
 
             Overflow mOverflow = Overflow::wrap;
 
+            ScrollProperties mScrollProperties;
+
             void DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY);
             void DrawHide(vex::brain::lcd& rScreen, int startX, int startY);
+            void DrawScroll(vex::brain::lcd& rScreen, int startX, int startY);
 
         public:
             Text() {mType = NodeType::text;}
@@ -118,6 +128,9 @@ namespace KOWGUI {
             Text* SetColor(Color* color);
             Text* SetVerticalAlign(VerticalAlign verticalAlign);
             Text* SetOverflow(Overflow overflow);
+
+            Text* SetScrollSpeed(int speed);
+            Text* SetScrollSpacing(int spacing);
 
             void Draw(vex::brain::lcd& rScreen);
     };

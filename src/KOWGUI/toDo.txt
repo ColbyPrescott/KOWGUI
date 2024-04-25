@@ -72,6 +72,7 @@ Refactoring and other code stuff:
 - Finish adding list of default color names
 - Should positions be represented by floats and rounded in the screen functions? Increasing a node's 
   position at a constant rate could have much more precision a lot easier
+- Usage of clipping region will need to have a system like JS canvas transform save restore
 
 
 

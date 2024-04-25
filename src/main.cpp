@@ -33,7 +33,8 @@ int main() {
                 SetText("This is some really good text, I hope it doesn't overflow outside of the box!")->
                 SetFontSize(15)->
                 SetVerticalAlign(KOWGUI::VerticalAlign::ascender)->
-                SetOverflow(KOWGUI::Overflow::hidden),
+                SetOverflow(KOWGUI::Overflow::scroll)->
+                SetScrollSpeed(2),
             (new KOWGUI::Draggable)->
                 SetPosition(100, 50)->
                 SetSize(50, 30)->
@@ -67,10 +68,13 @@ int main() {
                 SetSize(65, 65)->
                 SetFillColor((new KOWGUI::Color)->SetRGB(100, 100, 100)),
                 (new KOWGUI::Text)->
-                SetPosition(10, 75 / 2)->
+                SetPosition(5, 75 / 2)->
+                SetWidth(65)->
                 SetText("Focused")->
                 SetFontSize(20)->
-                SetVerticalAlign(KOWGUI::VerticalAlign::middle)
+                SetVerticalAlign(KOWGUI::VerticalAlign::middle)->
+                SetOverflow(KOWGUI::Overflow::scroll)->
+                SetScrollSpacing(20)
             })
         })
     );

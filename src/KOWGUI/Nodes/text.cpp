@@ -34,6 +34,20 @@ Text* Text::SetOverflow(Overflow overflow) {
     return this;
 }
 
+
+
+Text* Text::SetScrollSpeed(int speed) {
+    mScrollProperties.speed = speed;
+    return this;
+}
+
+Text* Text::SetScrollSpacing(int spacing) {
+    mScrollProperties.spacing = spacing;
+    return this;
+}
+
+
+
 // Simply print all text at the position without worrying about it extending outside the node's area
 void Text::DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY) {
     rScreen.printAt(startX, startY, false, mText.c_str());
@@ -58,6 +72,19 @@ void Text::DrawHide(vex::brain::lcd& rScreen, int startX, int startY) {
     rScreen.printAt(startX, startY, false, currentLine.c_str());
 }
 
+void Text::DrawScroll(vex::brain::lcd& rScreen, int startX, int startY) {
+    rScreen.setClipRegion(CalculateX(), 0, CalculateWidth(), 240);
+
+    mScrollProperties.offsetX += mScrollProperties.speed;
+
+    if(mScrollProperties.offsetX > (rScreen.getStringWidth(mText.c_str()) + mScrollProperties.spacing)) mScrollProperties.offsetX -= (rScreen.getStringWidth(mText.c_str()) + mScrollProperties.spacing);
+
+    rScreen.printAt(startX - mScrollProperties.offsetX, startY, false, mText.c_str());
+    rScreen.printAt(startX - mScrollProperties.offsetX + rScreen.getStringWidth(mText.c_str()) + mScrollProperties.spacing, startY, false, mText.c_str());
+
+    rScreen.setClipRegion(0, 0, 480, 240);
+}
+
 void Text::Draw(vex::brain::lcd& rScreen) {
     rScreen.setFont(mpFont->vexFont);
     vexDisplayTextSize(mFontSize, mpFont->height);
@@ -70,6 +97,7 @@ void Text::Draw(vex::brain::lcd& rScreen) {
     switch(mOverflow) {
         case Overflow::visible: DrawOverflow(rScreen, startX, startY); break;
         case Overflow::hidden: DrawHide(rScreen, startX, startY); break;
+        case Overflow::scroll: DrawScroll(rScreen, startX, startY); break;
 
         default: DrawOverflow(rScreen, startX, startY); break;
     }
