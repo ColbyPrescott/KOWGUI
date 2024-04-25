@@ -21,6 +21,7 @@ Node types:
     - Support for vex::fontType
     - Maybe add in other fonts too? Could maybe make rotated text possible
     - Support for custom .ttf files??? Judging by Sebastian Lague's video, no.
+    - Make it possible to animate each character individually? Like a fun wave effect for example
 - Image
     - Must create or take image buffer for faster drawing
 - Polygon

@@ -29,14 +29,50 @@ Text* Text::SetVerticalAlign(VerticalAlign verticalAlign) {
     return this;
 }
 
+Text* Text::SetOverflow(Overflow overflow) {
+    mOverflow = overflow;
+    return this;
+}
+
+// Simply print all text at the position without worrying about it extending outside the node's area
+void Text::DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY) {
+    rScreen.printAt(startX, startY, false, mText.c_str());
+}
+
+// Print all the text that will fit within the node's width, cutting off what goes outside
+void Text::DrawHide(vex::brain::lcd& rScreen, int startX, int startY) {
+    std::string remainingText = mText;
+    std::string currentLine = "";
+
+    // Move characters from remainingText to currentLine until adding the next one will no longer fit within mWidth
+    while(
+        remainingText.size() > 0 && // Ensure there's remaining text left
+        rScreen.getStringWidth((currentLine + remainingText[0]).c_str()) < CalculateWidth() // Ensure adding next character 
+    ) {
+        // Move first character from remainingText to currentLine
+        currentLine.push_back(remainingText[0]);
+        remainingText.erase(remainingText.begin());
+    }
+
+    // Print currentLine, the text that fit inside mWidth
+    rScreen.printAt(startX, startY, false, currentLine.c_str());
+}
+
 void Text::Draw(vex::brain::lcd& rScreen) {
     rScreen.setFont(mpFont->vexFont);
     vexDisplayTextSize(mFontSize, mpFont->height);
     rScreen.setPenColor(mpColor->GetVexColor());
 
     int verticalAlignmentOffset = mpFont->verticalAlignmentHeights[mVerticalAlign] * mFontSize / (float)mpFont->height;
+    int startX = CalculateX();
+    int startY = CalculateY() - verticalAlignmentOffset;
 
-    rScreen.printAt(CalculateX(), CalculateY() - verticalAlignmentOffset, false, mText.c_str());
+    switch(mOverflow) {
+        case Overflow::visible: DrawOverflow(rScreen, startX, startY); break;
+        case Overflow::hidden: DrawHide(rScreen, startX, startY); break;
+
+        default: DrawOverflow(rScreen, startX, startY); break;
+    }
 }
 
 void KOWGUI::DrawDebugTextScreen(vex::brain::lcd& rScreen) {

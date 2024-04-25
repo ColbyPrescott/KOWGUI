@@ -20,6 +20,14 @@ namespace KOWGUI {
         bottom
     };
 
+    enum Overflow {
+        visible, // Simply let the overflowing text print outside the node
+        hidden, // Overflowing text just gets cut off
+        scroll, // Slowly move the text to the left
+        wrap, // New line when width gets filled
+        scale // Decrement font size until text fits within width and height
+    };
+
     struct font {
         vex::fontType vexFont;
         int height;
@@ -86,6 +94,11 @@ namespace KOWGUI {
             bool mHorizontalCentering = false;
             bool mVerticalCentering = false;
 
+            Overflow mOverflow = Overflow::wrap;
+
+            void DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY);
+            void DrawHide(vex::brain::lcd& rScreen, int startX, int startY);
+
         public:
             Text() {mType = NodeType::text;}
 
@@ -104,6 +117,7 @@ namespace KOWGUI {
             Text* SetFontSize(int fontSize);
             Text* SetColor(Color* color);
             Text* SetVerticalAlign(VerticalAlign verticalAlign);
+            Text* SetOverflow(Overflow overflow);
 
             void Draw(vex::brain::lcd& rScreen);
     };

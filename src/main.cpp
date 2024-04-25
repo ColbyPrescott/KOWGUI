@@ -32,7 +32,8 @@ int main() {
             (new KOWGUI::Text)->
                 SetText("This is some really good text, I hope it doesn't overflow outside of the box!")->
                 SetFontSize(15)->
-                SetVerticalAlign(KOWGUI::VerticalAlign::ascender),
+                SetVerticalAlign(KOWGUI::VerticalAlign::ascender)->
+                SetOverflow(KOWGUI::Overflow::hidden),
             (new KOWGUI::Draggable)->
                 SetPosition(100, 50)->
                 SetSize(50, 30)->
