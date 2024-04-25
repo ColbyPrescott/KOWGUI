@@ -30,6 +30,14 @@ int main() {
                 SetOutlineColor((new KOWGUI::Color)->SetRGB(0, 0, 200))->
                 SetOutlineWidth(5),
             (new KOWGUI::Text)->
+                SetText("repeat and ")->
+                SetFontSize(15)->
+                SetVerticalAlign(KOWGUI::VerticalAlign::ascender)->
+                SetOverflow(KOWGUI::Overflow::scroll)->
+                SetScrollSpeed(3)->
+                SetScrollSpacing(0),
+            (new KOWGUI::Text)->
+                SetPosition(0, 20)->
                 SetText("This is some really good text, I hope it doesn't overflow outside of the box!")->
                 SetFontSize(15)->
                 SetVerticalAlign(KOWGUI::VerticalAlign::ascender)->
@@ -71,6 +79,7 @@ int main() {
                 SetPosition(5, 75 / 2)->
                 SetWidth(65)->
                 SetText("Focused")->
+                SetFont(KOWGUI::Fonts::monospace)->
                 SetFontSize(20)->
                 SetVerticalAlign(KOWGUI::VerticalAlign::middle)->
                 SetOverflow(KOWGUI::Overflow::scroll)->

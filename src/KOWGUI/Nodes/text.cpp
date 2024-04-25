@@ -72,17 +72,30 @@ void Text::DrawHide(vex::brain::lcd& rScreen, int startX, int startY) {
     rScreen.printAt(startX, startY, false, currentLine.c_str());
 }
 
+// Clip text within node's width and slowly move it to the left
 void Text::DrawScroll(vex::brain::lcd& rScreen, int startX, int startY) {
+    // Clip the left and right sides of the text as it moves
     rScreen.setClipRegion(CalculateX(), 0, CalculateWidth(), 240);
 
+    // Increment the amount that the text has moved
     mScrollProperties.offsetX += mScrollProperties.speed;
+    // Reset offsetX if the text has moved more than one repetition
+    int repetitionWidth = rScreen.getStringWidth(mText.c_str()) + mScrollProperties.spacing;
+    if(mScrollProperties.offsetX > repetitionWidth) mScrollProperties.offsetX -= repetitionWidth;
 
-    if(mScrollProperties.offsetX > (rScreen.getStringWidth(mText.c_str()) + mScrollProperties.spacing)) mScrollProperties.offsetX -= (rScreen.getStringWidth(mText.c_str()) + mScrollProperties.spacing);
+    // Repeat printing text so that the reset of offsetX is seamless
+    for(int repetitionX = 0; repetitionX <= CalculateWidth() + repetitionWidth; repetitionX += repetitionWidth) {
+        rScreen.printAt(startX - mScrollProperties.offsetX + repetitionX, startY, false, mText.c_str());
+    }
 
-    rScreen.printAt(startX - mScrollProperties.offsetX, startY, false, mText.c_str());
-    rScreen.printAt(startX - mScrollProperties.offsetX + rScreen.getStringWidth(mText.c_str()) + mScrollProperties.spacing, startY, false, mText.c_str());
-
+    // Reset clipping so the next nodes can be drawn. TO DO Replace instances of this function with Clip::Push and Pop methods
     rScreen.setClipRegion(0, 0, 480, 240);
+}
+
+// Split text into new lines as it runs outside the node's width
+void Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY) {
+    std::string remainingText = mText;
+    std::string currentLine = "";
 }
 
 void Text::Draw(vex::brain::lcd& rScreen) {
