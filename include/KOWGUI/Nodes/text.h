@@ -103,7 +103,9 @@ namespace KOWGUI {
                 int spacing = 50; // How many pixels should separate repeated sections of text
             } mScrollProperties;
 
-            // TO DO lineSpacing
+            struct {
+                double lineSpacing = 1.4;
+            } mWrapProperties;
 
             void DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY);
             void DrawHide(vex::brain::lcd& rScreen, int startX, int startY);
@@ -132,6 +134,7 @@ namespace KOWGUI {
 
             Text* SetScrollSpeed(int speed);
             Text* SetScrollSpacing(int spacing);
+            Text* SetWrapLineSpacing(double lineSpacing);
 
             void Draw(vex::brain::lcd& rScreen);
     };

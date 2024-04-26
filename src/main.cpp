@@ -52,8 +52,10 @@ int main() {
                         SetText("Hewwo!")->
                         SetFont(KOWGUI::Fonts::proportional)->
                         SetFontSize(20)->
+                        SetColor((new KOWGUI::Color)->SetRGB(0, 150, 255))->
                         SetVerticalAlign(KOWGUI::VerticalAlign::ascender)->
-                        SetColor((new KOWGUI::Color)->SetRGB(0, 150, 255))
+                        SetOverflow(KOWGUI::Overflow::wrap)->
+                        SetWrapLineSpacing(0.6)
                 })
         })
     );

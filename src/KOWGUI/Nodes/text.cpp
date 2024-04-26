@@ -47,6 +47,12 @@ Text* Text::SetScrollSpacing(int spacing) {
     return this;
 }
 
+// Set multiplier for how far lines are spaced in overflow mode of wrap
+Text* Text::SetWrapLineSpacing(double lineSpacing) {
+    mWrapProperties.lineSpacing = lineSpacing;
+    return this;
+}
+
 
 
 // Simply print all text at the position without worrying about it extending outside the node's area
@@ -117,9 +123,8 @@ void Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY) {
     }
 
     // Print each stored line
-    int lineHeight = mFontSize * 1.4;
     for(int i = 0; i < storedLines.size(); i++) {
-        rScreen.printAt(startX, startY + i * lineHeight, false, storedLines[i].c_str());
+        rScreen.printAt(startX, startY + i * mFontSize * mWrapProperties.lineSpacing, false, storedLines[i].c_str());
     }
 }
 
