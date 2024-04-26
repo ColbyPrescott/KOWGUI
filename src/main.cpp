@@ -41,10 +41,9 @@ int main() {
                 SetText("This is some really good text, I hope it doesn't overflow outside of the box!")->
                 SetFontSize(15)->
                 SetVerticalAlign(KOWGUI::VerticalAlign::ascender)->
-                SetOverflow(KOWGUI::Overflow::scroll)->
-                SetScrollSpeed(2),
+                SetOverflow(KOWGUI::Overflow::wrap),
             (new KOWGUI::Draggable)->
-                SetPosition(100, 50)->
+                SetPosition(140, 90)->
                 SetSize(50, 30)->
                 AddChildren({
                     (new KOWGUI::Rectangle)->

@@ -25,7 +25,7 @@ namespace KOWGUI {
         hidden, // Overflowing text just gets cut off
         scroll, // Slowly move the text to the left
         wrap, // New line when width gets filled
-        scale // Decrement font size until text fits within width and height
+        wrapScale // Decrement font size until text fits within width and height
     };
 
     struct font {
@@ -95,13 +95,15 @@ namespace KOWGUI {
             bool mVerticalCentering = false;
 
             Overflow mOverflow = Overflow::wrap;
-            
+
             struct {
                 int offsetX = 0; // Needed to keep track of how far the text is currently scrolled
 
                 int speed = 1; // How fast the text should scroll in pixels per tick
                 int spacing = 50; // How many pixels should separate repeated sections of text
             } mScrollProperties;
+
+            // TO DO lineSpacing
 
             void DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY);
             void DrawHide(vex::brain::lcd& rScreen, int startX, int startY);

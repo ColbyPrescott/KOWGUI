@@ -1,6 +1,7 @@
 #include "KOWGUI/Nodes/text.h"
 
 #include <stdio.h> // DEBUG
+#include <vector>
 
 using namespace KOWGUI;
 
@@ -61,7 +62,7 @@ void Text::DrawHide(vex::brain::lcd& rScreen, int startX, int startY) {
     // Move characters from remainingText to currentLine until adding the next one will no longer fit within mWidth
     while(
         remainingText.size() > 0 && // Ensure there's remaining text left
-        rScreen.getStringWidth((currentLine + remainingText[0]).c_str()) < CalculateWidth() // Ensure adding next character 
+        rScreen.getStringWidth((currentLine + remainingText[0]).c_str()) < CalculateWidth() // Ensure adding next character will fit
     ) {
         // Move first character from remainingText to currentLine
         currentLine.push_back(remainingText[0]);
@@ -95,7 +96,31 @@ void Text::DrawScroll(vex::brain::lcd& rScreen, int startX, int startY) {
 // Split text into new lines as it runs outside the node's width
 void Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY) {
     std::string remainingText = mText;
+    std::vector<std::string> storedLines;
+
+    // Break remainingText into storedLines
     std::string currentLine = "";
+    while(remainingText.size() > 0) { // Ensure there's remaining text left
+        // Move characters from remainingText to currentLine until it will no longer fit in node's width
+        while(
+            remainingText.size() > 0 && // Ensure there's remaining text left
+            rScreen.getStringWidth((currentLine + remainingText[0]).c_str()) < CalculateWidth() // Ensure adding next character will fit
+        ) {
+            // Move first character from remainingText to currentLine
+            currentLine.push_back(remainingText[0]);
+            remainingText.erase(remainingText.begin());
+        }
+
+        // Move filled up currentLine to the storedLines vector
+        storedLines.push_back(currentLine);
+        currentLine.clear();
+    }
+
+    // Print each stored line
+    int lineHeight = mFontSize * 1.4;
+    for(int i = 0; i < storedLines.size(); i++) {
+        rScreen.printAt(startX, startY + i * lineHeight, false, storedLines[i].c_str());
+    }
 }
 
 void Text::Draw(vex::brain::lcd& rScreen) {
@@ -111,6 +136,7 @@ void Text::Draw(vex::brain::lcd& rScreen) {
         case Overflow::visible: DrawOverflow(rScreen, startX, startY); break;
         case Overflow::hidden: DrawHide(rScreen, startX, startY); break;
         case Overflow::scroll: DrawScroll(rScreen, startX, startY); break;
+        case Overflow::wrap: DrawWrap(rScreen, startX, startY); break;
 
         default: DrawOverflow(rScreen, startX, startY); break;
     }
