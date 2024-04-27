@@ -101,7 +101,7 @@ void Text::DrawScroll(vex::brain::lcd& rScreen, int startX, int startY) {
 }
 
 // Split text into new lines as it runs outside the node's width
-void Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY) {
+int Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY, bool returnHeight) {
     std::string remainingText = mText;
     std::vector<std::string> storedLines;
 
@@ -162,7 +162,7 @@ void Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY) {
             }
 
             // If any of the currentWord remains in currentLine, add the hyphen in to signify that the word was broken
-            if(movedCharacters != currentWord.size()) currentLine.push_back('-');
+            if(movedCharacters < currentWord.size()) currentLine.push_back('-');
 
             // currentLine must now be filled from the dynamically cut word so start the next line
             storedLines.push_back(currentLine);
@@ -173,11 +173,36 @@ void Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY) {
     // If currentLine ended in the middle of construction, finish up the process of storing it
     if(currentLine.size() > 0) storedLines.push_back(currentLine);
 
+    // If this function is just being called by DrawWrapScale to get the number of lines calculated, just return 
+    // that number and don't bother drawing anything on screen
+    if(returnHeight) return mFontSize * storedLines.size() * mWrapProperties.lineSpacing;
+
     // This code is separated from the main while loop to make implementing vertical centering easier later
     // Print each stored line
     for(int i = 0; i < storedLines.size(); i++) {
         rScreen.printAt(startX, startY + i * mFontSize * mWrapProperties.lineSpacing, false, storedLines[i].c_str());
     }
+
+    return 0;
+}
+
+// Split text into multiple lines like wrap overflow, but automatically decrease the font size until it stops overflowing vertically too
+void Text::DrawWrapScale(vex::brain::lcd& rScreen, int startX, int startY) {
+    // TO DO Increase / decrease mFontSize in proportion to height difference to reduce wrapScale lag spikes
+    // Gradually reduce mFontSize until height of all text lines fits within node's height
+    while(DrawWrap(rScreen, startX, startY, true) > CalculateHeight() && mFontSize > 5) {
+        mFontSize--;
+        vexDisplayTextSize(mFontSize, mpFont->height);
+    }
+
+    // startX and startY need to be recalculated now that the font size has changed
+    int verticalAlignmentOffset = mpFont->verticalAlignmentHeights[mVerticalAlign] * mFontSize / (float)mpFont->height;
+    // Draw wrapping text with the new font size
+    DrawWrap(rScreen, CalculateX(), CalculateY() - verticalAlignmentOffset);
+
+    // Slightly raise mFontSize so that it can increase if need be, but the high performace cost while loop 
+    // will otherwise not eat too much time in the next draw call
+    mFontSize++;
 }
 
 void Text::Draw(vex::brain::lcd& rScreen) {
@@ -194,8 +219,7 @@ void Text::Draw(vex::brain::lcd& rScreen) {
         case Overflow::hidden: DrawHide(rScreen, startX, startY); break;
         case Overflow::scroll: DrawScroll(rScreen, startX, startY); break;
         case Overflow::wrap: DrawWrap(rScreen, startX, startY); break;
-
-        default: DrawOverflow(rScreen, startX, startY); break;
+        case Overflow::wrapScale: DrawWrapScale(rScreen, startX, startY); break;
     }
 }
 

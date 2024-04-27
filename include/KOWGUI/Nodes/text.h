@@ -110,7 +110,8 @@ namespace KOWGUI {
             void DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY);
             void DrawHide(vex::brain::lcd& rScreen, int startX, int startY);
             void DrawScroll(vex::brain::lcd& rScreen, int startX, int startY);
-            void DrawWrap(vex::brain::lcd& rScreen, int startX, int startY);
+            int DrawWrap(vex::brain::lcd& rScreen, int startX, int startY, bool returnHeight = false);
+            void DrawWrapScale(vex::brain::lcd& rScreen, int startX, int startY);
 
         public:
             Text() {mType = NodeType::text;}

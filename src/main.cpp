@@ -38,11 +38,12 @@ int main() {
                 SetScrollSpacing(0),
             (new KOWGUI::Text)->
                 SetPosition(0, 20)->
-                // SetText("This is some really good text, I hope it doesn't overflow outside of the box! Here is some more example text becauseIReallyWantToSeeSomeExampleTextGetBrokenIntoSeveralMultipleLongLinesThatTotally\nOops mandatory line break\nWon'tThenStartOverflowingTheBottomOfTheNodeOhWell!")->
+                SetHeight(80)->
                 SetText("This is some test text that should break lines on the right edge of the text node, splitOnlyGiantWordsAcrossMultipleLinesAndIndicateSuchWasDoneWithAHyphen, account for      many    spaces and\nnew line characters\n:D")->
-                SetFontSize(15)->
+                SetFontSize(60)->
                 SetVerticalAlign(KOWGUI::VerticalAlign::ascender)->
-                SetOverflow(KOWGUI::Overflow::wrap),
+                SetOverflow(KOWGUI::Overflow::wrapScale)->
+                SetWrapLineSpacing(1.1),
             (new KOWGUI::Draggable)->
                 SetPosition(140, 90)->
                 SetSize(50, 30)->
