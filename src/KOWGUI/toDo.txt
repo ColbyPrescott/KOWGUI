@@ -43,6 +43,11 @@ Features:
 - Disablement
     - SetEnable and SetDisable callback functions?
 - ID system
+- Prefabs
+    - Functions to prebuild useful systems
+    - Every node will have shallowID and... maybe class? For customizability
+    - Keyboard
+    - Graph
 - Animation
     - Currently possible by constantly updating a value manually, but should specific functionality be added?
     - Bezier curve animation?
