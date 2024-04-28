@@ -21,8 +21,8 @@ namespace KOWGUI {
         // Height
         int mHeight = undefinedNumber;
 
-        std::string mId = undefinedString;
-        std::string mShallowId = undefinedString;
+        std::string mID = undefinedString;
+        std::string mShallowID = undefinedString;
 
         bool mDisabled = false;
 
@@ -47,7 +47,7 @@ namespace KOWGUI {
         virtual BaseNode* SetWidth(int width);
         virtual BaseNode* SetHeight(int height);
         virtual BaseNode* SetSize(int width, int height);
-        virtual BaseNode* SetId(std::string id);
+        virtual BaseNode* SetID(std::string iD);
         // TO DO BaseNode* SetShallowId(std::string shallowId);
         virtual BaseNode* SetDisabled(bool disabled);
         // TO DO SetTick

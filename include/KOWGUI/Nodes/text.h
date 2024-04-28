@@ -94,6 +94,7 @@ namespace KOWGUI {
             bool mHorizontalCentering = false;
             bool mVerticalCentering = false;
 
+            // What should happen when text can't fit inside node's area
             Overflow mOverflow = Overflow::wrap;
 
             struct {
@@ -122,7 +123,7 @@ namespace KOWGUI {
             Text* SetWidth(int width) {BaseNode::SetWidth(width); return this;}
             Text* SetHeight(int height) {BaseNode::SetHeight(height); return this;}
             Text* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
-            Text* SetId(std::string id) {BaseNode::SetId(id); return this;}
+            Text* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Text* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
             Text* AddChildren(std::vector<void*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
@@ -139,8 +140,6 @@ namespace KOWGUI {
 
             void Draw(vex::brain::lcd& rScreen);
     };
-
-    void DrawDebugTextScreen(vex::brain::lcd& rScreen);
 
 }
 

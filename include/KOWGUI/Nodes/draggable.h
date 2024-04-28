@@ -29,7 +29,7 @@ namespace KOWGUI {
             Draggable* SetWidth(int width) {BaseNode::SetWidth(width); return this;}
             Draggable* SetHeight(int height) {BaseNode::SetHeight(height); return this;}
             Draggable* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
-            Draggable* SetId(std::string id) {BaseNode::SetId(id); return this;}
+            Draggable* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Draggable* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
             Draggable* AddChildren(std::vector<void*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 

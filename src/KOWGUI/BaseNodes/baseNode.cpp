@@ -10,7 +10,7 @@
 using namespace KOWGUI;
 
 // Recurse up tree until pointer to a GUI object is found. Every node should store
-// this so something like the focused node can be 
+// this so something like the focused node can easily access input information
 GUI* BaseNode::GetContainingGUI() {
     if(mpContainingGUI != nullptr) return mpContainingGUI;
     if(parent == nullptr) return nullptr;
@@ -56,8 +56,8 @@ BaseNode* BaseNode::SetSize(int width, int height) {
     return this;
 }
 
-BaseNode* BaseNode::SetId(std::string id) {
-    mId = id;
+BaseNode* BaseNode::SetID(std::string iD) {
+    mID = iD;
     return this;
 }
 
@@ -166,10 +166,9 @@ int BaseNode::CalculateHeight() {
     return currentNode->GetHeight();
 }
 
-// TO DO Function and variable capitalization is different
 // Get internal ID
 std::string BaseNode::GetID() {
-    return mId;
+    return mID;
 }
 
 // Get internal disabled state

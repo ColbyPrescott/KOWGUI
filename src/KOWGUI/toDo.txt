@@ -17,11 +17,6 @@ Node types:
 - Deactivated
 - Circle
 - Line
-- Text
-    - Support for vex::fontType
-    - Maybe add in other fonts too? Could maybe make rotated text possible
-    - Support for custom .ttf files??? Judging by Sebastian Lague's video, no.
-    - Make it possible to animate each character individually? Like a fun wave effect for example
 - Image
     - Must create or take image buffer for faster drawing
 - Polygon
@@ -72,7 +67,6 @@ Refactoring and other code stuff:
 - Move all cpp files into the headers so a user will only need to copy the include folder
 - Potentially completely purge BaseNode::mType from being needed?
 - Could callback functions also have a version that get a pointer to its own node? That way not EVERYTHING needs an ID to be accessible
-- Capitalization, especially of ID, is inconsistent
 - Use of 'p' before pointer names in inconsistent
 - Finish adding list of default color names
 - Should positions be represented by floats and rounded in the screen functions? Increasing a node's 
