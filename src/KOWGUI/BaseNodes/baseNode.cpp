@@ -7,16 +7,33 @@
 #include "KOWGUI/Nodes/rectangle.h"
 #include "KOWGUI/Nodes/text.h"
 
+#include "KOWGUI/gui.h"
+
 using namespace KOWGUI;
 
-// Recurse up tree until pointer to a GUI object is found. Every node should store
-// this so something like the focused node can easily access input information
-GUI* BaseNode::GetContainingGUI() {
-    if(mpContainingGUI != nullptr) return mpContainingGUI;
-    if(parent == nullptr) return nullptr;
-    mpContainingGUI = ((BaseNode*)parent)->GetContainingGUI();
-    return mpContainingGUI;
+// Hook up connections between a new child node, its parent, and the GUI object
+void BaseNode::LinkChild(BaseNode* child) {
+    // Link pointers between child and parent
+    ((BaseNode*)child)->parent = this;
+    children.push_back(child);
+
+    // If this node has containing GUI, pass it to children recursivley
+    if(mpContainingGUI != nullptr) {
+        std::vector<BaseNode*> remainingNodes = {child};
+        while(remainingNodes.size() > 0) {
+            // Push children nodes of current node into remainingNodes
+            for(int i = 0; i < remainingNodes[0]->children.size(); i++) remainingNodes.push_back((BaseNode*)remainingNodes[0]->children[i]);
+            // Set containingGUI on current node
+            remainingNodes[0]->mpContainingGUI = mpContainingGUI;
+            // Inform GUI object about the new node, setting up its ID
+            if(remainingNodes[0]->mID != "") mpContainingGUI->AddIDMap(remainingNodes[0]);
+            // Finished with current node, remove it from remainingNodes
+            remainingNodes.erase(remainingNodes.begin()); 
+        }
+    }
 }
+
+
 
 // Set the X coordinate
 BaseNode* BaseNode::SetX(int x) {
@@ -56,6 +73,7 @@ BaseNode* BaseNode::SetSize(int width, int height) {
     return this;
 }
 
+// Set the name / identifier for this node so it can be referenced later more easily
 BaseNode* BaseNode::SetID(std::string iD) {
     mID = iD;
     return this;

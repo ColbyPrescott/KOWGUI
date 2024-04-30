@@ -1,5 +1,6 @@
 #include "KOWGUI/gui.h"
 
+#include <iostream>
 #include <vector>
 
 using namespace KOWGUI;
@@ -9,6 +10,30 @@ GUI::GUI(vex::brain& vexBrain) {
 
     root->SetSize(480, 240);
     root->mpContainingGUI = this;
+}
+
+
+
+void GUI::AddIDMap(BaseNode* node) {
+    // If ID name is already in map, throw a warning
+    if(mpIDs.find(node->mID) != mpIDs.end()) {
+        std::cerr << "KOWGUI: Could not set node to ID " << node->mID << " because another node already uses it. Consider ShallowID instead" << std::endl;
+        vex::this_thread::sleep_for(5);
+        return;
+    }
+    // Add ID to the map
+    mpIDs[node->mID] = node;
+}
+
+
+
+BaseNode* GUI::FindID(std::string iD) {
+    // If ID can be found in the map, return the node that the name is paired with
+    if(mpIDs.find(iD) != mpIDs.end()) return mpIDs[iD];
+    // Otherwise, throw warning
+    std::cerr << "KOWGUI: Could not find ID " << iD << std::endl;
+    vex::this_thread::sleep_for(5);
+    return nullptr;
 }
 
 // TO DO Split this function into separate functions. The x3 empty line aren't helping much

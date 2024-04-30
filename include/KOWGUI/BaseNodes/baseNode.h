@@ -28,7 +28,7 @@ namespace KOWGUI {
 
         GUI* mpContainingGUI = nullptr;
 
-        GUI* GetContainingGUI();
+        void LinkChild(BaseNode* child);
     
     public:
         // Value is set in constructors of derived classes so a void* can be interpreted as BaseNode,
@@ -56,8 +56,8 @@ namespace KOWGUI {
 
         template <typename T>
         T* AddChild(T* newChild) {
-            ((BaseNode*)newChild)->parent = this;
-            children.push_back(newChild);
+            LinkChild(newChild);
+
             return newChild;
         }
 

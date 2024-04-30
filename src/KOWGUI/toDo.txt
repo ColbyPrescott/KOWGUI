@@ -38,6 +38,13 @@ Features:
 - Disablement
     - SetEnable and SetDisable callback functions?
 - ID system
+  - Single use IDs
+  - Shallow IDs that support reusing names but search time is proportional to depth
+  - Classes maybe? Add a function to return a list of all elements with a specific class added?
+- Removing nodes
+  - Delete keyword
+  - Recursively call delete on children
+  - Remove ID
 - Prefabs
     - Functions to prebuild useful systems
     - Every node will have shallowID and... maybe class? For customizability

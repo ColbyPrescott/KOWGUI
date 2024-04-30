@@ -16,5 +16,5 @@ bool Focused::GetFeedbackState() {
     }
 
     // Return whether or not the interactable node is currently selected and focused
-    return (GetContainingGUI()->mpSelectedNode == (InteractableBaseNode*)currentNode && GetContainingGUI()->mPrevTickFocusedNode) ^ mReversed;
+    return (mpContainingGUI->mpSelectedNode == (InteractableBaseNode*)currentNode && mpContainingGUI->mPrevTickFocusedNode) ^ mReversed;
 }

@@ -20,6 +20,7 @@ int main() {
     srand(Brain.Timer.systemHighResolution());
 
     KOWGUI::Rectangle* rect = gui.root->AddChild((new KOWGUI::Rectangle)->
+        SetID("greenRectangle")->
         SetPosition(50, 50)->
         SetSize(200, 100)->
         SetFillColor((new KOWGUI::Color)->SetRGB(50, 200, 50))->
@@ -65,10 +66,10 @@ int main() {
     gui.root->AddChild((new KOWGUI::Clickable)->
         SetPosition(350, 100)->
         SetSize(75, 75)->
-        SetPress([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(0);})->
-        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(100);})->
-        SetFocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(0);})->
-        SetUnfocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(140);})->
+        SetPress([](){gui.FindID("greenRectangle")->SetX(0);})->
+        SetRelease([](){gui.FindID("greenRectangle")->SetX(100);})->
+        SetFocus([](){gui.FindID("greenRectangle")->SetY(0);})->
+        SetUnfocus([](){gui.FindID("greenRectangle")->SetY(140);})->
         AddChildren({
             (new KOWGUI::Focused)->SetReversed(true)->AddChildren({
                 (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(150, 150, 150))
@@ -95,10 +96,10 @@ int main() {
         SetPosition(350, 20)->
         SetSize(75, 75)->
         SetRange(200, 0, 350, 175)->
-        SetPress([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(0);})->
-        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetX(100);})->
-        SetFocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(0);})->
-        SetUnfocus([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetY(140);})->
+        SetPress([](){gui.FindID("greenRectangle")->SetX(0);})->
+        SetRelease([](){gui.FindID("greenRectangle")->SetX(100);})->
+        SetFocus([](){gui.FindID("greenRectangle")->SetY(0);})->
+        SetUnfocus([](){gui.FindID("greenRectangle")->SetY(140);})->
         AddChildren({
             (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(255, 50, 150))
         })
@@ -107,7 +108,7 @@ int main() {
     gui.root->AddChild((new KOWGUI::Clickable)->
         SetPosition(450, 0)->
         SetSize(30, 30)->
-        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetDisabled(!((KOWGUI::Rectangle*)gui.root->children[0])->GetDisabled());})->
+        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetDisabled(!gui.FindID("greenRectangle")->GetDisabled());})->
         AddChildren({
             (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(255, 255, 255))
         })
@@ -117,7 +118,6 @@ int main() {
         
         gui.Tick();
 
-        // rect->SetY((sin(Brain.Timer.system() / 1000.0) / 2.0 + 0.5) * 140);
         // Allow other tasks to run
         this_thread::sleep_for(20);
     }
