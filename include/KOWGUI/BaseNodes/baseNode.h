@@ -52,8 +52,9 @@ namespace KOWGUI {
         virtual BaseNode* SetDisabled(bool disabled);
         // TO DO SetTick
 
-        virtual BaseNode* AddChildren(std::vector<void*> newChildren);
+        virtual BaseNode* AddChildren(std::vector<BaseNode*> newChildren);
 
+        // Add one node under this node, returning the new node
         template <typename T>
         T* AddChild(T* newChild) {
             LinkChild(newChild);

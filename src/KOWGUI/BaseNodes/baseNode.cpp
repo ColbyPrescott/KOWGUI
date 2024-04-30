@@ -85,30 +85,10 @@ BaseNode* BaseNode::SetDisabled(bool disabled) {
     return this;
 }
 
-// TO DO This function has a chance of being refactored. None of the AddChild functions use their returned value
-// TO DO so a function taking void* and returning void could be created
-BaseNode* BaseNode::AddChildren(std::vector<void*> newChildren) {
+// Add a vector of new nodes under this node, returning this node
+BaseNode* BaseNode::AddChildren(std::vector<BaseNode*> newChildren) {
     for(int i = 0; i < newChildren.size(); i++) {
-        switch(((BaseNode*)newChildren[i])->mType) {
-            case NodeType::group:
-                AddChild((Group*)newChildren[i]);
-                break;
-            case NodeType::clickable:
-                AddChild((Clickable*)newChildren[i]);
-                break;
-            case NodeType::draggable:
-                AddChild((Clickable*)newChildren[i]);
-                break;
-            case NodeType::focused:
-                AddChild((Focused*)newChildren[i]);
-                break;
-            case NodeType::rectangle:
-                AddChild((Rectangle*)newChildren[i]);
-                break;
-            case NodeType::text:
-                AddChild((Text*)newChildren[i]);
-                break;
-        }
+        LinkChild(newChildren[i]);
     }
 
     return this;

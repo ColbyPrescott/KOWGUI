@@ -125,7 +125,7 @@ namespace KOWGUI {
             Text* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Text* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Text* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
-            Text* AddChildren(std::vector<void*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
+            Text* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Text* SetText(std::string text); // TO DO Add second version of this function with the SetText(const char* format, ...) thing
             Text* SetFont(font& fontName); // TO DO Should this take a pointer instead of a reference to match everything else?

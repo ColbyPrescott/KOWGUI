@@ -18,7 +18,7 @@ namespace KOWGUI {
             Clickable* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Clickable* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Clickable* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
-            Clickable* AddChildren(std::vector<void*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
+            Clickable* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Clickable* SetPress(void (*callback)()) {InteractableBaseNode::SetPress(callback); return this;}
             Clickable* SetRelease(void (*callback)()) {InteractableBaseNode::SetRelease(callback); return this;}
