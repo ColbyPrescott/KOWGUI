@@ -104,7 +104,7 @@ int main() {
         AddChildren({
             (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(255, 50, 150)),
             (new KOWGUI::Text)->
-                SetID("testRangeText")->
+                SetShallowID("text")->
                 SetFont(KOWGUI::Fonts::monospace)->
                 SetFontSize(15)->
                 SetVerticalAlign(KOWGUI::VerticalAlign::top)
@@ -122,7 +122,8 @@ int main() {
 
     while(1) {
 
-        ((KOWGUI::Text*)gui.FindID("testRangeText"))->SetText("X: %d\nY: %d", gui.FindID("testRangeText")->CalculateX(), gui.FindID("testRangeText")->CalculateY());
+        KOWGUI::Text* rangeTextNode = (KOWGUI::Text*)gui.FindID("testRange")->FindShallowID("text");
+        rangeTextNode->SetText("X: %d\nY: %d", rangeTextNode->CalculateX(), rangeTextNode->CalculateY());
         
         gui.Tick();
 

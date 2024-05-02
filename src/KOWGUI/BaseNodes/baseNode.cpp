@@ -9,6 +9,8 @@
 
 #include "KOWGUI/gui.h"
 
+#include <iostream>
+
 using namespace KOWGUI;
 
 // Hook up connections between a new child node, its parent, and the GUI object
@@ -73,9 +75,16 @@ BaseNode* BaseNode::SetSize(int width, int height) {
     return this;
 }
 
-// Set the name / identifier for this node so it can be referenced later more easily
+// Set identifier for this node so it can be referenced later more easily
 BaseNode* BaseNode::SetID(std::string iD) {
+    // TO DO Remove previous ID
     mID = iD;
+    return this;
+}
+
+// Set the multi-use identifier. Must be accessed from calling FindShallowID on a parent node
+BaseNode* BaseNode::SetShallowID(std::string shallowID) {
+    mShallowID = shallowID;
     return this;
 }
 
@@ -169,7 +178,33 @@ std::string BaseNode::GetID() {
     return mID;
 }
 
+// Get internal shallow ID
+std::string BaseNode::GetShallowID() {
+    return mShallowID;
+}
+
 // Get internal disabled state
 bool BaseNode::GetDisabled() {
     return mDisabled;
+}
+
+
+
+BaseNode* BaseNode::FindShallowID(std::string shallowID) {
+    std::vector<BaseNode*> remainingNodes = {this};
+
+    while(remainingNodes.size() > 0) {
+        // Return node if the shallow ID was found
+        if(remainingNodes[0]->mShallowID == shallowID) return remainingNodes[0];
+
+        // Add child nodes to back of search. Deepest children will be explored last
+        for(int i = 0; i < remainingNodes[0]->children.size(); i++) remainingNodes.push_back((BaseNode*)remainingNodes[0]->children[i]);
+        // This node has been explored
+        remainingNodes.erase(remainingNodes.begin());
+    }
+
+    // Shallow ID was not found
+    std::cerr << "KOWGUI: Could not find shallow ID " << shallowID << std::endl;
+    vex::this_thread::sleep_for(5);
+    return nullptr;
 }

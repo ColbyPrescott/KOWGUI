@@ -35,7 +35,7 @@ namespace KOWGUI {
         // have its type read, then get casted to the correct class
         NodeType mType;
 
-        // TO DO Should these be of type BaseNode?
+        // TO DO Should these be of type BaseNode? CONCLUSION Yes! Fix it at some point
         void* parent = nullptr;
         std::vector<void*> children;
         // TO DO Should these three variables be public or accessed with friendship?
@@ -48,7 +48,7 @@ namespace KOWGUI {
         virtual BaseNode* SetHeight(int height);
         virtual BaseNode* SetSize(int width, int height);
         virtual BaseNode* SetID(std::string iD);
-        // TO DO BaseNode* SetShallowId(std::string shallowId);
+        virtual BaseNode* SetShallowID(std::string shallowID);
         virtual BaseNode* SetDisabled(bool disabled);
         // TO DO SetTick
 
@@ -71,10 +71,10 @@ namespace KOWGUI {
         int GetHeight();
         int CalculateHeight();
         std::string GetID();
-        // std::string GetShallowId();
+        std::string GetShallowID();
         bool GetDisabled();
 
-        // void* FindShallowId(std::string shallowId);
+        BaseNode* FindShallowID(std::string shallowID);
 
         friend class GUI;
 

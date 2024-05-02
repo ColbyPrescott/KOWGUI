@@ -16,6 +16,7 @@ namespace KOWGUI {
             Focused* SetHeight(int height) {BaseNode::SetHeight(height); return this;}
             Focused* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Focused* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
+            Focused* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
             Focused* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
             Focused* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
