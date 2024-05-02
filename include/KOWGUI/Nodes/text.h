@@ -127,7 +127,19 @@ namespace KOWGUI {
             Text* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
             Text* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
-            Text* SetText(std::string text); // TO DO Add second version of this function with the SetText(const char* format, ...) thing
+            Text* SetText(std::string text);
+            template <typename... Args>
+            Text* SetText(std::string format, Args... args) {
+                // Get exact length of expected text after formatting, including the terminator character 
+                int length = snprintf(nullptr, 0, format.c_str(), args...) + 1;
+                // Create the buffer that will store the formatted text
+                char buffer[length];
+                // Put the formatted text into the buffer
+                snprintf(buffer, length, format.c_str(), args...) + 1;
+                // Set internal text to the buffer. The terminator character is not needed in std::string
+                mText = std::string(buffer, length - 1);
+                return this;
+            }
             Text* SetFont(font& fontName); // TO DO Should this take a pointer instead of a reference to match everything else?
             Text* SetFontSize(int fontSize);
             Text* SetColor(Color* color);

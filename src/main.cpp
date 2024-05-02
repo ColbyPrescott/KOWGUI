@@ -93,6 +93,7 @@ int main() {
     );
 
     gui.root->AddChild((new KOWGUI::Draggable)->
+        SetID("testRange")->
         SetPosition(350, 20)->
         SetSize(75, 75)->
         SetRange(200, 0, 350, 175)->
@@ -101,7 +102,12 @@ int main() {
         SetFocus([](){gui.FindID("greenRectangle")->SetY(0);})->
         SetUnfocus([](){gui.FindID("greenRectangle")->SetY(140);})->
         AddChildren({
-            (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(255, 50, 150))
+            (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(255, 50, 150)),
+            (new KOWGUI::Text)->
+                SetID("testRangeText")->
+                SetFont(KOWGUI::Fonts::monospace)->
+                SetFontSize(15)->
+                SetVerticalAlign(KOWGUI::VerticalAlign::top)
         })
     );
 
@@ -115,6 +121,8 @@ int main() {
     );
 
     while(1) {
+
+        ((KOWGUI::Text*)gui.FindID("testRangeText"))->SetText("X: %d\nY: %d", gui.FindID("testRangeText")->CalculateX(), gui.FindID("testRangeText")->CalculateY());
         
         gui.Tick();
 
