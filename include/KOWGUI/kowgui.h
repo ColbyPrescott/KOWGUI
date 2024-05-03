@@ -12,6 +12,7 @@
 
 #include "KOWGUI/Nodes/Basic/group.h"
 #include "KOWGUI/Nodes/Visible/rectangle.h"
+#include "KOWGUI/Nodes/Visible/circle.h"
 #include "KOWGUI/Nodes/Visible/text.h"
 #include "KOWGUI/Nodes/Interactable/clickable.h"
 #include "KOWGUI/Nodes/Interactable/draggable.h"

@@ -114,9 +114,14 @@ int main() {
     gui.root->AddChild((new KOWGUI::Clickable)->
         SetPosition(450, 0)->
         SetSize(30, 30)->
-        SetRelease([](){((KOWGUI::Rectangle*)gui.root->children[0])->SetDisabled(!gui.FindID("greenRectangle")->GetDisabled());})->
+        SetRelease([](){gui.FindID("greenRectangle")->SetDisabled(!gui.FindID("greenRectangle")->GetDisabled());})->
         AddChildren({
-            (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(255, 255, 255))
+            (new KOWGUI::Circle)->
+                SetPosition(2, 2)->
+                SetRadius(13)->
+                SetFillColor((new KOWGUI::Color)->SetRGB(255, 255, 255))->
+                SetOutlineColor((new KOWGUI::Color)->SetRGB(0, 200, 200))->
+                SetOutlineWidth(4)
         })
     );
 

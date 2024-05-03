@@ -6,7 +6,7 @@ All nodes
         Type* SetWidth(int width) {BaseNode::SetWidth(width); return this;}
         Type* SetHeight(int height) {BaseNode::SetHeight(height); return this;}
         Type* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
-        Type* SetId(std::string id) {BaseNode::SetId(id); return this;}
+        Type* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
         Type* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
         Type* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
         Type* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}

@@ -43,6 +43,8 @@ Features:
   - Delete keyword
   - Recursively call delete on children
   - Remove ID
+- Interactable
+  - Recheck select, manual select
 - Prefabs
     - Functions to prebuild useful systems
     - Every node will have shallowID and... maybe class? For customizability

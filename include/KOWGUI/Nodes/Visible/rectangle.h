@@ -5,9 +5,6 @@
 
 #include "KOWGUI/General/color.h"
 
-#include "v5.h"
-#include "v5_vcs.h"
-
 #include <memory>
 
 namespace KOWGUI {
