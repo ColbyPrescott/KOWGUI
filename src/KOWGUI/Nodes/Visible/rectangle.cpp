@@ -1,4 +1,4 @@
-#include "KOWGUI/Nodes/rectangle.h"
+#include "KOWGUI/Nodes/Visible/rectangle.h"
 
 using namespace KOWGUI;
 

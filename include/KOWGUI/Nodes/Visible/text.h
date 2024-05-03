@@ -2,7 +2,8 @@
 #define KOWGUI_TEXT_NODE_H
 
 #include "KOWGUI/BaseNodes/visibleBaseNode.h"
-#include "KOWGUI/color.h"
+
+#include "KOWGUI/General/color.h"
 
 #include <string>
 #include <memory>

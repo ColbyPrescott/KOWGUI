@@ -1,7 +1,7 @@
 #ifndef KOWGUI_BASE_NODE_H
 #define KOWGUI_BASE_NODE_H
 
-#include "KOWGUI/globalSystems.h"
+#include "KOWGUI/General/globalSystems.h"
 
 #include <string>
 #include <vector>

@@ -1,4 +1,9 @@
-#include "KOWGUI/gui.h"
+#include "KOWGUI/General/gui.h"
+
+#include "KOWGUI/BaseNodes/baseNode.h"
+#include "KOWGUI/BaseNodes/visibleBaseNode.h"
+#include "KOWGUI/BaseNodes/interactableBaseNode.h"
+#include "KOWGUI/BaseNodes/feedbackBaseNode.h"
 
 #include <iostream>
 #include <vector>

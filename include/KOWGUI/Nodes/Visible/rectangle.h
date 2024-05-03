@@ -2,7 +2,8 @@
 #define KOWGUI_RECTANGLE_NODE_H
 
 #include "KOWGUI/BaseNodes/visibleBaseNode.h"
-#include "KOWGUI/color.h"
+
+#include "KOWGUI/General/color.h"
 
 #include "v5.h"
 #include "v5_vcs.h"

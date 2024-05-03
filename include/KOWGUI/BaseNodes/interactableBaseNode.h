@@ -5,8 +5,6 @@
 
 namespace KOWGUI {
 
-    class GUI;
-
     class InteractableBaseNode : public BaseNode {
         protected:
             // Called when input starts on node area

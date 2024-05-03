@@ -1,7 +1,7 @@
-#include "KOWGUI/Nodes/focused.h"
+#include "KOWGUI/Nodes/Feedback/focused.h"
 
 #include "KOWGUI/BaseNodes/interactableBaseNode.h"
-#include "KOWGUI/gui.h"
+#include "KOWGUI/General/gui.h"
 
 using namespace KOWGUI;
 

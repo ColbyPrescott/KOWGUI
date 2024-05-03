@@ -1,4 +1,6 @@
-#include "KOWGUI/Nodes/text.h"
+#include "KOWGUI/Nodes/Visible/text.h"
+
+#include "KOWGUI/General/color.h"
 
 #include <vector>
 #include <stdio.h>

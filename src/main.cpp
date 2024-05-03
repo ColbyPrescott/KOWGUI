@@ -8,7 +8,7 @@
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
 
-#include "KOWGUI/gui.h"
+#include "KOWGUI/kowgui.h"
 
 using namespace vex;
 

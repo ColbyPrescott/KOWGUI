@@ -1,20 +1,7 @@
 #ifndef KOWGUI_GUI_H
 #define KOWGUI_GUI_H
 
-#include "KOWGUI/globalSystems.h"
-
-#include "KOWGUI/color.h"
-
-#include "KOWGUI/BaseNodes/baseNode.h"
-#include "KOWGUI/BaseNodes/interactableBaseNode.h"
-#include "KOWGUI/BaseNodes/visibleBaseNode.h"
-
-#include "KOWGUI/Nodes/group.h"
-#include "KOWGUI/Nodes/clickable.h"
-#include "KOWGUI/Nodes/draggable.h"
-#include "KOWGUI/Nodes/focused.h"
-#include "KOWGUI/Nodes/rectangle.h"
-#include "KOWGUI/Nodes/text.h"
+#include "KOWGUI/Nodes/Basic/group.h"
 
 #include "v5.h"
 #include "v5_vcs.h"
@@ -23,6 +10,9 @@
 #include <map>
 
 namespace KOWGUI {
+
+    class BaseNode;
+    class InteractableBaseNode;
 
     class GUI {
         private:

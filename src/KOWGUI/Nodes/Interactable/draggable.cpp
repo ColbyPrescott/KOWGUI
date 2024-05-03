@@ -1,4 +1,4 @@
-#include "KOWGUI/Nodes/draggable.h"
+#include "KOWGUI/Nodes/Interactable/draggable.h"
 
 using namespace KOWGUI;
 

@@ -1,13 +1,6 @@
 #include "KOWGUI/BaseNodes/baseNode.h"
 
-#include "KOWGUI/Nodes/group.h"
-#include "KOWGUI/Nodes/clickable.h"
-#include "KOWGUI/Nodes/draggable.h"
-#include "KOWGUI/Nodes/focused.h"
-#include "KOWGUI/Nodes/rectangle.h"
-#include "KOWGUI/Nodes/text.h"
-
-#include "KOWGUI/gui.h"
+#include "KOWGUI/General/gui.h"
 
 #include <iostream>
 

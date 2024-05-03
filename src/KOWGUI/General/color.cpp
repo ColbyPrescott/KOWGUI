@@ -1,4 +1,4 @@
-#include "KOWGUI/color.h"
+#include "KOWGUI/General/color.h"
 
 using namespace KOWGUI;
 
