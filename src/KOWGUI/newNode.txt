@@ -1,7 +1,5 @@
 All nodes
     Add this to top of public access
-        Type() {mType = NodeType::type;}
-
         Type* SetX(int x) {BaseNode::SetX(x); return this;}
         Type* SetY(int y) {BaseNode::SetY(y); return this;}
         Type* SetPosition(int x, int y) {BaseNode::SetPosition(x, y); return this;}
@@ -12,7 +10,6 @@ All nodes
         Type* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
         Type* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
         Type* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
-    Create the new NodeType enum in include/KOWGUI/General/globalSystems.h
     Add include to include/KOWGUI/kowgui.h
 
 

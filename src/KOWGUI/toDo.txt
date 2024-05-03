@@ -70,7 +70,7 @@ Features:
 Refactoring and other code stuff:
 - Some comments have the text "TO DO" so they can be found with grep
 - Move all cpp files into the headers so a user will only need to copy the include folder
-- Potentially completely purge BaseNode::mType from being needed?
+    - On second look at PROS, it seems like precompiled binaries could be a viable option
 - Could callback functions also have a version that get a pointer to its own node? That way not EVERYTHING needs an ID to be accessible
 - Use of 'p' before pointer names in inconsistent
 - Finish adding list of default color names

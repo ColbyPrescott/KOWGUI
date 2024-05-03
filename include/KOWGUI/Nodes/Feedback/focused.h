@@ -7,8 +7,6 @@ namespace KOWGUI {
 
     class Focused : public FeedbackBaseNode {
         public:
-            Focused() {mType = NodeType::focused;}
-
             Focused* SetX(int x) {BaseNode::SetX(x); return this;}
             Focused* SetY(int y) {BaseNode::SetY(y); return this;}
             Focused* SetPosition(int x, int y) {BaseNode::SetPosition(x, y); return this;}

@@ -116,8 +116,6 @@ namespace KOWGUI {
             void DrawWrapScale(vex::brain::lcd& rScreen, int startX, int startY);
 
         public:
-            Text() {mType = NodeType::text;}
-
             Text* SetX(int x) {BaseNode::SetX(x); return this;}
             Text* SetY(int y) {BaseNode::SetY(y); return this;}
             Text* SetPosition(int x, int y) {BaseNode::SetPosition(x, y); return this;}

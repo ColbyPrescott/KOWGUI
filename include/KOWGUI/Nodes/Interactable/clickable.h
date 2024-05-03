@@ -7,8 +7,6 @@ namespace KOWGUI {
 
     class Clickable : public InteractableBaseNode {
         public:
-            Clickable() {mType = NodeType::clickable;}
-
             // TO DO Okay these bulky virtual functions are getting a tad bit out of hand... Surely there's SOME way to fix this, right?
             Clickable* SetX(int x) {BaseNode::SetX(x); return this;}
             Clickable* SetY(int y) {BaseNode::SetY(y); return this;}

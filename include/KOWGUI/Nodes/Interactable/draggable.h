@@ -21,8 +21,6 @@ namespace KOWGUI {
             void TickDrag(int x, int y);
 
         public:
-            Draggable() {mType = NodeType::draggable;}
-
             Draggable* SetX(int x) {BaseNode::SetX(x); return this;}
             Draggable* SetY(int y) {BaseNode::SetY(y); return this;}
             Draggable* SetPosition(int x, int y) {BaseNode::SetPosition(x, y); return this;}

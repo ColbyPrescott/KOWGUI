@@ -7,8 +7,6 @@ namespace KOWGUI {
 
     class Group : public BaseNode {
         public:
-            Group() {mType = NodeType::group;}
-
             Group* SetX(int x) {BaseNode::SetX(x); return this;}
             Group* SetY(int y) {BaseNode::SetY(y); return this;}
             Group* SetPosition(int x, int y) {BaseNode::SetPosition(x, y); return this;}

@@ -19,8 +19,6 @@ namespace KOWGUI {
             int mOutlineWidth = 1;
 
         public:
-            Rectangle() {mType = NodeType::rectangle;}
-
             Rectangle* SetX(int x) {BaseNode::SetX(x); return this;}
             Rectangle* SetY(int y) {BaseNode::SetY(y); return this;}
             Rectangle* SetPosition(int x, int y) {BaseNode::SetPosition(x, y); return this;}

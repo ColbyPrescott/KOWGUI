@@ -31,10 +31,6 @@ namespace KOWGUI {
         void LinkChild(BaseNode* child);
     
     public:
-        // Value is set in constructors of derived classes so a void* can be interpreted as BaseNode,
-        // have its type read, then get casted to the correct class. TO DO NodeType may be useless after full adoption of polymorphism
-        NodeType mType;
-
         BaseNode* parent = nullptr;
         std::vector<BaseNode*> children;
         // TO DO Should these three variables be public or accessed with friendship?
