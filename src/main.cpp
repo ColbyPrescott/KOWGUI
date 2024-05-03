@@ -106,7 +106,7 @@ int main() {
             (new KOWGUI::Text)->
                 SetShallowID("text")->
                 SetFont(KOWGUI::Fonts::monospace)->
-                SetFontSize(15)->
+                SetFontSize(13)->
                 SetVerticalAlign(KOWGUI::VerticalAlign::top)
         })
     );
@@ -127,8 +127,9 @@ int main() {
 
     while(1) {
 
+        KOWGUI::Draggable* rangeNode = (KOWGUI::Draggable*)gui.FindID("testRange");
         KOWGUI::Text* rangeTextNode = (KOWGUI::Text*)gui.FindID("testRange")->FindShallowID("text");
-        rangeTextNode->SetText("X: %d\nY: %d", rangeTextNode->CalculateX(), rangeTextNode->CalculateY());
+        rangeTextNode->SetText("X: %d\nY: %d\n%d%%%%\n%d%%%%", rangeNode->CalculateX(), rangeNode->CalculateY(), (int)(rangeNode->GetPercentX() * 100), (int)(rangeNode->GetPercentY() * 100));
         
         gui.Tick();
 

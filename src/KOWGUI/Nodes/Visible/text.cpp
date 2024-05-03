@@ -3,7 +3,6 @@
 #include "KOWGUI/General/color.h"
 
 #include <vector>
-#include <stdio.h>
 
 using namespace KOWGUI;
 

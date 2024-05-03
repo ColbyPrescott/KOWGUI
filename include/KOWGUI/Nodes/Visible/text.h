@@ -135,7 +135,7 @@ namespace KOWGUI {
                 // Create the buffer that will store the formatted text
                 char buffer[length];
                 // Put the formatted text into the buffer
-                snprintf(buffer, length, format.c_str(), args...) + 1;
+                snprintf(buffer, length, format.c_str(), args...);
                 // Set internal text to the buffer. The terminator character is not needed in std::string
                 mText = std::string(buffer, length - 1);
                 return this;

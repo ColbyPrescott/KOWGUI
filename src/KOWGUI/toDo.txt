@@ -79,6 +79,7 @@ Refactoring and other code stuff:
 - Should positions be represented by floats and rounded in the screen functions? Increasing a node's 
   position at a constant rate could have much more precision a lot easier
 - Usage of clipping region will need to have a system like JS canvas transform save restore
+- If you want to display a percent, you need to type four out due to the filtering of snprintf and lcd::print 
 
 
 
