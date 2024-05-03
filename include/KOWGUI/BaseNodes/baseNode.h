@@ -32,12 +32,11 @@ namespace KOWGUI {
     
     public:
         // Value is set in constructors of derived classes so a void* can be interpreted as BaseNode,
-        // have its type read, then get casted to the correct class
+        // have its type read, then get casted to the correct class. TO DO NodeType may be useless after full adoption of polymorphism
         NodeType mType;
 
-        // TO DO Should these be of type BaseNode? CONCLUSION Yes! Fix it at some point
-        void* parent = nullptr;
-        std::vector<void*> children;
+        BaseNode* parent = nullptr;
+        std::vector<BaseNode*> children;
         // TO DO Should these three variables be public or accessed with friendship?
 
         // All of these BaseNode* returning functions need to be redefined in the derived classes

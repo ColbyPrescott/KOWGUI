@@ -12,7 +12,7 @@ bool Focused::GetFeedbackState() {
     while(dynamic_cast<InteractableBaseNode*>(currentNode) == nullptr) {
         // Return default if top of tree was reached
         if(currentNode->parent == nullptr) return FeedbackBaseNode::GetFeedbackState();
-        currentNode = (BaseNode*)currentNode->parent; 
+        currentNode = currentNode->parent; 
     }
 
     // Return whether or not the interactable node is currently selected and focused

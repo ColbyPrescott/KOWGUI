@@ -16,7 +16,7 @@ using namespace KOWGUI;
 // Hook up connections between a new child node, its parent, and the GUI object
 void BaseNode::LinkChild(BaseNode* child) {
     // Link pointers between child and parent
-    ((BaseNode*)child)->parent = this;
+    child->parent = this;
     children.push_back(child);
 
     // If this node has containing GUI, pass it to children recursivley
@@ -24,7 +24,7 @@ void BaseNode::LinkChild(BaseNode* child) {
         std::vector<BaseNode*> remainingNodes = {child};
         while(remainingNodes.size() > 0) {
             // Push children nodes of current node into remainingNodes
-            for(int i = 0; i < remainingNodes[0]->children.size(); i++) remainingNodes.push_back((BaseNode*)remainingNodes[0]->children[i]);
+            for(int i = 0; i < remainingNodes[0]->children.size(); i++) remainingNodes.push_back(remainingNodes[0]->children[i]);
             // Set containingGUI on current node
             remainingNodes[0]->mpContainingGUI = mpContainingGUI;
             // Inform GUI object about the new node, setting up its ID
@@ -112,10 +112,10 @@ int BaseNode::GetX() {
 int BaseNode::CalculateX() {
     int sumX = GetX();
 
-    BaseNode* currentNode = (BaseNode*)this;
+    BaseNode* currentNode = this;
 
     while(currentNode->parent != nullptr) {
-        currentNode = (BaseNode*)currentNode->parent;
+        currentNode = currentNode->parent;
         sumX += currentNode->GetX();
     }
 
@@ -131,10 +131,10 @@ int BaseNode::GetY() {
 int BaseNode::CalculateY() {
     int sumY = GetY();
 
-    BaseNode* currentNode = (BaseNode*)this;
+    BaseNode* currentNode = this;
 
     while(currentNode->parent != nullptr) {
-        currentNode = (BaseNode*)currentNode->parent;
+        currentNode = currentNode->parent;
         sumY += currentNode->GetY();
     }
 
@@ -148,10 +148,10 @@ int BaseNode::GetWidth() {
 
 // Climb tree until a node's width is defined
 int BaseNode::CalculateWidth() {
-    BaseNode* currentNode = (BaseNode*)this;
+    BaseNode* currentNode = this;
 
     while(currentNode->GetWidth() == undefinedNumber && currentNode->parent != nullptr) {
-        currentNode = (BaseNode*)currentNode->parent;
+        currentNode = currentNode->parent;
     }
 
     return currentNode->GetWidth();
@@ -164,10 +164,10 @@ int BaseNode::GetHeight() {
 
 // Climb tree until a node's height is defined
 int BaseNode::CalculateHeight() {
-    BaseNode* currentNode = (BaseNode*)this;
+    BaseNode* currentNode = this;
 
     while(currentNode->GetHeight() == undefinedNumber && currentNode->parent != nullptr) {
-        currentNode = (BaseNode*)currentNode->parent;
+        currentNode = currentNode->parent;
     }
 
     return currentNode->GetHeight();
@@ -198,7 +198,7 @@ BaseNode* BaseNode::FindShallowID(std::string shallowID) {
         if(remainingNodes[0]->mShallowID == shallowID) return remainingNodes[0];
 
         // Add child nodes to back of search. Deepest children will be explored last
-        for(int i = 0; i < remainingNodes[0]->children.size(); i++) remainingNodes.push_back((BaseNode*)remainingNodes[0]->children[i]);
+        for(int i = 0; i < remainingNodes[0]->children.size(); i++) remainingNodes.push_back(remainingNodes[0]->children[i]);
         // This node has been explored
         remainingNodes.erase(remainingNodes.begin());
     }

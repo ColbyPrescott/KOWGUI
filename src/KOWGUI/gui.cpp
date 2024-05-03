@@ -43,16 +43,16 @@ void GUI::Tick() {
     mpVexBrain->Screen.clearScreen();
 
     // Nodes that still need exploring to filly recurse through tree
-    std::vector<void*> remainingNodes = {root};
+    std::vector<BaseNode*> remainingNodes = {root};
     // Collect pointers to every node in order of priority
-    std::vector<void*> allNodes = {};
+    std::vector<BaseNode*> allNodes = {};
 
 
 
     // Draw and collect all nodes back to front
     while(remainingNodes.size() != 0) {
         // Give the current node in the loop a name
-        BaseNode* currentNode = (BaseNode*)remainingNodes[0];
+        BaseNode* currentNode = remainingNodes[0];
 
         // Skip current node if disabled or soft disabled
         if(currentNode->GetDisabled() ||
@@ -86,7 +86,7 @@ void GUI::Tick() {
     // If input just started, search front to back for a node to select
     if(screenPressed && !mPrevTickScreenPressed) for(int i = allNodes.size() - 1; i >= 0; i--) {
         // Give the current node in the loop a name
-        BaseNode* currentNode = (BaseNode*)allNodes[i];
+        BaseNode* currentNode = allNodes[i];
 
         // Skip and continue search if currentNode isn't interactable
         InteractableBaseNode* interactableNode = dynamic_cast<InteractableBaseNode*>(currentNode);
