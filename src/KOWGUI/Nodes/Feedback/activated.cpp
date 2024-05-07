@@ -10,11 +10,11 @@ bool Activated::GetFeedbackState() {
     BaseNode* currentNode = this;
     while(dynamic_cast<Toggleable*>(currentNode) == nullptr) {
         // Return default if top of tree was reached
-        if(currentNode->parent == nullptr) return FeedbackBaseNode::GetFeedbackState();
+        if(currentNode->parent == nullptr) return false;
         // Climb to parent node
         currentNode = currentNode->parent; 
     }
 
     // Return whether or not the interactable node is currently selected and focused
-    return ((Toggleable*)currentNode)->GetActivated() ^ mReversed;
+    return ((Toggleable*)currentNode)->GetActivated();
 }

@@ -18,8 +18,6 @@ namespace KOWGUI {
             Focused* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
             Focused* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
-            Focused* SetReversed(bool reversed) {FeedbackBaseNode::SetReversed(reversed); return this;}
-
             bool GetFeedbackState();
     };
 

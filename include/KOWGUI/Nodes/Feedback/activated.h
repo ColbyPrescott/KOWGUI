@@ -18,8 +18,6 @@ namespace KOWGUI {
             Activated* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
             Activated* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
-            Activated* SetReversed(bool reversed) {FeedbackBaseNode::SetReversed(reversed); return this;}
-
             bool GetFeedbackState();
     };
 

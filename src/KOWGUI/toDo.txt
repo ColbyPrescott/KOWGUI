@@ -10,12 +10,9 @@ Node types:
 - Toggleable
     - If supplied an id or something, toggles could store their state on SD card
     - Basic on off, but also int counter. Custom modulo feedback node
-- Unfocused
-    - Feedback node that will only enable when nearest parent interactable is not focused
 - Selected
 - Activated
     - Feedback node that will only enable when nearest toggleable parent is set to true
-- Deactivated
 - Circle
 - Line
 - Image
@@ -81,8 +78,7 @@ Refactoring and other code stuff:
 - Should positions be represented by floats and rounded in the screen functions? Increasing a node's 
   position at a constant rate could have much more precision a lot easier
 - Usage of clipping region will need to have a system like JS canvas transform save restore
-- If you want to display a percent, you need to type four out due to the filtering of snprintf and lcd::print 
-- Replace reversed / inverted feedback nodes with new nodes starting with an N abbreviation or something
+- If you want to display a percent, you need to type four out due to the filtering of snprintf and lcd::print
 - FindID template to make casting more compact
 
 

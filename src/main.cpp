@@ -71,7 +71,7 @@ int main() {
         SetFocus([](){gui.FindID("greenRectangle")->SetY(0);})->
         SetUnfocus([](){gui.FindID("greenRectangle")->SetY(140);})->
         AddChildren({
-            (new KOWGUI::Focused)->SetReversed(true)->AddChildren({
+            (new KOWGUI::NFocused)->AddChildren({
                 (new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(150, 150, 150))
             }),
             (new KOWGUI::Focused)->AddChildren({
