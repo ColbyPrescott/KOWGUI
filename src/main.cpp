@@ -88,6 +88,9 @@ int main() {
                 SetVerticalAlign(KOWGUI::VerticalAlign::middle)->
                 SetOverflow(KOWGUI::Overflow::scroll)->
                 SetScrollSpacing(20)
+            }),
+            (new KOWGUI::Activated)->AddChildren({
+                (new KOWGUI::Rectangle)->SetPosition(5, 60)->SetSize(65, 10)->SetFillColor((new KOWGUI::Color)->SetRGB(153, 42, 232))
             })
         })
     );

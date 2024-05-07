@@ -3,6 +3,7 @@
 using namespace KOWGUI;
 
 void Toggleable::TickRelease(int x, int y) {
+    if(!TestCollision(x, y)) return;
     mClicks++;
 }
 

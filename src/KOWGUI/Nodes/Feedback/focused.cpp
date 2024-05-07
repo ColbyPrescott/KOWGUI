@@ -12,6 +12,7 @@ bool Focused::GetFeedbackState() {
     while(dynamic_cast<InteractableBaseNode*>(currentNode) == nullptr) {
         // Return default if top of tree was reached
         if(currentNode->parent == nullptr) return FeedbackBaseNode::GetFeedbackState();
+        // Climb to parent node
         currentNode = currentNode->parent; 
     }
 
