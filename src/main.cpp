@@ -63,7 +63,7 @@ int main() {
         })
     );
 
-    gui.root->AddChild((new KOWGUI::Clickable)->
+    gui.root->AddChild((new KOWGUI::Toggleable)->
         SetPosition(350, 100)->
         SetSize(75, 75)->
         SetPress([](){gui.FindID("greenRectangle")->SetX(0);})->

@@ -16,6 +16,7 @@
 #include "KOWGUI/Nodes/Visible/text.h"
 #include "KOWGUI/Nodes/Interactable/clickable.h"
 #include "KOWGUI/Nodes/Interactable/draggable.h"
+#include "KOWGUI/Nodes/Interactable/toggleable.h"
 #include "KOWGUI/Nodes/Feedback/focused.h"
 
 #endif

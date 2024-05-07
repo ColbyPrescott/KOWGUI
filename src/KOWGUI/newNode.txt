@@ -30,11 +30,11 @@ InteractableBaseNode
         Type* ClearRelease() {InteractableBaseNode::ClearRelease(); return this;}
         Type* ClearFocus() {InteractableBaseNode::ClearFocus(); return this;}
         Type* ClearUnfocus() {InteractableBaseNode::ClearUnfocus(); return this;}
-    If something like GUI::mpSelectedNode is needed, add to end of public access in include/KOWGUI/General/gui.h
-        friend class Type;
 
 
 
 FeedbackBaseNode
     Add this in public access
         Type* SetReversed(bool reversed) {FeedbackBaseNode::SetReversed(reversed); return this;}
+    If something like GUI::mpSelectedNode is needed, add to end of public access in include/KOWGUI/General/gui.h
+        friend class Type;
