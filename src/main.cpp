@@ -91,6 +91,11 @@ int main() {
             }),
             (new KOWGUI::Activated)->AddChildren({
                 (new KOWGUI::Rectangle)->SetPosition(5, 60)->SetSize(65, 10)->SetFillColor((new KOWGUI::Color)->SetRGB(153, 42, 232))
+            }),
+            (new KOWGUI::Group)->SetPosition(5, 5)->SetSize(65, 10)->AddChildren({
+                (new KOWGUI::Looped)->SetLoopLength(4)->SetLoopTarget(1)->AddChildren({(new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(255, 0, 0))}),
+                (new KOWGUI::Looped)->SetLoopLength(4)->SetLoopTarget(2)->AddChildren({(new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(0, 255, 0))}),
+                (new KOWGUI::Looped)->SetLoopLength(4)->SetLoopTarget(3)->AddChildren({(new KOWGUI::Rectangle)->SetFillColor((new KOWGUI::Color)->SetRGB(0, 0, 255))}),
             })
         })
     );

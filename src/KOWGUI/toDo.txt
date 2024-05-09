@@ -80,6 +80,7 @@ Refactoring and other code stuff:
 - Usage of clipping region will need to have a system like JS canvas transform save restore
 - If you want to display a percent, you need to type four out due to the filtering of snprintf and lcd::print
 - FindID template to make casting more compact
+- gui[ID] mimicks FindID
 
 
 

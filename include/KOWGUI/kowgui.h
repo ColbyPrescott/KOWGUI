@@ -19,6 +19,7 @@
 #include "KOWGUI/Nodes/Interactable/toggleable.h"
 #include "KOWGUI/Nodes/Feedback/focused.h"
 #include "KOWGUI/Nodes/Feedback/activated.h"
+#include "KOWGUI/Nodes/Feedback/looped.h"
 #include "KOWGUI/Nodes/Feedback/Negated/nFocused.h"
 #include "KOWGUI/Nodes/Feedback/Negated/nActivated.h"
 

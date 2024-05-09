@@ -15,6 +15,6 @@ bool Activated::GetFeedbackState() {
         currentNode = currentNode->parent; 
     }
 
-    // Return whether or not the interactable node is currently selected and focused
+    // Return whether or not the toggleable node is activated
     return ((Toggleable*)currentNode)->GetActivated();
 }

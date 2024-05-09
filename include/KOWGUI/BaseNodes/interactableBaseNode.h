@@ -25,7 +25,7 @@ namespace KOWGUI {
             virtual void TickPress(int x, int y) {};
             // Derived node may do something unique while input is being moved
             virtual void TickDrag(int x, int y) {};
-            // Derived node may do something unique with the release position. Executes even if selected node wasn't focused
+            // Derived node may do something unique with the release position. Executes even if selected node wasn't focused. TO DO Rename this function to reflect that fact
             virtual void TickRelease(int x, int y) {};
 
         public:
