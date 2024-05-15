@@ -4,17 +4,20 @@
 
 using namespace KOWGUI;
 
+// Set how many states there are before repetition
 Looped* Looped::SetLoopLength(int loopLength) {
     mLoopLength = loopLength;
     return this;
 }
 
+// Set the target modulo state that will stop this node from soft disabling
 Looped* Looped::SetLoopTarget(int loopTarget) {
     mLoopTargets.clear();
     mLoopTargets.push_back(loopTarget);
     return this;
 }
 
+// Set multiple target modulo states that will stop this node from soft disabling
 Looped* Looped::SetLoopTargets(std::vector<int> loopTargets) {
     mLoopTargets = loopTargets;
     return this;

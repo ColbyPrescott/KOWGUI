@@ -74,6 +74,7 @@ InteractableBaseNode* InteractableBaseNode::ClearUnfocus() {
 
 
 
+// Get whether or not a coordinate lies inside the node's area
 bool InteractableBaseNode::TestCollision(int x, int y) {
     int xPos = CalculateX();
     int yPos = CalculateY();

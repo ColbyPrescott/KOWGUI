@@ -9,7 +9,9 @@ namespace KOWGUI {
 
     class Looped : public FeedbackBaseNode {
         private:
+            // Modulo divisor, how many states there are before repeating
             int mLoopLength = 2;
+            // List of states that will be seen as activated
             std::vector<int> mLoopTargets;
 
         public:

@@ -16,6 +16,8 @@ namespace KOWGUI {
 
     class GUI {
         private:
+            // Pointer to the brain object that was used to construct the GUI object. 
+            // This value is used whenever something like the LCD screen or SDCard needs to be referenced
             vex::brain* mpVexBrain = nullptr;
 
             // Variables for processing screen input

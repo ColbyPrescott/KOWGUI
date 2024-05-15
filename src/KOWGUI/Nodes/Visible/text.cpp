@@ -6,31 +6,37 @@
 
 using namespace KOWGUI;
 
+// Set the text to display
 Text* Text::SetText(std::string text) {
     mText = text;
     return this;
 }
 
+// Set the font that should be used. Pick from the KOWGUI::Fonts namespace
 Text* Text::SetFont(font& fontName) {
     mpFont = &fontName;
     return this;
 }
 
+// Set the size of the font, measured as height from ascender to descender
 Text* Text::SetFontSize(int fontSize) {
     mFontSize = fontSize;
     return this;
 }
 
+// Set the color of the text
 Text* Text::SetColor(Color* color) {
     mpColor = std::make_shared<Color>(*color);
     return this;
 }
 
+// Set what part of the text to drawn at Y coordinate of 0, pick from the KOWGUI::VerticalAlign enum
 Text* Text::SetVerticalAlign(VerticalAlign verticalAlign) {
     mVerticalAlign = verticalAlign;
     return this;
 }
 
+// Set what should happen when text can't fit inside node's area, pick from the KOWGUI::Overflow enum
 Text* Text::SetOverflow(Overflow overflow) {
     mOverflow = overflow;
     return this;
@@ -38,11 +44,13 @@ Text* Text::SetOverflow(Overflow overflow) {
 
 
 
+// Set how fast the text should scroll in pixels per tick
 Text* Text::SetScrollSpeed(int speed) {
     mScrollProperties.speed = speed;
     return this;
 }
 
+// Set how many pixels should separate repeated sections of text
 Text* Text::SetScrollSpacing(int spacing) {
     mScrollProperties.spacing = spacing;
     return this;
@@ -206,6 +214,7 @@ void Text::DrawWrapScale(vex::brain::lcd& rScreen, int startX, int startY) {
     mFontSize++;
 }
 
+// Draw the text to the screen
 void Text::Draw(vex::brain::lcd& rScreen) {
     // Set up screen's properties for drawing text
     // Set the font to prop, mono, or cjk16

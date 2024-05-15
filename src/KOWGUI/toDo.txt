@@ -9,10 +9,7 @@ Node types:
       own actual type of node like rounded rectangle, they can add it to the source code themself
 - Toggleable
     - If supplied an id or something, toggles could store their state on SD card
-    - Basic on off, but also int counter. Custom modulo feedback node
 - Selected
-- Activated
-    - Feedback node that will only enable when nearest toggleable parent is set to true
 - Circle
 - Line
 - Image

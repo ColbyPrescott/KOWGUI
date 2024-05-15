@@ -11,9 +11,13 @@ namespace KOWGUI {
 
     class Color {
         private:
+            // Red component
             uint8_t mR = 0;
+            // Green component
             uint8_t mG = 0;
+            // Blue component
             uint8_t mB = 0;
+            // Whether or not this color should be drawn
             bool mTransparent = false;
 
         public:

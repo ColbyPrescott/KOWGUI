@@ -10,6 +10,7 @@
 
 using namespace KOWGUI;
 
+// GUI constructor. Initializes pointers and root node
 GUI::GUI(vex::brain& vexBrain) {
     mpVexBrain = &vexBrain;
 
@@ -19,6 +20,7 @@ GUI::GUI(vex::brain& vexBrain) {
 
 
 
+// Add a node into the ID system
 void GUI::AddIDMap(BaseNode* node) {
     // If ID name is already in map, throw a warning
     if(mpIDs.find(node->mID) != mpIDs.end()) {
@@ -32,6 +34,7 @@ void GUI::AddIDMap(BaseNode* node) {
 
 
 
+// Look up an ID in the ID system
 BaseNode* GUI::FindID(std::string iD) {
     // If ID can be found in the map, return the node that the name is paired with
     if(mpIDs.find(iD) != mpIDs.end()) return mpIDs[iD];

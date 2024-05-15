@@ -11,8 +11,11 @@ namespace KOWGUI {
 
     class Rectangle : public VisibleBaseNode {
         private:
+            // Color that fills in the rectangle
             std::shared_ptr<Color> mpFillColor = std::make_shared<Color>(*Color::transparent);
+            // Color that borders the rectangle
             std::shared_ptr<Color> mpOutlineColor = std::make_shared<Color>(*Color::transparent);
+            // How wide the border is in pixels
             int mOutlineWidth = 1;
 
         public:

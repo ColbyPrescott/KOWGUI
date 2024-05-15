@@ -7,6 +7,7 @@ namespace KOWGUI {
 
     class Toggleable : public InteractableBaseNode {
         private:
+            // How many times the node has been clicked
             int mClicks = 0;
 
             void TickRelease(int x, int y);

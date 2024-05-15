@@ -83,29 +83,38 @@ namespace KOWGUI {
 
     class Text : public VisibleBaseNode {
         private:
+            // Text that will be displayed
             std::string mText = "";
 
-            // Font properties
+            // Font to use
             font* mpFont = &Fonts::proportional;
+            // How big the text is, measured as the height in pixels from ascender to descender
             int mFontSize = 30;
+            // Color of the text
             std::shared_ptr<Color> mpColor = std::make_shared<Color>(*Color::white);
 
-            // Alignment properties
+            // What part of the text to drawn at Y coordinate of 0
             VerticalAlign mVerticalAlign = VerticalAlign::baseline;
+            // TO DO Whether or not the text gets centered horizontally within node area
             bool mHorizontalCentering = false;
+            // TO DO Whether or not the text gets centered vertically within node area. Y 0 is moved to this location, so vertical align center is recommended
             bool mVerticalCentering = false;
 
             // What should happen when text can't fit inside node's area
             Overflow mOverflow = Overflow::wrap;
 
             struct {
-                int offsetX = 0; // Needed to keep track of how far the text is currently scrolled
+                // How far the text is currently scrolled
+                int offsetX = 0; 
 
-                int speed = 1; // How fast the text should scroll in pixels per tick
-                int spacing = 50; // How many pixels should separate repeated sections of text
+                // How fast the text should scroll in pixels per tick
+                int speed = 1; 
+                // How many pixels should separate repeated sections of text
+                int spacing = 50; 
             } mScrollProperties;
 
             struct {
+                // How much the font height should be multiplied by to vertically space lines
                 double lineSpacing = 1.4;
             } mWrapProperties;
 
@@ -128,6 +137,19 @@ namespace KOWGUI {
             Text* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Text* SetText(std::string text);
+            Text* SetFont(font& fontName); // TO DO Should this take a pointer instead of a reference to match everything else?
+            Text* SetFontSize(int fontSize);
+            Text* SetColor(Color* color);
+            Text* SetVerticalAlign(VerticalAlign verticalAlign);
+            Text* SetOverflow(Overflow overflow);
+
+            Text* SetScrollSpeed(int speed);
+            Text* SetScrollSpacing(int spacing);
+            Text* SetWrapLineSpacing(double lineSpacing);
+
+            void Draw(vex::brain::lcd& rScreen);
+
+            // Set the text to display in a similar way to std::printf(format, ...)
             template <typename... Args>
             Text* SetText(std::string format, Args... args) {
                 // Get exact length of expected text after formatting, including the terminator character 
@@ -140,17 +162,6 @@ namespace KOWGUI {
                 mText = std::string(buffer, length - 1);
                 return this;
             }
-            Text* SetFont(font& fontName); // TO DO Should this take a pointer instead of a reference to match everything else?
-            Text* SetFontSize(int fontSize);
-            Text* SetColor(Color* color);
-            Text* SetVerticalAlign(VerticalAlign verticalAlign);
-            Text* SetOverflow(Overflow overflow);
-
-            Text* SetScrollSpeed(int speed);
-            Text* SetScrollSpacing(int spacing);
-            Text* SetWrapLineSpacing(double lineSpacing);
-
-            void Draw(vex::brain::lcd& rScreen);
     };
 
 }

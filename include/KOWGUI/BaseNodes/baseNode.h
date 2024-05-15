@@ -21,17 +21,23 @@ namespace KOWGUI {
         // Height
         int mHeight = undefinedNumber;
 
+        // Unique identifier to find this node. GUI::FindID
         std::string mID = undefinedString;
+        // Multi-use identifier for this node. BaseNode::FindShallowID
         std::string mShallowID = undefinedString;
 
+        // Whether or not GUI::Tick should ignore this node
         bool mDisabled = false;
 
+        // Pointer to the GUI object. All nodes have this for speed and convenience
         GUI* mpContainingGUI = nullptr;
 
         void LinkChild(BaseNode* child);
     
     public:
+        // Node that this node is attatched to. Position and scale are inherited
         BaseNode* parent = nullptr;
+        // All nodes that are attatched to this one
         std::vector<BaseNode*> children;
         // TO DO Should these three variables be public or accessed with friendship?
 

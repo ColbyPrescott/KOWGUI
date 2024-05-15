@@ -12,9 +12,13 @@ namespace KOWGUI {
             // Where on the node Y input starts
             int mOffsetY = 0;
 
+            // Local minimum that the left edge can move
             int mMinX = undefinedNumber;
+            // Local minumum that the top edge can move
             int mMinY = undefinedNumber;
+            // Local maximum that the right edge can move
             int mMaxX = undefinedNumber;
+            // Local maximum that the botton edge can move
             int mMaxY = undefinedNumber;
 
             void TickPress(int x, int y);
