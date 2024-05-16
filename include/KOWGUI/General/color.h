@@ -5,7 +5,7 @@
 #include "v5_vcs.h"
 
 #include <stdint.h>
-
+#include <string>
 
 namespace KOWGUI {
 
@@ -21,8 +21,9 @@ namespace KOWGUI {
             bool mTransparent = false;
 
         public:
-            Color* SetRGB(uint8_t red, uint8_t green, uint8_t blue);
             Color* SetTransparent(bool transparent);
+            Color* SetRGB(uint8_t red, uint8_t green, uint8_t blue);
+            Color* SetHex(std::string hex);
 
             uint8_t GetR();
             uint8_t GetG();
