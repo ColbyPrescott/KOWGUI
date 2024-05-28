@@ -23,7 +23,7 @@ int main() {
         SetID("greenRectangle")->
         SetPosition(50, 50)->
         SetSize(200, 100)->
-        SetFillColor((new KOWGUI::Color)->SetRGB(50, 200, 50))->
+        SetFillColor((new KOWGUI::Color)->SetHex("#32c832"))->
         AddChildren({
             (new KOWGUI::Rectangle)->
                 SetPosition(-20, -20)->
@@ -127,8 +127,8 @@ int main() {
             (new KOWGUI::Circle)->
                 SetPosition(2, 2)->
                 SetRadius(13)->
-                SetFillColor((new KOWGUI::Color)->SetRGB(255, 255, 255))->
-                SetOutlineColor((new KOWGUI::Color)->SetRGB(0, 200, 200))->
+                SetFillColor(KOWGUI::Color::white)->
+                SetOutlineColor(KOWGUI::Color::cyan)->
                 SetOutlineWidth(4)
         })
     );
