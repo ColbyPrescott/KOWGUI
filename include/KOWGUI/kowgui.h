@@ -11,6 +11,7 @@
 #include "KOWGUI/BaseNodes/feedbackBaseNode.h"
 
 #include "KOWGUI/Nodes/Basic/group.h"
+#include "KOWGUI/Nodes/Basic/data.h"
 #include "KOWGUI/Nodes/Visible/rectangle.h"
 #include "KOWGUI/Nodes/Visible/circle.h"
 #include "KOWGUI/Nodes/Visible/text.h"

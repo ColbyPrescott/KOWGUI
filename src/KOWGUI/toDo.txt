@@ -1,16 +1,9 @@
 Node types:
-- Custom
+- Custom / Data
     - Custom code will be run through BaseNode::SetTick
-    - Custom properties should be stored in std::map<std::string, void*>
-      It will be up to the user to cast it to the right type
-    - Icon-like functions will be called with reference to that node, 
-      position and stuff accessed through there
-    - This is designed for something simple like a cross visible node. If the user wants their
-      own actual type of node like rounded rectangle, they can add it to the source code themself
 - Toggleable
     - If supplied an id or something, toggles could store their state on SD card
 - Selected
-- Circle
 - Line
 - Image
     - Must create or take image buffer for faster drawing
@@ -46,6 +39,11 @@ Features:
     - Every node will have shallowID and... maybe class? For customizability
     - Keyboard
     - Graph
+- Error system
+  - Show in console?
+  - Show on screen?
+  - Supress warnings?
+  - Substitute? Returning nullptr from FindID will likely result in a program crash. Fatal if on field. Fabricate a new node to return and hope it stops the crash
 - Animation
     - Currently possible by constantly updating a value manually, but should specific functionality be added?
     - Bezier curve animation?
