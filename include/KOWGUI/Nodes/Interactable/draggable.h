@@ -36,10 +36,10 @@ namespace KOWGUI {
             Draggable* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
             Draggable* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
-            Draggable* SetPress(void (*callback)()) {InteractableBaseNode::SetPress(callback); return this;}
-            Draggable* SetRelease(void (*callback)()) {InteractableBaseNode::SetRelease(callback); return this;}
-            Draggable* SetFocus(void (*callback)()) {InteractableBaseNode::SetFocus(callback); return this;}
-            Draggable* SetUnfocus(void (*callback)()) {InteractableBaseNode::SetUnfocus(callback); return this;}
+            Draggable* SetPress(void (*callback)(BaseNode*)) {InteractableBaseNode::SetPress(callback); return this;}
+            Draggable* SetRelease(void (*callback)(BaseNode*)) {InteractableBaseNode::SetRelease(callback); return this;}
+            Draggable* SetFocus(void (*callback)(BaseNode*)) {InteractableBaseNode::SetFocus(callback); return this;}
+            Draggable* SetUnfocus(void (*callback)(BaseNode*)) {InteractableBaseNode::SetUnfocus(callback); return this;}
             Draggable* ClearPress() {InteractableBaseNode::ClearPress(); return this;}
             Draggable* ClearRelease() {InteractableBaseNode::ClearRelease(); return this;}
             Draggable* ClearFocus() {InteractableBaseNode::ClearFocus(); return this;}

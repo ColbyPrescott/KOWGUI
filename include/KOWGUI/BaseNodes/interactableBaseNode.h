@@ -8,13 +8,13 @@ namespace KOWGUI {
     class InteractableBaseNode : public BaseNode {
         protected:
             // Called when input starts on node area
-            void (*mpPressFunc)() = nullptr;
+            void (*mpPressFunc)(BaseNode*) = nullptr;
             // Called when input ends in node area
-            void (*mpReleaseFunc)() = nullptr;
+            void (*mpReleaseFunc)(BaseNode*) = nullptr;
             // Called when continuous input re-enters node area
-            void (*mpFocusFunc)() = nullptr;
+            void (*mpFocusFunc)(BaseNode*) = nullptr;
             // Called when continuous input leaves node area
-            void (*mpUnfocusFunc)() = nullptr;
+            void (*mpUnfocusFunc)(BaseNode*) = nullptr;
 
             void CallPress();
             void CallRelease();
@@ -29,10 +29,10 @@ namespace KOWGUI {
             virtual void TickRelease(int x, int y) {};
 
         public:
-            virtual InteractableBaseNode* SetPress(void (*callback)());
-            virtual InteractableBaseNode* SetRelease(void (*callback)());
-            virtual InteractableBaseNode* SetFocus(void (*callback)());
-            virtual InteractableBaseNode* SetUnfocus(void (*callback)());
+            virtual InteractableBaseNode* SetPress(void (*callback)(BaseNode*));
+            virtual InteractableBaseNode* SetRelease(void (*callback)(BaseNode*));
+            virtual InteractableBaseNode* SetFocus(void (*callback)(BaseNode*));
+            virtual InteractableBaseNode* SetUnfocus(void (*callback)(BaseNode*));
 
             // TO DO SetHover, gets called every tick that the node is in focus
 

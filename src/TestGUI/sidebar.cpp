@@ -11,11 +11,11 @@ using namespace KOWGUI;
 void CreateSidebarButton(Group* panel, std::string text, int height) {
     Draggable* sidebarDraggable = (Draggable*)gui.FindID("sidebarDraggable");
 
-    void (*loadPanelFunc)(void) = [](){LoadPanel(panels.text);};
+    void (*loadPanelFunc)(BaseNode*) = [](BaseNode* thisNode){LoadPanel(panels.text);};
 
     // TO DO Replace this with a custom node before it gets out of hand
-    if(panel == panels.basicShapes) loadPanelFunc = [](){LoadPanel(panels.basicShapes);};
-    else if(panel == panels.text) loadPanelFunc = [](){LoadPanel(panels.text);};
+    if(panel == panels.basicShapes) loadPanelFunc = [](BaseNode* thisNode){LoadPanel(panels.basicShapes);};
+    else if(panel == panels.text) loadPanelFunc = [](BaseNode* thisNode){LoadPanel(panels.text);};
 
     // Add a new button to the draggable node, positioned at it's height
     Clickable* button = sidebarDraggable->AddChild(

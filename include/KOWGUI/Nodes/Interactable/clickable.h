@@ -19,10 +19,10 @@ namespace KOWGUI {
             Clickable* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
             Clickable* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
-            Clickable* SetPress(void (*callback)()) {InteractableBaseNode::SetPress(callback); return this;}
-            Clickable* SetRelease(void (*callback)()) {InteractableBaseNode::SetRelease(callback); return this;}
-            Clickable* SetFocus(void (*callback)()) {InteractableBaseNode::SetFocus(callback); return this;}
-            Clickable* SetUnfocus(void (*callback)()) {InteractableBaseNode::SetUnfocus(callback); return this;}
+            Clickable* SetPress(void (*callback)(BaseNode*)) {InteractableBaseNode::SetPress(callback); return this;}
+            Clickable* SetRelease(void (*callback)(BaseNode*)) {InteractableBaseNode::SetRelease(callback); return this;}
+            Clickable* SetFocus(void (*callback)(BaseNode*)) {InteractableBaseNode::SetFocus(callback); return this;}
+            Clickable* SetUnfocus(void (*callback)(BaseNode*)) {InteractableBaseNode::SetUnfocus(callback); return this;}
             Clickable* ClearPress() {InteractableBaseNode::ClearPress(); return this;}
             Clickable* ClearRelease() {InteractableBaseNode::ClearRelease(); return this;}
             Clickable* ClearFocus() {InteractableBaseNode::ClearFocus(); return this;}

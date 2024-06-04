@@ -67,7 +67,6 @@ Refactoring and other code stuff:
 - Some comments have the text "TO DO" so they can be found with grep
 - Move all cpp files into the headers so a user will only need to copy the include folder
     - On second look at PROS, it seems like precompiled binaries could be a viable option
-- Could callback functions also have a version that get a pointer to its own node? That way not EVERYTHING needs an ID to be accessible
 - Use of 'p' before pointer names in inconsistent
 - Should positions be represented by floats and rounded in the screen functions? Increasing a node's 
   position at a constant rate could have much more precision a lot easier

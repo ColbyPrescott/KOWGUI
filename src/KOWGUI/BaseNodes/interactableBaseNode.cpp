@@ -4,46 +4,46 @@ using namespace KOWGUI;
 
 // Call internal press function if it's not nullptr
 void InteractableBaseNode::CallPress() {
-    if(mpPressFunc != nullptr) mpPressFunc();
+    if(mpPressFunc != nullptr) mpPressFunc(this);
 }
 
 // Call internal release function if it's not nullptr
 void InteractableBaseNode::CallRelease() {
-    if(mpReleaseFunc != nullptr) mpReleaseFunc();
+    if(mpReleaseFunc != nullptr) mpReleaseFunc(this);
 }
 
 // Call internal focus function if it's not nullptr
 void InteractableBaseNode::CallFocus() {
-    if(mpFocusFunc != nullptr) mpFocusFunc();
+    if(mpFocusFunc != nullptr) mpFocusFunc(this);
 }
 
 // Call internal unfocus function if it's not nullptr
 void InteractableBaseNode::CallUnfocus() {
-    if(mpUnfocusFunc != nullptr) mpUnfocusFunc();
+    if(mpUnfocusFunc != nullptr) mpUnfocusFunc(this);
 }
 
 
 
 // Set the function to be called upon pressing down on the node
-InteractableBaseNode* InteractableBaseNode::SetPress(void (*callback)()) {
+InteractableBaseNode* InteractableBaseNode::SetPress(void (*callback)(BaseNode*)) {
     mpPressFunc = callback;
     return this;
 }
 
 // Set the function to be called upon releasing input from the node
-InteractableBaseNode* InteractableBaseNode::SetRelease(void (*callback)()) {
+InteractableBaseNode* InteractableBaseNode::SetRelease(void (*callback)(BaseNode*)) {
     mpReleaseFunc = callback;
     return this;
 }
 
 // Set the function to be called upon input sliding back onto node
-InteractableBaseNode* InteractableBaseNode::SetFocus(void (*callback)()) {
+InteractableBaseNode* InteractableBaseNode::SetFocus(void (*callback)(BaseNode*)) {
     mpFocusFunc = callback;
     return this;
 }
 
 // Set the function to be called upon input sliding off of node
-InteractableBaseNode* InteractableBaseNode::SetUnfocus(void (*callback)()) {
+InteractableBaseNode* InteractableBaseNode::SetUnfocus(void (*callback)(BaseNode*)) {
     mpUnfocusFunc = callback;
     return this;
 }
