@@ -11,15 +11,16 @@ using namespace KOWGUI;
 void CreateSidebarButton(Group* panel, std::string text, int height) {
     Draggable* sidebarDraggable = (Draggable*)gui.FindID("sidebarDraggable");
 
-    void (*loadPanelFunc)(BaseNode*) = [](BaseNode* thisNode){LoadPanel(panels.text);};
-
-    // TO DO Replace this with a custom node before it gets out of hand
-    if(panel == panels.basicShapes) loadPanelFunc = [](BaseNode* thisNode){LoadPanel(panels.basicShapes);};
-    else if(panel == panels.text) loadPanelFunc = [](BaseNode* thisNode){LoadPanel(panels.text);};
+    void (*loadPanelFunc)(BaseNode*) = [](BaseNode* thisNode){
+        Data* dataNode = (Data*)thisNode->FindShallowID("data");
+        Group* targetPanel = (Group*)dataNode->GetProperty("panel");
+        LoadPanel(targetPanel);
+    };
 
     // Add a new button to the draggable node, positioned at it's height
     Clickable* button = sidebarDraggable->AddChild(
         (new Clickable)->SetPosition(-sidebarWidth + sidebarScrollbarWidth, sidebarDraggable->GetHeight())->SetSize(sidebarWidth - sidebarScrollbarWidth, height)->SetRelease(loadPanelFunc)->AddChildren({
+            (new Data)->SetShallowID("data")->SetProperty("panel", (void*)panel),
             (new NFocused)->AddChildren({
                 (new Rectangle)->SetFillColor(theme.buttonNFocused)
             }),
