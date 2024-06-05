@@ -41,5 +41,5 @@ void Circle::Draw(vex::brain::lcd& rScreen) {
     rScreen.setPenColor(mpOutlineColor->GetVexColor());
     rScreen.setPenWidth(mpOutlineColor->GetTransparent() ? 0 : mOutlineWidth);
     if(mCentered) rScreen.drawCircle(CalculateX(), CalculateY(), CalculateWidth() / 2);
-    else rScreen.drawCircle(CalculateX() + CalculateWidth() / 2, CalculateY() + CalculateHeight() / 2, CalculateWidth() / 2);
+    else rScreen.drawCircle(CalculateX() + CalculateWidth() / 2, CalculateY() + CalculateWidth() / 2, CalculateWidth() / 2);
 }
