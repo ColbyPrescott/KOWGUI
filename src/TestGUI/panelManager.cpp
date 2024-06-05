@@ -9,6 +9,8 @@
 
 #include "TestGUI/Panels/groupDemo.h"
 #include "TestGUI/Panels/colorDemo.h"
+#include "TestGUI/Panels/rectangleDemo.h"
+#include "TestGUI/Panels/circleDemo.h"
 #include "TestGUI/Panels/basicShapes.h"
 #include "TestGUI/Panels/text.h"
 
@@ -38,6 +40,8 @@ void InitPanels() {
 
     ConfigurePanel(panels.groupDemo); InitGUIGroupDemo(); CreateSidebarButton(panels.groupDemo, "Groups");
     ConfigurePanel(panels.colorDemo); InitGUIColorDemo(); CreateSidebarButton(panels.colorDemo, "Colors");
+    ConfigurePanel(panels.rectangleDemo); InitGUIRectangleDemo(); CreateSidebarButton(panels.rectangleDemo, "Rectangles");
+    ConfigurePanel(panels.circleDemo); InitGUICircleDemo(); CreateSidebarButton(panels.circleDemo, "Circles");
     ConfigurePanel(panels.basicShapes); InitGUIBasicShapes(); CreateSidebarButton(panels.basicShapes, "Basic shapes");
     ConfigurePanel(panels.text); InitGUIText(); CreateSidebarButton(panels.text, "Text");
 }

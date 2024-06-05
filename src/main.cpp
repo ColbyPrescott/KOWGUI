@@ -21,7 +21,7 @@ int main() {
 
     InitPanels();
 
-    LoadPanel(panels.colorDemo);
+    LoadPanel(panels.circleDemo);
 
     while(1) {
 

@@ -1,4 +1,6 @@
 Node types:
+- Text
+  - Horizontal and vertical centering
 - Custom / Data
     - Custom code will be run through BaseNode::SetTick
 - Toggleable
