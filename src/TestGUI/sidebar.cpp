@@ -50,3 +50,5 @@ void InitGUISidebar() {
         })
     });
 }
+
+// Individual buttons are added in src/TestGUI/panelManager.cpp InitPanels() with the rest of the initialization steps

@@ -21,6 +21,8 @@ int main() {
 
     InitPanels();
 
+    LoadPanel(panels.colorDemo);
+
     while(1) {
 
         gui.Tick();
