@@ -6,6 +6,7 @@
 extern KOWGUI::GUI gui;
 
 struct Panels {
+    KOWGUI::Group* groupDemo = new KOWGUI::Group;
     KOWGUI::Group* basicShapes = new KOWGUI::Group;
     KOWGUI::Group* text = new KOWGUI::Group;
 };

@@ -10,6 +10,7 @@ namespace KOWGUI {
 
     class Data : public BaseNode {
         private:
+            // TO DO std::shared_ptr<void>
             std::map<std::string, void*> mCustomProperties;
 
         public:
