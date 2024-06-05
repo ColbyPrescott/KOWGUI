@@ -133,7 +133,9 @@ namespace KOWGUI {
             Text* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Text* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Text* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
+            Text* SetPreTick(void (*callback)(BaseNode*)) {BaseNode::SetPreTick(callback); return this;}
             Text* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+            Text* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Text* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Text* SetText(std::string text);

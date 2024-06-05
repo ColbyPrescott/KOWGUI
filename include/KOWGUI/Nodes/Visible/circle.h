@@ -30,7 +30,9 @@ namespace KOWGUI {
             Circle* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Circle* SetId(std::string id) {BaseNode::SetID(id); return this;}
             Circle* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
+            Circle* SetPreTick(void (*callback)(BaseNode*)) {BaseNode::SetPreTick(callback); return this;}
             Circle* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+            Circle* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Circle* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Circle* SetCentered(bool centered);

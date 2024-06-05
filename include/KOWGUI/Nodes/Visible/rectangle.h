@@ -27,7 +27,9 @@ namespace KOWGUI {
             Rectangle* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Rectangle* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Rectangle* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
+            Rectangle* SetPreTick(void (*callback)(BaseNode*)) {BaseNode::SetPreTick(callback); return this;}
             Rectangle* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+            Rectangle* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Rectangle* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Rectangle* SetFillColor(Color* fillColor);

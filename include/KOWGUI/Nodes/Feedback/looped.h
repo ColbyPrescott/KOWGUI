@@ -23,7 +23,9 @@ namespace KOWGUI {
             Looped* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Looped* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Looped* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
+            Looped* SetPreTick(void (*callback)(BaseNode*)) {BaseNode::SetPreTick(callback); return this;}
             Looped* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+            Looped* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Looped* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Looped* SetLoopLength(int loopLength);

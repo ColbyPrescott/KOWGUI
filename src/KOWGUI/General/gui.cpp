@@ -57,7 +57,7 @@ void GUI::Tick() {
 
 
 
-    // Draw and collect all nodes back to front
+    // Forward process, preTick and draw, and collect all nodes back to front
     while(remainingNodes.size() != 0) {
         // Give the current node in the loop a name
         BaseNode* currentNode = remainingNodes[0];
@@ -71,6 +71,9 @@ void GUI::Tick() {
 
         // Insert currentNode children into the remainingNodes vector, back to front into index 1 to keep priority order of tree
         for(int i = currentNode->children.size() - 1; i >= 0; i--) remainingNodes.insert(remainingNodes.begin() + 1, currentNode->children[i]);
+
+        // Give node the chance to execute its own user defined code first, call preTick
+        currentNode->CallPreTick();
 
         // Run drawing functions associated with node
         VisibleBaseNode* visibleNode = dynamic_cast<VisibleBaseNode*>(currentNode);

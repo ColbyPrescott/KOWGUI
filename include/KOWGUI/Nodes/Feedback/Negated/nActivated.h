@@ -15,7 +15,9 @@ namespace KOWGUI {
             NActivated* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             NActivated* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             NActivated* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
+            NActivated* SetPreTick(void (*callback)(BaseNode*)) {BaseNode::SetPreTick(callback); return this;}
             NActivated* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+            NActivated* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             NActivated* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
             
             bool GetFeedbackState() {return !Activated::GetFeedbackState();}

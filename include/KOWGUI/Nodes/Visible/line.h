@@ -23,7 +23,9 @@ namespace KOWGUI {
             Line* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Line* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Line* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
+            Line* SetPreTick(void (*callback)(BaseNode*)) {BaseNode::SetPreTick(callback); return this;}
             Line* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+            Line* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Line* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             // TO DO remove note: Line will be drawn from local (0, 0) to (width, height)

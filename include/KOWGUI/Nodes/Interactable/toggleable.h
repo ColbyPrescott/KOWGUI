@@ -21,7 +21,9 @@ namespace KOWGUI {
             Toggleable* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Toggleable* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Toggleable* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
+            Toggleable* SetPreTick(void (*callback)(BaseNode*)) {BaseNode::SetPreTick(callback); return this;}
             Toggleable* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+            Toggleable* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Toggleable* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Toggleable* SetPress(void (*callback)(BaseNode*)) {InteractableBaseNode::SetPress(callback); return this;}

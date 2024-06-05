@@ -15,7 +15,9 @@ namespace KOWGUI {
             Focused* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Focused* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Focused* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
+            Focused* SetPreTick(void (*callback)(BaseNode*)) {BaseNode::SetPreTick(callback); return this;}
             Focused* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+            Focused* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Focused* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             bool GetFeedbackState();

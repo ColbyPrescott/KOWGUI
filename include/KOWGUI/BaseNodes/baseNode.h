@@ -26,11 +26,16 @@ namespace KOWGUI {
         // Multi-use identifier for this node. BaseNode::FindShallowID
         std::string mShallowID = undefinedString;
 
+        // Called in GUI::Tick() before any other processing
+        void (*mpPreTickFunc)(BaseNode*) = nullptr;
+
         // Whether or not GUI::Tick should ignore this node
         bool mDisabled = false;
 
         // Pointer to the GUI object. All nodes have this for speed and convenience
         GUI* mpContainingGUI = nullptr;
+
+        void CallPreTick();
 
         void LinkChild(BaseNode* child);
     
@@ -50,8 +55,10 @@ namespace KOWGUI {
         virtual BaseNode* SetSize(int width, int height);
         virtual BaseNode* SetID(std::string iD);
         virtual BaseNode* SetShallowID(std::string shallowID);
+        virtual BaseNode* SetPreTick(void (*callback)(BaseNode*));
         virtual BaseNode* SetDisabled(bool disabled);
-        // TO DO SetTick
+
+        virtual BaseNode* ClearPreTick();
 
         virtual BaseNode* AddChildren(std::vector<BaseNode*> newChildren);
 

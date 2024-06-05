@@ -33,7 +33,9 @@ namespace KOWGUI {
             Draggable* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
             Draggable* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
             Draggable* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
+            Draggable* SetPreTick(void (*callback)(BaseNode*)) {BaseNode::SetPreTick(callback); return this;}
             Draggable* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+            Draggable* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Draggable* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Draggable* SetPress(void (*callback)(BaseNode*)) {InteractableBaseNode::SetPress(callback); return this;}

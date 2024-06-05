@@ -6,6 +6,11 @@
 
 using namespace KOWGUI;
 
+// Call internal preTick function if it's not nullptr
+void BaseNode::CallPreTick() {
+    if(mpPreTickFunc != nullptr) mpPreTickFunc(this);
+}
+
 // Hook up connections between a new child node, its parent, and the GUI object
 void BaseNode::LinkChild(BaseNode* child) {
     // Link pointers between child and parent
@@ -81,11 +86,27 @@ BaseNode* BaseNode::SetShallowID(std::string shallowID) {
     return this;
 }
 
+// Set the function to be called in GUI::Tick() before rest of node is processed
+BaseNode* BaseNode::SetPreTick(void (*callback)(BaseNode*)) {
+    mpPreTickFunc = callback;
+    return this;
+}
+
 // Set whether or not this and child nodes should be processed
 BaseNode* BaseNode::SetDisabled(bool disabled) {
     mDisabled = disabled;
     return this;
 }
+
+
+
+// Remove the function that would get called in GUI::Tick() before rest of node is processed
+BaseNode* BaseNode::ClearPreTick() {
+    mpPreTickFunc = nullptr;
+    return this;
+}
+
+
 
 // Add a vector of new nodes under this node, returning this node
 BaseNode* BaseNode::AddChildren(std::vector<BaseNode*> newChildren) {
@@ -95,6 +116,8 @@ BaseNode* BaseNode::AddChildren(std::vector<BaseNode*> newChildren) {
 
     return this;
 }
+
+
 
 // Get internal X coordinate
 int BaseNode::GetX() {

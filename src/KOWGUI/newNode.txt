@@ -8,7 +8,9 @@ All nodes
         Type* SetSize(int width, int height) {BaseNode::SetSize(width, height); return this;}
         Type* SetID(std::string iD) {BaseNode::SetID(iD); return this;}
         Type* SetShallowID(std::string shallowID) {BaseNode::SetShallowID(shallowID); return this;}
+        Type* SetPreTick(void (*callback)(BaseNode*)) {BaseNode::SetPreTick(callback); return this;}
         Type* SetDisabled(bool disabled) {BaseNode::SetDisabled(disabled); return this;}
+        Type* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
         Type* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
     Add include to include/KOWGUI/kowgui.h
 

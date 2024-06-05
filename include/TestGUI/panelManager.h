@@ -10,6 +10,7 @@ struct Panels {
     KOWGUI::Group* colorDemo = new KOWGUI::Group;
     KOWGUI::Group* rectangleDemo = new KOWGUI::Group;
     KOWGUI::Group* circleDemo = new KOWGUI::Group;
+    KOWGUI::Group* preTickDemo = new KOWGUI::Group;
     KOWGUI::Group* basicShapes = new KOWGUI::Group;
     KOWGUI::Group* text = new KOWGUI::Group;
 };
