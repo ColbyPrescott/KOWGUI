@@ -6,9 +6,9 @@ Node types:
 - Toggleable
     - If supplied an id or something, toggles could store their state on SD card
 - Selected
-- Line
 - Image
     - Must create or take image buffer for faster drawing
+- Video
 - Polygon
     - Rotation
     - Scaling
