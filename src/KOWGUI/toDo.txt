@@ -1,33 +1,36 @@
 Node types:
 - Text
   - Horizontal and vertical centering
-- Custom / Data
-    - Custom code will be run through BaseNode::SetTick
 - Toggleable
-    - If supplied an id or something, toggles could store their state on SD card
+  - If supplied an id or something, toggles could store their state on SD card
 - Selected
 - Image
-    - Must create or take image buffer for faster drawing
-- Video
+  - Must create or take image buffer for faster drawing
+- Video / animation
+  - Frame is decided by timer
+    - How would that affect disabling the node?
+      - If time between timer is much larger than a frame, update the timer as though the video was paused
 - Polygon
-    - Rotation
-    - Scaling
-    - Gradients
+  - Rotation
+  - Scaling
+  - Gradients
 - Clip
-    - vex::brain::lcd::setClipRegion to mask all children inside node's area
-    - Some possibilities may not work from the parenting system... Maybe make a node that will copy the position of another?
-        Keep things simple, user may write location copying code into BaseNode::SetTick
-    - How might each interactable react to being clipped?
-        - Clip should stop interactable from being selected
-        - Clip border should unfocus clickable
-        - Clip border should not stop draggable from moving (for scrollable windows)
+  - vex::brain::lcd::setClipRegion to mask all children inside node's area
+  - Some possibilities may not work from the parenting system... Maybe make a node that will copy the position of another?
+    Keep things simple, user may write location copying code into BaseNode::SetTick
+  - How might each interactable react to being clipped?
+    - Clip should stop interactable from being selected
+    - Clip border should unfocus clickable
+    - Clip border should not stop draggable from moving (for scrollable windows)
 - Grid / Table
   - Orgainze children positions into grid
+  - Add a whole bunch of group nodes as children then set cell size and node width on grid?
+  - Individual row and column nodes like HTML table?
 
 
 Features:
 - Disablement
-    - SetEnable and SetDisable callback functions?
+  - SetEnable and SetDisable callback functions?
 - ID system
   - Classes maybe? Add a function to return a list of all elements with a specific class added?
 - Removing nodes
@@ -37,38 +40,47 @@ Features:
 - Interactable
   - Recheck select, manual select
 - Prefabs
-    - Functions to prebuild useful systems
-    - Every node will have shallowID and... maybe class? For customizability
-    - Keyboard
-    - Graph
+  - Functions to prebuild useful systems
+  - Every node will have shallowID and... maybe class? For customizability
+      - Or just a FindShallowIDs function
+  - Functions or classes? 
+      - What if, classes are prefabs and functions are referred to as like... macros?
+      - Functions are simple one time node systems. Create me a button
+      - Classes are more complicated and can contain methods. Made me a graph and then update the data inside
+  - Keyboard
+      - Strings: Full keyboard, full screen
+      - Ints / doubles / floats: Numpad, could be resized
+  - Graph
+  - Slider / interactable or like volume gauge
+  - Timer system? For like, regularly spawning nodes with particle code?
 - Error system
   - Show in console?
   - Show on screen?
   - Supress warnings?
   - Substitute? Returning nullptr from FindID will likely result in a program crash. Fatal if on field. Fabricate a new node to return and hope it stops the crash
 - Animation
-    - Currently possible by constantly updating a value manually, but should specific functionality be added?
-    - Bezier curve animation?
-    - Animation states like Unity?
-    - Whatever CSS does like CSS?
-    - Should be able to attatch an animation to events like node getting enabled. Should user 
+  - Currently possible by constantly updating a value manually, but should specific functionality be added?
+  - Bezier curve animation?
+  - Animation states like Unity?
+  - Whatever CSS does like CSS?
+  - Should be able to attatch an animation to events like node getting enabled. Should user 
       set this with some sort of node->SetEnable([](){node->Animate();}) thing?
 - Controller input
-    - Integration with WIP KOWGUIController? KOWGUI shouldn't force user into using other KOW libraries
-    - Cursor
-        - Full joystick like MTV3GUI
-        - Joystick or buttons could control velocity
-        - Set which joystick / buttons are being used
-    - Menu
-        - Put a scrollable menu on controller screen while enabled
-        - Do so when a special type of node is enabled?
+  - Integration with WIP KOWGUIController? KOWGUI shouldn't force user into using other KOW libraries
+  - Cursor
+    - Full joystick like MTV3GUI
+    - Joystick or buttons could control velocity
+    - Set which joystick / buttons are being used
+  - Menu
+    - Put a scrollable menu on controller screen while enabled
+    - Do so when a special type of node is enabled?
 
 
 
 Refactoring and other code stuff:
 - Some comments have the text "TO DO" so they can be found with grep
 - Move all cpp files into the headers so a user will only need to copy the include folder
-    - On second look at PROS, it seems like precompiled binaries could be a viable option
+  - On second look at PROS, it seems like precompiled binaries could be a viable option
 - Use of 'p' before pointer names in inconsistent
 - Should positions be represented by floats and rounded in the screen functions? Increasing a node's 
   position at a constant rate could have much more precision a lot easier

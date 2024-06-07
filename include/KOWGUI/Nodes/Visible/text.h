@@ -7,6 +7,7 @@
 
 #include <string>
 #include <memory>
+#include <stdio.h>
 
 namespace KOWGUI {
 
