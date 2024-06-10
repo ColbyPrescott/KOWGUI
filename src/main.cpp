@@ -21,7 +21,7 @@ int main() {
 
     InitPanels();
 
-    LoadPanel(panels.preTickDemo);
+    LoadPanel(panels.lineDemo);
 
     while(1) {
 

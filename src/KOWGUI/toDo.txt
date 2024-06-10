@@ -88,6 +88,8 @@ Refactoring and other code stuff:
 - If you want to display a percent, you need to type four out due to the filtering of snprintf and lcd::print
 - FindID template to make casting more compact
 - gui[ID] mimicks FindID
+- Setting position of line first vertex while adding the node as a child will incorrectly update the width and 
+  height representing the second vertex because calculating size depends on the parent being already fully initialized
 
 
 

@@ -28,8 +28,6 @@ namespace KOWGUI {
             Line* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Line* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
-            // TO DO remove note: Line will be drawn from local (0, 0) to (width, height)
-            // These functions will just set position and size
             Line* SetX1(int x1);
             Line* SetY1(int y1);
             Line* SetPosition1(int x1, int y1);

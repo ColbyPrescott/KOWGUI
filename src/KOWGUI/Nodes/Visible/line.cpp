@@ -6,7 +6,7 @@ using namespace KOWGUI;
 Line* Line::SetX1(int x1) {
     int difference = x1 - GetX();
     SetX(x1);
-    SetWidth(GetWidth() - difference);
+    SetWidth(CalculateWidth() - difference);
     return this;
 }
 
@@ -14,7 +14,7 @@ Line* Line::SetX1(int x1) {
 Line* Line::SetY1(int y1) {
     int difference = y1 - GetY();
     SetY(y1);
-    SetHeight(GetHeight() - difference);
+    SetHeight(CalculateHeight() - difference);
     return this;
 }
 
@@ -53,9 +53,23 @@ Line* Line::SetPositions(int x1, int y1, int x2, int y2) {
 
 
 
+// Set the color of the line
+Line* Line::SetColor(Color* color) {
+    mpColor = std::make_shared<Color>(*color);
+    return this;
+}
+
+// Set the thickness of the line
+Line* Line::SetLineWidth(int lineWidth) {
+    mLineWidth = lineWidth;
+    return this;
+}
+
+
+
 // Draw the line to the screen
 void Line::Draw(vex::brain::lcd& rScreen) {
     rScreen.setPenColor(mpColor->GetVexColor());
     rScreen.setPenWidth(mLineWidth);
-    rScreen.drawLine(CalculateX(), CalculateY(), GetWidth(), GetHeight()); // TO DO Size is retrieved instead of calculated because -1 should be treated as -1 instead of an undefined value. Perhaps set undefined number to something hyper specific?
+    rScreen.drawLine(CalculateX(), CalculateY(), CalculateX() + CalculateWidth(), CalculateY() + CalculateHeight()); // Perhaps set undefined number to something hyper specific?
 }

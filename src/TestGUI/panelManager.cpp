@@ -11,6 +11,7 @@
 #include "TestGUI/Panels/colorDemo.h"
 #include "TestGUI/Panels/rectangleDemo.h"
 #include "TestGUI/Panels/circleDemo.h"
+#include "TestGUI/Panels/lineDemo.h"
 #include "TestGUI/Panels/preTickDemo.h"
 #include "TestGUI/Panels/basicShapes.h"
 #include "TestGUI/Panels/text.h"
@@ -43,6 +44,7 @@ void InitPanels() {
     ConfigurePanel(panels.colorDemo); InitGUIColorDemo(); CreateSidebarButton(panels.colorDemo, "Colors");
     ConfigurePanel(panels.rectangleDemo); InitGUIRectangleDemo(); CreateSidebarButton(panels.rectangleDemo, "Rectangles");
     ConfigurePanel(panels.circleDemo); InitGUICircleDemo(); CreateSidebarButton(panels.circleDemo, "Circles");
+    ConfigurePanel(panels.lineDemo); InitGUILineDemo(); CreateSidebarButton(panels.lineDemo, "Lines");
     ConfigurePanel(panels.preTickDemo); InitGUIPreTickDemo(); CreateSidebarButton(panels.preTickDemo, "PreTick");
     ConfigurePanel(panels.basicShapes); InitGUIBasicShapes(); CreateSidebarButton(panels.basicShapes, "Basic shapes");
     ConfigurePanel(panels.text); InitGUIText(); CreateSidebarButton(panels.text, "Text");
