@@ -21,7 +21,7 @@ int main() {
 
     InitPanels();
 
-    LoadPanel(panels.lineDemo);
+    LoadPanel(panels.textFontDemo);
 
     while(1) {
 
