@@ -12,7 +12,7 @@ namespace KOWGUI {
     class Line : public VisibleBaseNode {
         private:
             int mLineWidth = 1;
-            std::shared_ptr<Color> mpColor = std::make_shared<Color>(*Color::white);
+            std::shared_ptr<Color> mpColor = std::make_shared<Color>(*Color::white); // Default transparent like rectangles?
 
         public:
             Line* SetX(int x) {BaseNode::SetX(x); return this;}

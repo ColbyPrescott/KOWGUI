@@ -21,7 +21,7 @@ int main() {
 
     InitPanels();
 
-    LoadPanel(panels.textFontDemo);
+    LoadPanel(panels.textVerticalAlignDemo);
 
     while(1) {
 

@@ -13,6 +13,7 @@
 #include "TestGUI/Panels/circleDemo.h"
 #include "TestGUI/Panels/lineDemo.h"
 #include "TestGUI/Panels/textFontDemo.h"
+#include "TestGUI/Panels/textVerticalAlignDemo.h"
 #include "TestGUI/Panels/preTickDemo.h"
 
 #include <vector>
@@ -45,5 +46,6 @@ void InitPanels() {
     ConfigurePanel(panels.circleDemo); InitGUICircleDemo(); CreateSidebarButton(panels.circleDemo, "Circles");
     ConfigurePanel(panels.lineDemo); InitGUILineDemo(); CreateSidebarButton(panels.lineDemo, "Lines");
     ConfigurePanel(panels.textFontDemo); InitGUITextFontDemo(); CreateSidebarButton(panels.textFontDemo, "Fonts");
+    ConfigurePanel(panels.textVerticalAlignDemo); InitGUITextVerticalAlignDemo(); CreateSidebarButton(panels.textVerticalAlignDemo, "V. Align");
     ConfigurePanel(panels.preTickDemo); InitGUIPreTickDemo(); CreateSidebarButton(panels.preTickDemo, "PreTick");
 }
