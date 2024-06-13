@@ -12,8 +12,6 @@ struct Panels {
     KOWGUI::Group* circleDemo = new KOWGUI::Group;
     KOWGUI::Group* lineDemo = new KOWGUI::Group;
     KOWGUI::Group* preTickDemo = new KOWGUI::Group;
-    KOWGUI::Group* basicShapes = new KOWGUI::Group;
-    KOWGUI::Group* text = new KOWGUI::Group;
 };
 
 extern Panels panels;
