@@ -14,6 +14,7 @@
 #include "TestGUI/Panels/lineDemo.h"
 #include "TestGUI/Panels/textFontDemo.h"
 #include "TestGUI/Panels/textVerticalAlignDemo.h"
+#include "TestGUI/Panels/textOverflowDemo.h"
 #include "TestGUI/Panels/preTickDemo.h"
 
 #include <vector>
@@ -47,5 +48,6 @@ void InitPanels() {
     ConfigurePanel(panels.lineDemo); InitGUILineDemo(); CreateSidebarButton(panels.lineDemo, "Lines");
     ConfigurePanel(panels.textFontDemo); InitGUITextFontDemo(); CreateSidebarButton(panels.textFontDemo, "Fonts");
     ConfigurePanel(panels.textVerticalAlignDemo); InitGUITextVerticalAlignDemo(); CreateSidebarButton(panels.textVerticalAlignDemo, "V. Align");
+    ConfigurePanel(panels.textOverflowDemo); InitGUITextOverflowDemo(); CreateSidebarButton(panels.textOverflowDemo, "Overflow");
     ConfigurePanel(panels.preTickDemo); InitGUIPreTickDemo(); CreateSidebarButton(panels.preTickDemo, "PreTick");
 }
