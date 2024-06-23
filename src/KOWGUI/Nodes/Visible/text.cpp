@@ -64,9 +64,19 @@ Text* Text::SetWrapLineSpacing(double lineSpacing) {
 
 
 
+// Print a line to the screen, offsetting its position by font, horizonal, and vertical alignment
+void Text::PrintAligned(vex::brain::lcd& rScreen, int x, int y, std::string text) {
+    // How much to move the Y coordinate based on fontAlign
+    int fontAlignOffset = mpFont->fontAlignmentHeights[mFontAlign] * (mFontSize / (float)mpFont->height);
+
+    rScreen.printAt(x, y - fontAlignOffset, false, text.c_str());
+}
+
+
+
 // Simply print all text at the position without worrying about it extending outside the node's area
 void Text::DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY) {
-    rScreen.printAt(startX, startY, false, mText.c_str());
+    PrintAligned(rScreen, startX, startY, mText.c_str());
 }
 
 // Print all the text that will fit within the node's width, cutting off what goes outside
@@ -86,7 +96,7 @@ void Text::DrawHide(vex::brain::lcd& rScreen, int startX, int startY) {
     }
 
     // Print currentLine, the text that fit inside mWidth
-    rScreen.printAt(startX, startY, false, currentLine.c_str());
+    PrintAligned(rScreen, startX, startY, currentLine);
 }
 
 // Clip text within node's width and slowly move it to the left
@@ -102,7 +112,7 @@ void Text::DrawScroll(vex::brain::lcd& rScreen, int startX, int startY) {
 
     // Repeat printing text so that the reset of offsetX is seamless
     for(int repetitionX = 0; repetitionX <= CalculateWidth() + repetitionWidth; repetitionX += repetitionWidth) {
-        rScreen.printAt(startX - mScrollProperties.offsetX + repetitionX, startY, false, mText.c_str());
+        PrintAligned(rScreen, startX - mScrollProperties.offsetX + repetitionX, startY, mText);
     }
 
     // Reset clipping so the next nodes can be drawn. TO DO Replace instances of this function with Clip::Push and Pop methods
@@ -189,7 +199,7 @@ int Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY, bool return
     // This code is separated from the main while loop to make implementing vertical centering easier later
     // Print each stored line
     for(int i = 0; i < storedLines.size(); i++) {
-        rScreen.printAt(startX, startY + i * mFontSize * mWrapProperties.lineSpacing, false, storedLines[i].c_str());
+        PrintAligned(rScreen, startX, startY + i * mFontSize * mWrapProperties.lineSpacing, storedLines[i]);
     }
 
     return 0;
@@ -224,19 +234,12 @@ void Text::Draw(vex::brain::lcd& rScreen) {
     // Set the text's color
     rScreen.setPenColor(mpColor->GetVexColor());
 
-    // TO DO Move this offset plus the horizontal and vertical alignment to a PrintAligned function
-
-    // Calculate what coordinate the text should be rendered at given the current vertical alignment
-    int verticalAlignmentOffset = mpFont->fontAlignmentHeights[mFontAlign] * mFontSize / (float)mpFont->height;
-    int startX = CalculateX();
-    int startY = CalculateY() - verticalAlignmentOffset;
-
     // Different overflow options will handle the text completely differently, thus they are broken into separate functions
     switch(mOverflow) {
-        case Overflow::visible: DrawOverflow(rScreen, startX, startY); break;
-        case Overflow::hidden: DrawHide(rScreen, startX, startY); break;
-        case Overflow::scroll: DrawScroll(rScreen, startX, startY); break;
-        case Overflow::wrap: DrawWrap(rScreen, startX, startY); break;
-        case Overflow::wrapScale: DrawWrapScale(rScreen, startX, startY); break;
+        case Overflow::visible: DrawOverflow(rScreen, CalculateX(), CalculateY()); break;
+        case Overflow::hidden: DrawHide(rScreen, CalculateX(), CalculateY()); break;
+        case Overflow::scroll: DrawScroll(rScreen, CalculateX(), CalculateY()); break;
+        case Overflow::wrap: DrawWrap(rScreen, CalculateX(), CalculateY()); break;
+        case Overflow::wrapScale: DrawWrapScale(rScreen, CalculateX(), CalculateY()); break;
     }
 }

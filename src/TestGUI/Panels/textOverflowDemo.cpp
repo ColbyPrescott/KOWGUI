@@ -22,29 +22,29 @@ void InitGUITextOverflowDemo() {
 
     panels.textOverflowDemo->FindShallowID("scrollArea")->AddChildren({
         (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 0)->SetSize(rectWidth, rectHeight)->SetFillColor(Color::gray)->AddChildren({
-            (new Text)->SetText("Visible is default VEX behavior.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::visible)
+            (new Text)->SetText("Visible is default VEX behavior.")->SetFontSize(16)->SetFontAlign(FontAlign::top)->SetOverflow(Overflow::visible)
         }),
         (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 1)->SetSize(rectWidth, rectHeight)->SetFillColor(Color::gray)->AddChildren({
-            (new Text)->SetText("(Hidden will cut overflowing characters.)")->SetFontSize(16)->SetFontAlign(FontAlign::descender)->SetOverflow(Overflow::visible),
+            // (new Text)->SetText("(Hidden will cut overflowing characters.)")->SetFontSize(16)->SetFontAlign(FontAlign::descender)->SetOverflow(Overflow::visible),
             (new Text)->SetText("Hidden will cut overflowing characters.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::hidden)
         }),
         (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 2)->SetSize(rectWidth, rectHeight)->SetFillColor(Color::gray)->AddChildren({
-            (new Text)->SetText("Scroll at a speed of 1.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::scroll)->SetScrollSpeed(1)
+            (new Text)->SetText("Scroll at a speed of 1.")->SetFontSize(16)->SetFontAlign(FontAlign::middle)->SetOverflow(Overflow::scroll)->SetScrollSpeed(1)
         }),
         (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 3)->SetSize(rectWidth, rectHeight)->SetFillColor(Color::gray)->AddChildren({
-            (new Text)->SetText("Scroll at a speed of 2.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::scroll)->SetScrollSpeed(2)
+            (new Text)->SetText("Scroll at a speed of 2.")->SetFontSize(16)->SetFontAlign(FontAlign::baseline)->SetOverflow(Overflow::scroll)->SetScrollSpeed(2)
         }),
         (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 4)->SetSize(rectWidth, rectHeight)->SetFillColor(Color::gray)->AddChildren({
-            (new Text)->SetText("Scroll with a repetition spacing of 20 pixels.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::scroll)->SetScrollSpacing(20)
+            (new Text)->SetText("Scroll with a repetition spacing of 20 pixels.")->SetFontSize(16)->SetFontAlign(FontAlign::descender)->SetOverflow(Overflow::scroll)->SetScrollSpacing(20)
         }),
         (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 5)->SetSize(rectWidth, rectHeight)->SetFillColor(Color::gray)->AddChildren({
-            (new Text)->SetText("Scroll with a repetition spacing of 200 pixels.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::scroll)->SetScrollSpacing(200)
+            (new Text)->SetText("Scroll with a repetition spacing of 200 pixels.")->SetFontSize(16)->SetFontAlign(FontAlign::bottom)->SetOverflow(Overflow::scroll)->SetScrollSpacing(200)
         }),
         (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 6)->SetSize(rectWidth * 2, rectHeight)->SetFillColor(Color::gray)->AddChildren({
             (new Text)->SetText("Wrap will move overflowing text to the next line.\n\\n will force a new line.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::wrap)
         }),
-        (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 7)->SetSize(rectWidth * 2, rectHeight)->SetFillColor(Color::gray)->AddChildren({
-            (new Text)->SetText("WrapScale is just like wrap, except it will decrease font size until vertical overflow stops too.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::wrapScale)
-        }),
+        // (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 7)->SetSize(rectWidth * 2, rectHeight)->SetFillColor(Color::gray)->AddChildren({
+        //     (new Text)->SetText("WrapScale is just like wrap, except it will decrease font size until vertical overflow stops too.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::wrapScale)
+        // }),
     });
 }

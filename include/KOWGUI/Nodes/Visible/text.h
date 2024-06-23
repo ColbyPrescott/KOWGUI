@@ -121,6 +121,8 @@ namespace KOWGUI {
                 double lineSpacing = 1.4;
             } mWrapProperties;
 
+            void PrintAligned(vex::brain::lcd& rScreen, int x, int y, std::string text);
+
             void DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY);
             void DrawHide(vex::brain::lcd& rScreen, int startX, int startY);
             void DrawScroll(vex::brain::lcd& rScreen, int startX, int startY);
