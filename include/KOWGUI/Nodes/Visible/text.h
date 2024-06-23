@@ -13,7 +13,7 @@ namespace KOWGUI {
 
     // TO DO Move this stuff into a separate file. The Text node should be in this file alone
 
-    enum VerticalAlign {
+    enum FontAlign {
         top,
         ascender,
         middle,
@@ -33,7 +33,7 @@ namespace KOWGUI {
     struct font {
         vex::fontType vexFont;
         int height;
-        int verticalAlignmentHeights[6];
+        int fontAlignmentHeights[6];
     };
 
     namespace Fonts {
@@ -95,11 +95,13 @@ namespace KOWGUI {
             std::shared_ptr<Color> mpColor = std::make_shared<Color>(*Color::white);
 
             // What part of the text to drawn at Y coordinate of 0
-            VerticalAlign mVerticalAlign = VerticalAlign::baseline;
+            FontAlign mFontAlign = FontAlign::baseline;
             // TO DO Whether or not the text gets centered horizontally within node area
             bool mHorizontalCentering = false;
             // TO DO Whether or not the text gets centered vertically within node area. Y 0 is moved to this location, so vertical align center is recommended
             bool mVerticalCentering = false;
+
+            // TO DO Font align, horizontal align, vertical align
 
             // What should happen when text can't fit inside node's area
             Overflow mOverflow = Overflow::wrap;
@@ -143,7 +145,7 @@ namespace KOWGUI {
             Text* SetFont(font& fontName); // TO DO Should this take a pointer instead of a reference to match everything else?
             Text* SetFontSize(int fontSize);
             Text* SetColor(Color* color);
-            Text* SetVerticalAlign(VerticalAlign verticalAlign);
+            Text* SetFontAlign(FontAlign fontAlign);
             Text* SetOverflow(Overflow overflow);
 
             Text* SetScrollSpeed(int speed);

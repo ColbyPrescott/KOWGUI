@@ -27,7 +27,7 @@ void CreateSidebarButton(Group* panel, std::string text, int height) {
             (new Focused)->AddChildren({
                 (new Rectangle)->SetFillColor(theme.buttonFocused)
             }),
-            (new Text)->SetPosition(0, height / 2)->SetText(text)->SetFont(Fonts::proportional)->SetFontSize(12)->SetColor(theme.lightText)->SetVerticalAlign(VerticalAlign::middle)->SetOverflow(Overflow::wrap)->SetWrapLineSpacing(1.1)
+            (new Text)->SetPosition(0, height / 2)->SetText(text)->SetFont(Fonts::proportional)->SetFontSize(12)->SetColor(theme.lightText)->SetFontAlign(FontAlign::middle)->SetOverflow(Overflow::wrap)->SetWrapLineSpacing(1.1)
         })
     );
 

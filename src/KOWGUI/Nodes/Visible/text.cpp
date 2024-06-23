@@ -30,9 +30,9 @@ Text* Text::SetColor(Color* color) {
     return this;
 }
 
-// Set what part of the text to drawn at Y coordinate of 0, pick from the KOWGUI::VerticalAlign enum
-Text* Text::SetVerticalAlign(VerticalAlign verticalAlign) {
-    mVerticalAlign = verticalAlign;
+// Set what part of the text to drawn at Y coordinate of 0, pick from the KOWGUI::FontAlign enum
+Text* Text::SetFontAlign(FontAlign fontAlign) {
+    mFontAlign = fontAlign;
     return this;
 }
 
@@ -205,7 +205,7 @@ void Text::DrawWrapScale(vex::brain::lcd& rScreen, int startX, int startY) {
     }
 
     // startX and startY need to be recalculated now that the font size has changed
-    int verticalAlignmentOffset = mpFont->verticalAlignmentHeights[mVerticalAlign] * mFontSize / (float)mpFont->height;
+    int verticalAlignmentOffset = mpFont->fontAlignmentHeights[mFontAlign] * mFontSize / (float)mpFont->height;
     // Draw wrapping text with the new font size
     DrawWrap(rScreen, CalculateX(), CalculateY() - verticalAlignmentOffset);
 
@@ -224,8 +224,10 @@ void Text::Draw(vex::brain::lcd& rScreen) {
     // Set the text's color
     rScreen.setPenColor(mpColor->GetVexColor());
 
+    // TO DO Move this offset plus the horizontal and vertical alignment to a PrintAligned function
+
     // Calculate what coordinate the text should be rendered at given the current vertical alignment
-    int verticalAlignmentOffset = mpFont->verticalAlignmentHeights[mVerticalAlign] * mFontSize / (float)mpFont->height;
+    int verticalAlignmentOffset = mpFont->fontAlignmentHeights[mFontAlign] * mFontSize / (float)mpFont->height;
     int startX = CalculateX();
     int startY = CalculateY() - verticalAlignmentOffset;
 
