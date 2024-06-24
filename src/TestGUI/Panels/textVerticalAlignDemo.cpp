@@ -12,10 +12,10 @@ void InitGUITextVerticalAlignDemo() {
             (new Text)->SetText("Top")->SetFontSize(20)->SetFontAlign(FontAlign::ascender)->SetVerticalAlign(VerticalAlign::top)
         }),
         (new Rectangle)->SetPosition(20 + (rectWidth + 20) * 1, 20)->SetSize(rectWidth, 200)->SetFillColor(Color::gray)->AddChildren({
-            (new Text)->SetText("Middle")->SetFontSize(20)->SetFontAlign(FontAlign::ascender)->SetVerticalAlign(VerticalAlign::middle)
+            (new Text)->SetText("Middle")->SetFontSize(20)->SetFontAlign(FontAlign::middle)->SetVerticalAlign(VerticalAlign::middle)
         }),
         (new Rectangle)->SetPosition(20 + (rectWidth + 20) * 2, 20)->SetSize(rectWidth, 200)->SetFillColor(Color::gray)->AddChildren({
-            (new Text)->SetText("Bottom")->SetFontSize(20)->SetFontAlign(FontAlign::ascender)->SetVerticalAlign(VerticalAlign::bottom)
+            (new Text)->SetText("Bottom")->SetFontSize(20)->SetFontAlign(FontAlign::descender)->SetVerticalAlign(VerticalAlign::bottom)
         }),
     });
 }

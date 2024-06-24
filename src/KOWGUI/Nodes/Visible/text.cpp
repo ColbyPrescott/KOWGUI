@@ -87,11 +87,11 @@ void Text::PrintAligned(vex::brain::lcd& rScreen, int x, int y, std::vector<std:
         case VerticalAlign::top: // Don't offset at all. Top side origin is already correct
             verticalAlignOffset = 0;
             break;
-        case VerticalAlign::middle: // Offset by half of the black space, calculated as node height minus height of all lines together (1 font size height for each line + an additional line spacing for each line break), all divided by 2
-            verticalAlignOffset = (CalculateHeight() - (mFontSize * lines.size()) - (mWrapProperties.lineSpacing * (lines.size() - 1))) / 2.0;
+        case VerticalAlign::middle: // Offset text Y 0 to the middle of the node, then upwards by half of the total height of extra lines. Calculated as total height + total extra line height, all divided by 2
+            verticalAlignOffset = (CalculateHeight() - ((mFontSize * mWrapProperties.lineSpacing) * (lines.size() - 1))) / 2.0;
             break;
-        case VerticalAlign::bottom: // Offset by half of the black space, calculated as node height minus height of all lines together (1 font size height for each line + an additional line spacing for each line break)
-            verticalAlignOffset = CalculateHeight() - (mFontSize * lines.size()) - (mWrapProperties.lineSpacing * (lines.size() - 1));
+        case VerticalAlign::bottom: // Offset text Y 0 to the bottom of the node, then upwards by the total height of extra lines
+            verticalAlignOffset = CalculateHeight() - ((mFontSize * mWrapProperties.lineSpacing) * (lines.size() - 1));
             break;
     }
 
@@ -113,7 +113,7 @@ void Text::PrintAligned(vex::brain::lcd& rScreen, int x, int y, std::vector<std:
         }
 
         // How much to move the Y coordinate based on the current line being printed, calculated as the full height of a line multiplied by the current line index
-        int lineOffset = (mFontSize + mWrapProperties.lineSpacing) * i;
+        int lineOffset = (mFontSize * mWrapProperties.lineSpacing) * i;
 
         // Print the line to the screen with all the offsets applied
         rScreen.printAt(x + horizontalAlignOffset, y + fontAlignOffset + verticalAlignOffset + lineOffset, false, lines[i].c_str());
