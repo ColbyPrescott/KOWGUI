@@ -30,12 +30,6 @@ Text* Text::SetColor(Color* color) {
     return this;
 }
 
-// Set what part of the text to drawn at Y coordinate of 0
-Text* Text::SetFontAlign(FontAlign fontAlign) {
-    mFontAlign = fontAlign;
-    return this;
-}
-
 // Set which part of the node's area the text should horizontally snap to
 Text* Text::SetHorizontalAlign(HorizontalAlign horizontalAlign) {
     mHorizontalAlign = horizontalAlign;
@@ -53,6 +47,20 @@ Text* Text::SetVerticalAlign(VerticalAlign verticalAlign) {
         case VerticalAlign::bottom: SetFontAlign(FontAlign::descender); break;
     }
 
+    return this;
+}
+
+// Set what part of the text to drawn at Y coordinate of 0
+Text* Text::SetFontAlign(FontAlign fontAlign) {
+    mFontAlign = fontAlign;
+    return this;
+}
+
+// Set horizontal, vertical, and font alignment in one function
+Text* Text::SetAlignments(HorizontalAlign horizontalAlign, VerticalAlign verticalAlign, FontAlign fontAlign) {
+    SetHorizontalAlign(horizontalAlign);
+    SetVerticalAlign(verticalAlign);
+    SetFontAlign(fontAlign);
     return this;
 }
 
@@ -254,7 +262,6 @@ int Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY, bool return
 
     // Print each stored line
     PrintAligned(rScreen, startX, startY, storedLines);
-
 
     return 0;
 }

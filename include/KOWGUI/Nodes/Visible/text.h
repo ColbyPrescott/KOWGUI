@@ -13,15 +13,6 @@ namespace KOWGUI {
 
     // TO DO Move this stuff into a separate file. The Text node should be in this file alone
 
-    enum class FontAlign {
-        top,
-        ascender,
-        middle,
-        baseline,
-        descender,
-        bottom
-    };
-
     enum class HorizontalAlign {
         left,
         center,
@@ -31,6 +22,15 @@ namespace KOWGUI {
     enum class VerticalAlign {
         top,
         middle,
+        bottom
+    };
+
+    enum class FontAlign {
+        top,
+        ascender,
+        middle,
+        baseline,
+        descender,
         bottom
     };
 
@@ -106,12 +106,12 @@ namespace KOWGUI {
             // Color of the text
             std::shared_ptr<Color> mpColor = std::make_shared<Color>(*Color::white);
 
-            // What part of the text to drawn at Y coordinate of 0
-            FontAlign mFontAlign = FontAlign::baseline;
             // Which part of the node's area the text should horizontally snap to
             HorizontalAlign mHorizontalAlign = HorizontalAlign::left;
             // Which part of the node's area the text should vertically snap to
             VerticalAlign mVerticalAlign = VerticalAlign::top;
+            // What part of the text to drawn at Y coordinate of 0
+            FontAlign mFontAlign = FontAlign::baseline;
 
             // What should happen when text can't fit inside node's area
             Overflow mOverflow = Overflow::wrap;
@@ -157,9 +157,10 @@ namespace KOWGUI {
             Text* SetFont(font& fontName); // TO DO Should this take a pointer instead of a reference to match everything else?
             Text* SetFontSize(int fontSize);
             Text* SetColor(Color* color);
-            Text* SetFontAlign(FontAlign fontAlign);
             Text* SetHorizontalAlign(HorizontalAlign horizontalAlign);
             Text* SetVerticalAlign(VerticalAlign verticalAlign);
+            Text* SetFontAlign(FontAlign fontAlign);
+            Text* SetAlignments(HorizontalAlign horizontalAlign, VerticalAlign verticalAlign, FontAlign fontAlign);
             Text* SetOverflow(Overflow overflow);
 
             Text* SetScrollSpeed(int speed);
