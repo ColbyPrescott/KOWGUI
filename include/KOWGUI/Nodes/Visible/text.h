@@ -13,7 +13,7 @@ namespace KOWGUI {
 
     // TO DO Move this stuff into a separate file. The Text node should be in this file alone
 
-    enum FontAlign {
+    enum class FontAlign {
         top,
         ascender,
         middle,
@@ -22,13 +22,19 @@ namespace KOWGUI {
         bottom
     };
 
-    enum HorizontalAlign {
+    enum class HorizontalAlign {
         left,
         center,
         right
     };
 
-    enum Overflow {
+    enum class VerticalAlign {
+        top,
+        middle,
+        bottom
+    };
+
+    enum class Overflow {
         visible, // Simply let the overflowing text print outside the node
         hidden, // Overflowing text just gets cut off
         scroll, // Slowly move the text to the left
@@ -104,10 +110,8 @@ namespace KOWGUI {
             FontAlign mFontAlign = FontAlign::baseline;
             // Which part of the node's area the text should horizontally snap to
             HorizontalAlign mHorizontalAlign = HorizontalAlign::left;
-            // TO DO Whether or not the text gets centered vertically within node area. Y 0 is moved to this location, so vertical align center is recommended
-            bool mVerticalCentering = false;
-
-            // TO DO Font align, horizontal align, vertical align
+            // Which part of the node's area the text should vertically snap to
+            VerticalAlign mVerticalAlign = VerticalAlign::top;
 
             // What should happen when text can't fit inside node's area
             Overflow mOverflow = Overflow::wrap;
@@ -127,7 +131,7 @@ namespace KOWGUI {
                 double lineSpacing = 1.4;
             } mWrapProperties;
 
-            void PrintAligned(vex::brain::lcd& rScreen, int x, int y, std::string text);
+            void PrintAligned(vex::brain::lcd& rScreen, int x, int y, std::vector<std::string> lines);
 
             void DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY);
             void DrawHide(vex::brain::lcd& rScreen, int startX, int startY);
@@ -155,6 +159,7 @@ namespace KOWGUI {
             Text* SetColor(Color* color);
             Text* SetFontAlign(FontAlign fontAlign);
             Text* SetHorizontalAlign(HorizontalAlign horizontalAlign);
+            Text* SetVerticalAlign(VerticalAlign verticalAlign);
             Text* SetOverflow(Overflow overflow);
 
             Text* SetScrollSpeed(int speed);

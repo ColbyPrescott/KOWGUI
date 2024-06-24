@@ -42,6 +42,12 @@ Text* Text::SetHorizontalAlign(HorizontalAlign horizontalAlign) {
     return this;
 }
 
+// Set which part of the node's area the text should vertically snap to
+Text* Text::SetVerticalAlign(VerticalAlign verticalAlign) {
+    mVerticalAlign = verticalAlign;
+    return this;
+}
+
 // Set what should happen when text can't fit inside node's area, pick from the KOWGUI::Overflow enum
 Text* Text::SetOverflow(Overflow overflow) {
     mOverflow = overflow;
@@ -71,31 +77,54 @@ Text* Text::SetWrapLineSpacing(double lineSpacing) {
 
 
 // Print a line to the screen, offsetting its position by font, horizonal, and vertical alignment
-void Text::PrintAligned(vex::brain::lcd& rScreen, int x, int y, std::string text) {
-    // How much to move the Y coordinate based on fontAlign
-    int fontAlignOffset = mpFont->fontAlignmentHeights[mFontAlign] * (mFontSize / (float)mpFont->height);
+void Text::PrintAligned(vex::brain::lcd& rScreen, int x, int y, std::vector<std::string> lines) {
+    // How much to move the Y coordinate based on fontAlign, calculated as the font's selected Y alignment line value multiplied by the default to custom font size scaling factor
+    int fontAlignOffset = -mpFont->fontAlignmentHeights[(int)mFontAlign] * (mFontSize / (float)mpFont->height);
 
-    int horizontalAlignOffset;
-    switch(mHorizontalAlign) {
-        case HorizontalAlign::left:
-            horizontalAlignOffset = 0;
+    // How much to move the Y coordinate based on verticalAlign
+    int verticalAlignOffset;
+    switch(mVerticalAlign) {
+        case VerticalAlign::top: // Don't offset at all. Top side origin is already correct
+            verticalAlignOffset = 0;
             break;
-        case HorizontalAlign::center:
-            horizontalAlignOffset = (CalculateWidth() - rScreen.getStringWidth(text.c_str())) / 2.0;
+        case VerticalAlign::middle: // Offset by half of the black space, calculated as node height minus height of all lines together (1 font size height for each line + an additional line spacing for each line break), all divided by 2
+            verticalAlignOffset = (CalculateHeight() - (mFontSize * lines.size()) - (mWrapProperties.lineSpacing * (lines.size() - 1))) / 2.0;
             break;
-        case HorizontalAlign::right:
-            horizontalAlignOffset = CalculateWidth() - rScreen.getStringWidth(text.c_str());
+        case VerticalAlign::bottom: // Offset by half of the black space, calculated as node height minus height of all lines together (1 font size height for each line + an additional line spacing for each line break)
+            verticalAlignOffset = CalculateHeight() - (mFontSize * lines.size()) - (mWrapProperties.lineSpacing * (lines.size() - 1));
             break;
     }
 
-    rScreen.printAt(x + horizontalAlignOffset, y - fontAlignOffset, false, text.c_str());
+    // Loop through each line of text, calculate line-specific alignments, and print them to the screen
+    for(int i = 0; i < lines.size(); i++) {
+
+        // How much to move the X coordinate based on horizontalAlign
+        int horizontalAlignOffset;
+        switch(mHorizontalAlign) {
+            case HorizontalAlign::left: // Don't offset at all. Left side origin is already correct
+                horizontalAlignOffset = 0;
+                break;
+            case HorizontalAlign::center: // Offset by half of the blank space, calculated as node width minus line width, all divided by 2
+                horizontalAlignOffset = (CalculateWidth() - rScreen.getStringWidth(lines[i].c_str())) / 2.0;
+                break;
+            case HorizontalAlign::right: // Offset by all of the blank space, calculated as node width minus line width
+                horizontalAlignOffset = CalculateWidth() - rScreen.getStringWidth(lines[i].c_str());
+                break;
+        }
+
+        // How much to move the Y coordinate based on the current line being printed, calculated as the full height of a line multiplied by the current line index
+        int lineOffset = (mFontSize + mWrapProperties.lineSpacing) * i;
+
+        // Print the line to the screen with all the offsets applied
+        rScreen.printAt(x + horizontalAlignOffset, y + fontAlignOffset + verticalAlignOffset + lineOffset, false, lines[i].c_str());
+    }
 }
 
 
 
 // Simply print all text at the position without worrying about it extending outside the node's area
 void Text::DrawOverflow(vex::brain::lcd& rScreen, int startX, int startY) {
-    PrintAligned(rScreen, startX, startY, mText.c_str());
+    PrintAligned(rScreen, startX, startY, {mText});
 }
 
 // Print all the text that will fit within the node's width, cutting off what goes outside
@@ -115,7 +144,7 @@ void Text::DrawHide(vex::brain::lcd& rScreen, int startX, int startY) {
     }
 
     // Print currentLine, the text that fit inside mWidth
-    PrintAligned(rScreen, startX, startY, currentLine);
+    PrintAligned(rScreen, startX, startY, {currentLine});
 }
 
 // Clip text within node's width and slowly move it to the left
@@ -131,7 +160,7 @@ void Text::DrawScroll(vex::brain::lcd& rScreen, int startX, int startY) {
 
     // Repeat printing text so that the reset of offsetX is seamless
     for(int repetitionX = 0; repetitionX <= CalculateWidth() + repetitionWidth; repetitionX += repetitionWidth) {
-        PrintAligned(rScreen, startX - mScrollProperties.offsetX + repetitionX, startY, mText);
+        PrintAligned(rScreen, startX - mScrollProperties.offsetX + repetitionX, startY, {mText});
     }
 
     // Reset clipping so the next nodes can be drawn. TO DO Replace instances of this function with Clip::Push and Pop methods
@@ -215,11 +244,9 @@ int Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY, bool return
     // that number and don't bother drawing anything on screen
     if(returnHeight) return mFontSize * storedLines.size() * mWrapProperties.lineSpacing;
 
-    // This code is separated from the main while loop to make implementing vertical centering easier later
     // Print each stored line
-    for(int i = 0; i < storedLines.size(); i++) {
-        PrintAligned(rScreen, startX, startY + i * mFontSize * mWrapProperties.lineSpacing, storedLines[i]);
-    }
+    PrintAligned(rScreen, startX, startY, storedLines);
+
 
     return 0;
 }
