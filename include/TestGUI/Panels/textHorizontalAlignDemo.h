@@ -1,0 +1,6 @@
+#ifndef PANELS_TEXT_HORIZONTAL_ALIGN_DEMO_H
+#define PANELS_TEXT_HORIZONTAL_ALIGN_DEMO_H
+
+void InitGUITextHorizontalAlignDemo();
+
+#endif

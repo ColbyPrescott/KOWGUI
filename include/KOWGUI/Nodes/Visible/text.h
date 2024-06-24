@@ -22,6 +22,12 @@ namespace KOWGUI {
         bottom
     };
 
+    enum HorizontalAlign {
+        left,
+        center,
+        right
+    };
+
     enum Overflow {
         visible, // Simply let the overflowing text print outside the node
         hidden, // Overflowing text just gets cut off
@@ -96,8 +102,8 @@ namespace KOWGUI {
 
             // What part of the text to drawn at Y coordinate of 0
             FontAlign mFontAlign = FontAlign::baseline;
-            // TO DO Whether or not the text gets centered horizontally within node area
-            bool mHorizontalCentering = false;
+            // Which part of the node's area the text should horizontally snap to
+            HorizontalAlign mHorizontalAlign = HorizontalAlign::left;
             // TO DO Whether or not the text gets centered vertically within node area. Y 0 is moved to this location, so vertical align center is recommended
             bool mVerticalCentering = false;
 
@@ -148,6 +154,7 @@ namespace KOWGUI {
             Text* SetFontSize(int fontSize);
             Text* SetColor(Color* color);
             Text* SetFontAlign(FontAlign fontAlign);
+            Text* SetHorizontalAlign(HorizontalAlign horizontalAlign);
             Text* SetOverflow(Overflow overflow);
 
             Text* SetScrollSpeed(int speed);
