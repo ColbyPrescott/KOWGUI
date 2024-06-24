@@ -45,6 +45,14 @@ Text* Text::SetHorizontalAlign(HorizontalAlign horizontalAlign) {
 // Set which part of the node's area the text should vertically snap to
 Text* Text::SetVerticalAlign(VerticalAlign verticalAlign) {
     mVerticalAlign = verticalAlign;
+
+    // Setting vertical align infers that font align should also change. Placing text on the bottom of an area usually means that bottom touches bottom, thus it shall be default behavior
+    switch(verticalAlign) {
+        case VerticalAlign::top: SetFontAlign(FontAlign::ascender); break;
+        case VerticalAlign::middle: SetFontAlign(FontAlign::middle); break;
+        case VerticalAlign::bottom: SetFontAlign(FontAlign::descender); break;
+    }
+
     return this;
 }
 
