@@ -72,19 +72,22 @@ void GUI::Tick() {
         // Insert currentNode children into the remainingNodes vector, back to front into index 1 to keep priority order of tree
         for(int i = currentNode->children.size() - 1; i >= 0; i--) remainingNodes.insert(remainingNodes.begin() + 1, currentNode->children[i]);
 
+
         // Give node the chance to execute its own user defined code first, call preTick
         currentNode->CallPreTick();
-
+        // Execute any code defined by the node's type
+        currentNode->Tick();
         // Run drawing functions associated with node
         VisibleBaseNode* visibleNode = dynamic_cast<VisibleBaseNode*>(currentNode);
         if(visibleNode != nullptr) visibleNode->Draw(mpVexBrain->Screen);
+
 
         // Move currentNode from remainingNodes into the allNodes vector
         allNodes.push_back(remainingNodes[0]);
         remainingNodes.erase(remainingNodes.begin());
     }
 
-    // Render screen to stop flickering
+    // All draw functions have been called back to front. Render screen to stop flickering
     mpVexBrain->Screen.render();
 
 
@@ -105,6 +108,7 @@ void GUI::Tick() {
 
         // Skip and continue search if currentNode isn't the one being touched
         if(!interactableNode->TestCollision(screenX, screenY)) continue;
+
 
         // The current node has been selected! Store this information
         mpSelectedNode = interactableNode;

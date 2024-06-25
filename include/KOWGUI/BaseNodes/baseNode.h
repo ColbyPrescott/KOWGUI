@@ -28,15 +28,17 @@ namespace KOWGUI {
 
         // Called in GUI::Tick() before any other processing
         void (*mpPreTickFunc)(BaseNode*) = nullptr;
+        void CallPreTick();
+
+        // Derived nodes may execute their own code each tick
+        virtual void Tick() {};
+
 
         // Whether or not GUI::Tick should ignore this node
         bool mDisabled = false;
 
         // Pointer to the GUI object. All nodes have this for speed and convenience
         GUI* mpContainingGUI = nullptr;
-
-        void CallPreTick();
-
         void LinkChild(BaseNode* child);
     
     public:
