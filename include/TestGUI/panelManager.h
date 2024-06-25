@@ -16,6 +16,7 @@ struct Panels {
     KOWGUI::Group* textHorizontalAlignDemo = new KOWGUI::Group;
     KOWGUI::Group* textVerticalAlignDemo = new KOWGUI::Group;
     KOWGUI::Group* textOverflowDemo = new KOWGUI::Group;
+    KOWGUI::Group* rowDemo = new KOWGUI::Group;
     KOWGUI::Group* preTickDemo = new KOWGUI::Group;
 };
 

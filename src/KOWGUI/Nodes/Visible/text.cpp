@@ -237,11 +237,13 @@ int Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY, bool return
             currentLine.append(currentWord);
 
             // Move characters from end of currentLine back into beginning of remainingText until it with a hyphen stops overflowing node
-            int movedCharacters = 0;
+            int movedCharacters = 0; // Keep track of how much of the word was moved
             while(rScreen.getStringWidth((currentLine + "-").c_str()) >= CalculateWidth()) {
-                remainingText.insert(remainingText.begin(), currentLine.back());
-                currentLine.erase(currentLine.end() - 1);
+                remainingText.insert(remainingText.begin(), currentLine.back()); // Put last character of currentLine into front of remainingText
+                currentLine.erase(currentLine.end() - 1); // Remove last character of currentLine
                 movedCharacters++;
+                // If not even one character can fit in the node's width, exit and skip drawing anything
+                if(currentLine.length() == 0) return -1;
             }
 
             // If any of the currentWord remains in currentLine, add the hyphen in to signify that the word was broken
@@ -258,7 +260,7 @@ int Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY, bool return
 
     // If this function is just being called by DrawWrapScale to get the number of lines calculated, just return 
     // that number and don't bother drawing anything on screen
-    if(returnHeight) return mFontSize * storedLines.size() * mWrapProperties.lineSpacing;
+    if(returnHeight) return mFontSize * storedLines.size() * mWrapProperties.lineSpacing; // TO DO Does this put an extra line spacing on the end?
 
     // Print each stored line
     PrintAligned(rScreen, startX, startY, storedLines);
@@ -269,10 +271,19 @@ int Text::DrawWrap(vex::brain::lcd& rScreen, int startX, int startY, bool return
 // Split text into multiple lines like wrap overflow, but automatically decrease the font size until it stops overflowing vertically too
 void Text::DrawWrapScale(vex::brain::lcd& rScreen, int startX, int startY) {
     // TO DO Increase / decrease mFontSize in proportion to height difference to reduce wrapScale lag spikes
+
+    // Calculate the total height of all lines for comparison with node height
+    int totalHeight = DrawWrap(rScreen, startX, startY, true);
+
+    // If DrawWrap failed to draw the text, fail here too
+    if(totalHeight == -1) return;
+
     // Gradually reduce mFontSize until height of all text lines fits within node's height
-    while(DrawWrap(rScreen, startX, startY, true) > CalculateHeight() && mFontSize > 5) {
+    while(totalHeight > CalculateHeight() && mFontSize > 5) {
         mFontSize--;
         vexDisplayTextSize(mFontSize, mpFont->height);
+
+        totalHeight = DrawWrap(rScreen, startX, startY, true);
     }
     // Draw wrapping text with the new font size
     DrawWrap(rScreen, CalculateX(), CalculateY());

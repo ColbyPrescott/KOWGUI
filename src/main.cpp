@@ -21,7 +21,7 @@ int main() {
 
     InitPanels();
 
-    LoadPanel(panels.textVerticalAlignDemo);
+    LoadPanel(panels.rowDemo);
 
     while(1) {
 
