@@ -13,6 +13,7 @@
 #include "KOWGUI/Nodes/Basic/group.h"
 #include "KOWGUI/Nodes/Basic/data.h"
 #include "KOWGUI/Nodes/Basic/row.h"
+#include "KOWGUI/Nodes/Basic/column.h"
 #include "KOWGUI/Nodes/Visible/rectangle.h"
 #include "KOWGUI/Nodes/Visible/circle.h"
 #include "KOWGUI/Nodes/Visible/line.h"

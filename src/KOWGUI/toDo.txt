@@ -20,10 +20,6 @@ Node types:
     - Clip should stop interactable from being selected
     - Clip border should unfocus clickable
     - Clip border should not stop draggable from moving (for scrollable windows)
-- Grid / Table
-  - Orgainze children positions into grid
-  - Add a whole bunch of group nodes as children then set cell size and node width on grid?
-  - Individual row and column nodes like HTML table?
 
 
 Features:
