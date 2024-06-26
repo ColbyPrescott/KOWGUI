@@ -13,6 +13,8 @@ void BaseNode::CallPreTick() {
 
 // Hook up connections between a new child node, its parent, and the GUI object
 void BaseNode::LinkChild(BaseNode* child) {
+    // TO DO Add check to prevent linking a node that is already linked. Should this throw an error or attempt to duplicate the node?
+
     // Link pointers between child and parent
     child->parent = this;
     children.push_back(child);

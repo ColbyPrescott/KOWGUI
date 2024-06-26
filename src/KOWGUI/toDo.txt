@@ -41,9 +41,11 @@ Features:
       - What if, classes are prefabs and functions are referred to as like... macros?
       - Functions are simple one time node systems. Create me a button
       - Classes are more complicated and can contain methods. Made me a graph and then update the data inside
+      - Or, most recent shower thought, everything is functions but more complicated systems can be shoved into a namespace with extra functions that take a node pointer as parameter
   - Keyboard
       - Strings: Full keyboard, full screen
-      - Ints / doubles / floats: Numpad, could be resized
+      - Ints / doubles / floats: Numpad, could be resized and dragged around
+      - Plug into computer to type in terminal
   - Graph
   - Slider / interactable or like volume gauge
   - Timer system? For like, regularly spawning nodes with particle code?
@@ -72,7 +74,9 @@ Features:
 
 
 Refactoring and other code stuff:
-- Some comments have the text "TO DO" so they can be found with grep
+- Some comments have the text "TO DO" so they can be found with 
+  - Linux / Mac: grep -r "TO DO"
+  - Windows: findstr /S "TO DO" *.cpp *.h
 - Move all cpp files into the headers so a user will only need to copy the include folder
   - On second look at PROS, it seems like precompiled binaries could be a viable option
 - Use of 'p' before pointer names in inconsistent

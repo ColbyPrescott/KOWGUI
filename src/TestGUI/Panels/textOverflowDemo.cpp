@@ -25,7 +25,7 @@ void InitGUITextOverflowDemo() {
             (new Text)->SetText("Visible is default VEX behavior.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::visible)
         }),
         (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 1)->SetSize(rectWidth, rectHeight)->SetFillColor(Color::gray)->AddChildren({
-            // (new Text)->SetText("(Hidden will cut overflowing characters.)")->SetFontSize(16)->SetFontAlign(FontAlign::descender)->SetOverflow(Overflow::visible),
+            (new Text)->SetText("(Hidden will cut overflowing characters.)")->SetFontSize(16)->SetFontAlign(FontAlign::descender)->SetOverflow(Overflow::visible),
             (new Text)->SetText("Hidden will cut overflowing characters.")->SetFontSize(16)->SetFontAlign(FontAlign::ascender)->SetOverflow(Overflow::hidden)
         }),
         (new Rectangle)->SetPosition(spacing, (spacing + rectHeight) * 2)->SetSize(rectWidth, rectHeight)->SetFillColor(Color::gray)->AddChildren({
