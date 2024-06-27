@@ -1,46 +1,57 @@
 #include "KOWGUI/kowgui.h"
 #include "TestGUI/panelManager.h"
+#include "TestGUI/sidebar.h"
 
 #include <string>
-#include <iostream>
 
 using namespace KOWGUI;
 
-vex::task readTask;
+void FrontAppendLineToTextNode(Text* textNode, std::string newLine) {
+    static int lineNumber = 0;
+    lineNumber++;
 
-int ReadLoop() {
-    while(true) {
-        // Retrieve single character from input buffer
-        char data;
-        std::cin.get(data);
+    std::string existingText = textNode->GetText().substr(0, 150);
 
-        // Print single letter to terminal
-        // std::cout << data << " - " << (int)data << std::endl;
-        std::cout << data;
+    textNode->SetText("%d: %s\n%s", lineNumber, newLine.c_str(), existingText.c_str());
+}
 
+void DemoPressed(BaseNode* thisNode) {
+    FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Press function");
+}
 
-        // Find text node
-        Text* keyCodeText = (Text*)gui.FindID("keyCodeText");
-        Text* totalText = (Text*)gui.FindID("totalText");
+void DemoReleased(BaseNode* thisNode) {
+    FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Release function");
+}
 
-        // Get existing text
-        std::string existingKeyCodeText = keyCodeText->GetText().substr(0, 50);
-        std::string existingTotalText = totalText->GetText();
-        if(existingTotalText.size() > 150) existingTotalText = existingTotalText.substr(1);
+void DemoFocused(BaseNode* thisNode) {
+    FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Focus function");
+}
 
-        // Append input character and key code to front of existingtext
-        keyCodeText->SetText("%c - %d\n%s", data, (int)data, existingKeyCodeText.c_str());
-        totalText->SetText("%s%c", existingTotalText.c_str(), data);
-
-        vex::task::sleep(20);
-    }
+void DemoUnfocused(BaseNode* thisNode) {
+    FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Unfocus function");
 }
 
 void InitGUIClickableDemo() {
-    readTask = vex::task(ReadLoop);
-
     panels.clickableDemo->AddChildren({
-        (new Text)->SetID("keyCodeText")->SetPosition(0, 0)->SetAlignments(HorizontalAlign::left, VerticalAlign::top, FontAlign::ascender),
-        (new Text)->SetID("totalText")->SetPosition(140, 0)->SetSize(200, 240)->SetText("Start typing in interactive terminal: ")->SetFontSize(20)->SetAlignments(HorizontalAlign::left, VerticalAlign::top, FontAlign::ascender),
+        // Demo clickable
+        (new Clickable)->SetPosition(30, 30)->SetSize(80, 80)->SetPress(DemoPressed)->SetRelease(DemoReleased)->SetFocus(DemoFocused)->SetUnfocus(DemoUnfocused)->AddChildren({
+            (new Rectangle)->SetFillColor(Color::gray)->SetOutlineColor(Color::white),
+            (new Text)->SetText("Press")->SetFontSize(20)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),
+        }),
+
+        // Function log
+        (new Text)->SetShallowID("stateText")->SetPosition(140, 30)->SetText("State")->SetFontSize(20)->SetAlignments(HorizontalAlign::left, VerticalAlign::top, FontAlign::ascender)->SetOverflow(Overflow::wrap)->SetWrapLineSpacing(1.8),
+
+        // Info help button
+        (new Clickable)->SetPosition(50, 160)->SetSize(40, 40)->AddChildren({
+            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
+            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
+            (new Text)->SetPosition(1, 2)->SetText("?")->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),
+            
+            (new Focused)->SetPosition(-50, -160)->SetSize(480 - sidebarWidth, 150)->AddChildren({ // TO DO Add Selected and put it here
+                (new Rectangle)->SetFillColor(Color::gray),
+                (new Text)->SetText("When an interactable node is selected (input starts in its area), it will start running these four user-defined callback functions:\n\n- Press: Called when input starts.\n- Release: Called when input is removed inside node area.\n- Focus: Called when input starts or re-enters node area after dragging continuous input.\n- Unfocus: Called when continuous input is dragged outside of node area.")->SetFontSize(12)->SetFontAlign(FontAlign::ascender),
+            }),
+        }),
     });
 }
