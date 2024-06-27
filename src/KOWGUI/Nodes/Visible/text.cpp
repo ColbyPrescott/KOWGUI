@@ -92,6 +92,13 @@ Text* Text::SetWrapLineSpacing(double lineSpacing) {
 
 
 
+// Get the internal text being displayed
+std::string Text::GetText() {
+    return mText;
+}
+
+
+
 // Print a line to the screen, offsetting its position by font, horizonal, and vertical alignment
 void Text::PrintAligned(vex::brain::lcd& rScreen, int x, int y, std::vector<std::string> lines) {
     // How much to move the Y coordinate based on fontAlign, calculated as the font's selected Y alignment line value multiplied by the default to custom font size scaling factor

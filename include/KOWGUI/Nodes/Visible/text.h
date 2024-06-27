@@ -167,6 +167,8 @@ namespace KOWGUI {
             Text* SetScrollSpacing(int spacing);
             Text* SetWrapLineSpacing(double lineSpacing);
 
+            std::string GetText();
+
             void Draw(vex::brain::lcd& rScreen);
 
             // Set the text to display in a similar way to std::printf(format, ...)
