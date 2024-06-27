@@ -43,10 +43,11 @@ void InitGUIRowDemo() {
 
         // Spacing slider
         (new Group)->SetPosition(70, 30)->SetSize(270, 30)->AddChildren({
-            (new Line)->SetPositions(15, 15, 270 - 15, 15)->SetColor(theme.scrollbar)->SetLineWidth(10),
+            (new Line)->SetPositions(15, 15, 270 - 15, 15)->SetColor(theme.sliderNFocused)->SetLineWidth(10),
             (new Text)->SetText("Spacing")->SetFontSize(20)->SetHorizontalAlign(HorizontalAlign::center)->SetVerticalAlign(VerticalAlign::middle),
             (new Draggable)->SetSize(30, 30)->SetRange(0, 0, 270, 30)->SetPreTick(UpdateSpacing)->AddChildren({
-                (new Circle)->SetFillColor(theme.scrollbar)->SetOutlineColor(Color::lightGray),
+                (new NFocused)->AddChildren({(new Circle)->SetFillColor(theme.sliderNFocused)->SetOutlineColor(Color::lightGray)}),
+                (new Focused)->AddChildren({(new Circle)->SetFillColor(theme.sliderFocused)->SetOutlineColor(Color::lightGray)}),
             }),
         }),
 
@@ -79,7 +80,9 @@ void InitGUIRowDemo() {
 
             // Bar to change the width
             (new Draggable)->SetPosition(240, 150)->SetSize(20, 40)->SetRange(100, 150, 340, 190)->SetPreTick(UpdateScaleToFitWidth)->AddChildren({
-                (new Rectangle)->SetFillColor(theme.scrollbar),
+                (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.sliderNFocused)}),
+                (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.sliderFocused)}),
+                
                 (new Line)->SetPositions(5, 5, 5, 35)->SetColor(Color::lightGray)->SetLineWidth(1),
                 (new Line)->SetPositions(10, 5, 10, 35)->SetColor(Color::lightGray)->SetLineWidth(1),
                 (new Line)->SetPositions(15, 5, 15, 35)->SetColor(Color::lightGray)->SetLineWidth(1),

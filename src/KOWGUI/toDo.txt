@@ -49,6 +49,7 @@ Features:
   - Graph
   - Slider / interactable or like volume gauge
   - Timer system? For like, regularly spawning nodes with particle code?
+  - Color picker
 - Error system
   - Show in console?
   - Show on screen?

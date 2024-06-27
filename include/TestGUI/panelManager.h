@@ -23,15 +23,16 @@ struct Panels {
 
 extern Panels panels;
 
-// https://coolors.co/2f4f4f-eec170-f2a65a-f58549-772f1a
 
 struct {
     KOWGUI::Color* sidebarBackground = (new KOWGUI::Color)->SetHex("#2F4F4F");
-    KOWGUI::Color* scrollbar = (new KOWGUI::Color)->SetRGB(60, 102, 102);
     KOWGUI::Color* lightText = (new KOWGUI::Color)->SetRGB(255, 255, 255);
-    KOWGUI::Color* buttonNFocused = (new KOWGUI::Color)->SetHex("#F58549");
-    KOWGUI::Color* buttonFocused = (new KOWGUI::Color)->SetHex("#F2A65A");
+    KOWGUI::Color* buttonNFocused = (new KOWGUI::Color)->SetHex("#1b9477");
+    KOWGUI::Color* buttonFocused = (new KOWGUI::Color)->SetHex("#26d1a8");
+    KOWGUI::Color* sliderNFocused = (new KOWGUI::Color)->SetHex("#661b94");
+    KOWGUI::Color* sliderFocused = (new KOWGUI::Color)->SetHex("#8e26cf");
 } theme;
+
 
 void InitPanels();
 
