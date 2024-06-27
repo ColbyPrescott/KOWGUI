@@ -18,6 +18,7 @@
 #include "TestGUI/Panels/textVerticalAlignDemo.h"
 #include "TestGUI/Panels/textOverflowDemo.h"
 #include "TestGUI/Panels/rowDemo.h"
+#include "TestGUI/Panels/clickableDemo.h"
 #include "TestGUI/Panels/preTickDemo.h"
 
 #include <vector>
@@ -44,16 +45,17 @@ void InitPanels() {
         panelsVector.push_back(panel);
     };
 
-    ConfigurePanel(panels.groupDemo); InitGUIGroupDemo(); CreateSidebarButton(panels.groupDemo, "Groups");
-    ConfigurePanel(panels.colorDemo); InitGUIColorDemo(); CreateSidebarButton(panels.colorDemo, "Colors");
-    ConfigurePanel(panels.rectangleDemo); InitGUIRectangleDemo(); CreateSidebarButton(panels.rectangleDemo, "Rectangles");
-    ConfigurePanel(panels.circleDemo); InitGUICircleDemo(); CreateSidebarButton(panels.circleDemo, "Circles");
-    ConfigurePanel(panels.lineDemo); InitGUILineDemo(); CreateSidebarButton(panels.lineDemo, "Lines");
-    ConfigurePanel(panels.textFontDemo); InitGUITextFontDemo(); CreateSidebarButton(panels.textFontDemo, "Fonts");
-    ConfigurePanel(panels.textFontAlignDemo); InitGUITextFontAlignDemo(); CreateSidebarButton(panels.textFontAlignDemo, "Font Align");
-    ConfigurePanel(panels.textHorizontalAlignDemo); InitGUITextHorizontalAlignDemo(); CreateSidebarButton(panels.textHorizontalAlignDemo, "Horiz. Align");
-    ConfigurePanel(panels.textVerticalAlignDemo); InitGUITextVerticalAlignDemo(); CreateSidebarButton(panels.textVerticalAlignDemo, "Vert. Align");
-    ConfigurePanel(panels.textOverflowDemo); InitGUITextOverflowDemo(); CreateSidebarButton(panels.textOverflowDemo, "Overflow");
-    ConfigurePanel(panels.rowDemo); InitGUIRowDemo(); CreateSidebarButton(panels.rowDemo, "Rows");
-    ConfigurePanel(panels.preTickDemo); InitGUIPreTickDemo(); CreateSidebarButton(panels.preTickDemo, "PreTick");
+    ConfigurePanel(panels.groupDemo);                 InitGUIGroupDemo();                 CreateSidebarButton(panels.groupDemo,                 "Groups");
+    ConfigurePanel(panels.colorDemo);                 InitGUIColorDemo();                 CreateSidebarButton(panels.colorDemo,                 "Colors");
+    ConfigurePanel(panels.rectangleDemo);             InitGUIRectangleDemo();             CreateSidebarButton(panels.rectangleDemo,             "Rectangles");
+    ConfigurePanel(panels.circleDemo);                InitGUICircleDemo();                CreateSidebarButton(panels.circleDemo,                "Circles");
+    ConfigurePanel(panels.lineDemo);                  InitGUILineDemo();                  CreateSidebarButton(panels.lineDemo,                  "Lines");
+    ConfigurePanel(panels.textFontDemo);              InitGUITextFontDemo();              CreateSidebarButton(panels.textFontDemo,              "Fonts");
+    ConfigurePanel(panels.textFontAlignDemo);         InitGUITextFontAlignDemo();         CreateSidebarButton(panels.textFontAlignDemo,         "Font Align");
+    ConfigurePanel(panels.textHorizontalAlignDemo);   InitGUITextHorizontalAlignDemo();   CreateSidebarButton(panels.textHorizontalAlignDemo,   "Horiz. Align");
+    ConfigurePanel(panels.textVerticalAlignDemo);     InitGUITextVerticalAlignDemo();     CreateSidebarButton(panels.textVerticalAlignDemo,     "Vert. Align");
+    ConfigurePanel(panels.textOverflowDemo);          InitGUITextOverflowDemo();          CreateSidebarButton(panels.textOverflowDemo,          "Overflow");
+    ConfigurePanel(panels.rowDemo);                   InitGUIRowDemo();                   CreateSidebarButton(panels.rowDemo,                   "Rows");
+    ConfigurePanel(panels.clickableDemo);             InitGUIClickableDemo();             CreateSidebarButton(panels.clickableDemo,             "Clickables");
+    ConfigurePanel(panels.preTickDemo);               InitGUIPreTickDemo();               CreateSidebarButton(panels.preTickDemo,               "PreTick");
 }
