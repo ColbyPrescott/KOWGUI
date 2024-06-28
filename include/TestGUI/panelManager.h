@@ -6,8 +6,6 @@
 extern KOWGUI::GUI gui;
 
 struct Panels {
-    KOWGUI::Group* groupDemo = new KOWGUI::Group;
-    KOWGUI::Group* colorDemo = new KOWGUI::Group;
     KOWGUI::Group* rectangleDemo = new KOWGUI::Group;
     KOWGUI::Group* circleDemo = new KOWGUI::Group;
     KOWGUI::Group* lineDemo = new KOWGUI::Group;
@@ -16,7 +14,6 @@ struct Panels {
     KOWGUI::Group* textHorizontalAlignDemo = new KOWGUI::Group;
     KOWGUI::Group* textVerticalAlignDemo = new KOWGUI::Group;
     KOWGUI::Group* textOverflowDemo = new KOWGUI::Group;
-    KOWGUI::Group* rowDemo = new KOWGUI::Group;
     KOWGUI::Group* clickableDemo = new KOWGUI::Group;
     KOWGUI::Group* draggableDemo = new KOWGUI::Group;
     KOWGUI::Group* toggleableDemo = new KOWGUI::Group;
@@ -24,6 +21,9 @@ struct Panels {
     KOWGUI::Group* focusedDemo = new KOWGUI::Group;
     KOWGUI::Group* activatedDemo = new KOWGUI::Group;
     KOWGUI::Group* loopedDemo = new KOWGUI::Group;
+    KOWGUI::Group* groupDemo = new KOWGUI::Group;
+    KOWGUI::Group* rowDemo = new KOWGUI::Group;
+    KOWGUI::Group* colorDemo = new KOWGUI::Group;
     KOWGUI::Group* preTickDemo = new KOWGUI::Group;
 };
 
