@@ -14,8 +14,8 @@ const int scrollbarHeight = 570;
 void InitGUITextOverflowDemo() {
     panels.textOverflowDemo->AddChildren({
         (new Draggable)->SetPosition(480 - sidebarWidth - scrollbarWidth, 0)->SetSize(scrollbarWidth, scrollbarHeight)->SetRange(480 - sidebarWidth - scrollbarWidth, -scrollbarHeight + 240, 480 - sidebarWidth, scrollbarHeight)->AddChildren({
-            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.sliderNFocused)}),
-            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.sliderFocused)}),
+            (new NSelected)->AddChildren({(new Rectangle)->SetFillColor(theme.sliderNFocused)}),
+            (new Selected)->AddChildren({(new Rectangle)->SetFillColor(theme.sliderFocused)}),
             (new Group)->SetShallowID("scrollArea")->SetPosition(-(480 - sidebarWidth - scrollbarWidth), spacing),
         }),
         

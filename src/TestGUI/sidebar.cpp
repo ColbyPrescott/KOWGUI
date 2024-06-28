@@ -45,8 +45,8 @@ void InitGUISidebar() {
         (new Group)->SetPosition(0, 0)->SetSize(100, 240)->AddChildren({
             (new Rectangle)->SetFillColor(theme.sidebarBackground),
             (new Draggable)->SetID("sidebarDraggable")->SetPosition(sidebarWidth - sidebarScrollbarWidth, 0)->SetSize(20, 0)->SetRange(sidebarWidth - sidebarScrollbarWidth, 0, sidebarWidth, 0)->AddChildren({
-                (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.sliderNFocused)}),
-                (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.sliderFocused)}),
+                (new NSelected)->AddChildren({(new Rectangle)->SetFillColor(theme.sliderNFocused)}),
+                (new Selected)->AddChildren({(new Rectangle)->SetFillColor(theme.sliderFocused)}),
             })
         })
     });

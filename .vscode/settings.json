@@ -36,6 +36,7 @@
 		"utility": "cpp",
 		"typeinfo": "cpp",
 		"iostream": "cpp",
-		"string": "cpp"
+		"string": "cpp",
+		"numeric": "cpp"
 	}
 }

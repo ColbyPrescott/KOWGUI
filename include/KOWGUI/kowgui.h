@@ -21,9 +21,11 @@
 #include "KOWGUI/Nodes/Interactable/clickable.h"
 #include "KOWGUI/Nodes/Interactable/draggable.h"
 #include "KOWGUI/Nodes/Interactable/toggleable.h"
+#include "KOWGUI/Nodes/Feedback/selected.h"
 #include "KOWGUI/Nodes/Feedback/focused.h"
 #include "KOWGUI/Nodes/Feedback/activated.h"
 #include "KOWGUI/Nodes/Feedback/looped.h"
+#include "KOWGUI/Nodes/Feedback/Negated/nSelected.h"
 #include "KOWGUI/Nodes/Feedback/Negated/nFocused.h"
 #include "KOWGUI/Nodes/Feedback/Negated/nActivated.h"
 
