@@ -47,5 +47,6 @@ void InitPanels() {
     ConfigurePanel(panels.clickableDemo);             InitGUIClickableDemo();             CreateSidebarButton(panels.clickableDemo,             "Clickables");
     ConfigurePanel(panels.draggableDemo);             InitGUIDraggableDemo();             CreateSidebarButton(panels.draggableDemo,             "Draggables");
     ConfigurePanel(panels.toggleableDemo);            InitGUIToggleableDemo();            CreateSidebarButton(panels.toggleableDemo,            "Toggleables");
+    ConfigurePanel(panels.selectedDemo);              InitGUISelectedDemo();              CreateSidebarButton(panels.selectedDemo,              "Selected");
     ConfigurePanel(panels.preTickDemo);               InitGUIPreTickDemo();               CreateSidebarButton(panels.preTickDemo,               "PreTick");
 }

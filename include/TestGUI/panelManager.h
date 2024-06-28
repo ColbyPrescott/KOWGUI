@@ -20,6 +20,7 @@ struct Panels {
     KOWGUI::Group* clickableDemo = new KOWGUI::Group;
     KOWGUI::Group* draggableDemo = new KOWGUI::Group;
     KOWGUI::Group* toggleableDemo = new KOWGUI::Group;
+    KOWGUI::Group* selectedDemo = new KOWGUI::Group;
     KOWGUI::Group* preTickDemo = new KOWGUI::Group;
 };
 

@@ -15,6 +15,7 @@ void InitGUIRowDemo();
 void InitGUIClickableDemo();
 void InitGUIDraggableDemo();
 void InitGUIToggleableDemo();
+void InitGUISelectedDemo();
 void InitGUIPreTickDemo();
 
 #endif
