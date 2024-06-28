@@ -12,10 +12,10 @@ void InitGUIActivatedDemo() {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(Color::gray)->SetOutlineColor(Color::white)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(Color::dimGray)->SetOutlineColor(Color::white)}),
 
-            // Instruction hold text
+            // Instruction press text
             (new Text)->SetY(20)->SetText("Press")->SetFontSize(20)->SetAlignments(HorizontalAlign::center, VerticalAlign::top, FontAlign::ascender),
 
-            // Icons for not pressed and pressed
+            // Icons for not activated and activated
             (new NActivated)->SetPosition(10, 60)->SetSize(70, 50)->AddChildren({
                 (new Rectangle)->SetFillColor(Color::red),
                 (new Text)->SetText("NActivated")->SetFontSize(12)->SetColor(Color::white)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),

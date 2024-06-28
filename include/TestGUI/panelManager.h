@@ -23,6 +23,7 @@ struct Panels {
     KOWGUI::Group* selectedDemo = new KOWGUI::Group;
     KOWGUI::Group* focusedDemo = new KOWGUI::Group;
     KOWGUI::Group* activatedDemo = new KOWGUI::Group;
+    KOWGUI::Group* loopedDemo = new KOWGUI::Group;
     KOWGUI::Group* preTickDemo = new KOWGUI::Group;
 };
 

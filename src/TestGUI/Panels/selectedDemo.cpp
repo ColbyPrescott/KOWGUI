@@ -15,7 +15,7 @@ void InitGUISelectedDemo() {
             // Instruction hold text
             (new Text)->SetY(20)->SetText("Hold")->SetFontSize(20)->SetAlignments(HorizontalAlign::center, VerticalAlign::top, FontAlign::ascender),
 
-            // Icons for not pressed and pressed
+            // Icons for not selected and selected
             (new NSelected)->SetPosition(10, 60)->SetSize(70, 50)->AddChildren({
                 (new Rectangle)->SetFillColor(Color::red),
                 (new Text)->SetText("NSelected")->SetFontSize(12)->SetColor(Color::white)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),
