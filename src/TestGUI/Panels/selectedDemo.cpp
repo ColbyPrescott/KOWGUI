@@ -18,11 +18,11 @@ void InitGUISelectedDemo() {
             // Icons for not pressed and pressed
             (new NSelected)->SetPosition(10, 60)->SetSize(70, 50)->AddChildren({
                 (new Rectangle)->SetFillColor(Color::red),
-                (new Text)->SetText("NSelected")->SetFontSize(13)->SetColor(Color::white)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),
+                (new Text)->SetText("NSelected")->SetFontSize(12)->SetColor(Color::white)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),
             }),
             (new Selected)->SetPosition(80, 60)->SetSize(70, 50)->AddChildren({
                 (new Rectangle)->SetFillColor(Color::lime),
-                (new Text)->SetText("Selected")->SetFontSize(13)->SetColor(Color::black)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),
+                (new Text)->SetText("Selected")->SetFontSize(12)->SetColor(Color::black)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),
             }),
         }),
 
