@@ -21,7 +21,7 @@ int main() {
 
     InitPanels();
 
-    LoadPanel(panels.focusedDemo);
+    LoadPanel(panels.activatedDemo);
 
     while(1) {
 
