@@ -50,11 +50,11 @@ void InitGUIClickableDemo() {
 
         // Info help button
         (new Clickable)->SetPosition(50, 160)->SetSize(40, 40)->AddChildren({
-            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
-            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
+            (new NSelected)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
+            (new Selected)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
             (new Text)->SetPosition(1, 2)->SetText("?")->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),
             
-            (new Focused)->SetPosition(-50, -160)->SetSize(480 - sidebarWidth, 150)->AddChildren({ // TO DO Add Selected and put it here
+            (new Selected)->SetPosition(-50, -160)->SetSize(480 - sidebarWidth, 150)->AddChildren({
                 (new Rectangle)->SetFillColor(Color::gray),
                 (new Text)->SetText("When an interactable node is selected (input starts in its area), it will start running these four user-defined callback functions:\n\n- Press: Called when input starts.\n- Release: Called when input is removed inside node area.\n- Focus: Called when input starts or re-enters node area after dragging continuous input.\n- Unfocus: Called when continuous input is dragged outside of node area.")->SetFontSize(12)->SetFontAlign(FontAlign::ascender),
             }),

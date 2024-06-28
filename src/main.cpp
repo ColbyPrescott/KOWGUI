@@ -21,7 +21,7 @@ int main() {
 
     InitPanels();
 
-    LoadPanel(panels.draggableDemo);
+    LoadPanel(panels.toggleableDemo);
 
     while(1) {
 

@@ -1,5 +1,5 @@
-#ifndef PANELS
-#define PANELS
+#ifndef PANELS_H
+#define PANELS_H
 
 void InitGUIGroupDemo();
 void InitGUIColorDemo();
@@ -14,6 +14,7 @@ void InitGUITextOverflowDemo();
 void InitGUIRowDemo();
 void InitGUIClickableDemo();
 void InitGUIDraggableDemo();
+void InitGUIToggleableDemo();
 void InitGUIPreTickDemo();
 
 #endif

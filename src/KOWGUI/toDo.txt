@@ -21,6 +21,25 @@ Node types:
     - Clip border should not stop draggable from moving (for scrollable windows)
 
 
+Prefabs:
+- Functions to prebuild useful systems
+- Every node will have shallowID and... maybe class? For customizability
+    - Or just a FindShallowIDs function
+- Functions or classes? 
+    - What if, classes are prefabs and functions are referred to as like... macros?
+    - Functions are simple one time node systems. Create me a button
+    - Classes are more complicated and can contain methods. Made me a graph and then update the data inside
+    - Or, most recent shower thought, everything is functions but more complicated systems can be shoved into a namespace with extra functions that take a node pointer as parameter
+- Keyboard
+    - Strings: Full keyboard, full screen
+    - Ints / doubles / floats: Numpad, could be resized and dragged around
+    - Plug into computer to type in terminal
+- Graph
+- Slider / interactable or like volume gauge
+- Timer system? For like, regularly spawning nodes with particle code?
+- Color picker
+
+
 Features:
 - Disablement
   - SetEnable and SetDisable callback functions?
@@ -32,23 +51,6 @@ Features:
   - Remove ID
 - Interactable
   - Recheck select, manual select
-- Prefabs
-  - Functions to prebuild useful systems
-  - Every node will have shallowID and... maybe class? For customizability
-      - Or just a FindShallowIDs function
-  - Functions or classes? 
-      - What if, classes are prefabs and functions are referred to as like... macros?
-      - Functions are simple one time node systems. Create me a button
-      - Classes are more complicated and can contain methods. Made me a graph and then update the data inside
-      - Or, most recent shower thought, everything is functions but more complicated systems can be shoved into a namespace with extra functions that take a node pointer as parameter
-  - Keyboard
-      - Strings: Full keyboard, full screen
-      - Ints / doubles / floats: Numpad, could be resized and dragged around
-      - Plug into computer to type in terminal
-  - Graph
-  - Slider / interactable or like volume gauge
-  - Timer system? For like, regularly spawning nodes with particle code?
-  - Color picker
 - Error system
   - Show in console?
   - Show on screen?
