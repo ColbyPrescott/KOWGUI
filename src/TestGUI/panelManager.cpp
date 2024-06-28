@@ -7,20 +7,7 @@
 
 #include "TestGUI/sidebar.h"
 
-#include "TestGUI/Panels/groupDemo.h"
-#include "TestGUI/Panels/colorDemo.h"
-#include "TestGUI/Panels/rectangleDemo.h"
-#include "TestGUI/Panels/circleDemo.h"
-#include "TestGUI/Panels/lineDemo.h"
-#include "TestGUI/Panels/textFontDemo.h"
-#include "TestGUI/Panels/textFontAlignDemo.h"
-#include "TestGUI/Panels/textHorizontalAlignDemo.h"
-#include "TestGUI/Panels/textVerticalAlignDemo.h"
-#include "TestGUI/Panels/textOverflowDemo.h"
-#include "TestGUI/Panels/rowDemo.h"
-#include "TestGUI/Panels/clickableDemo.h"
-#include "TestGUI/Panels/draggableDemo.h"
-#include "TestGUI/Panels/preTickDemo.h"
+#include "TestGUI/panels.h"
 
 #include <vector>
 #include <string>
