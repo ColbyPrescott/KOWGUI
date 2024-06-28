@@ -19,6 +19,7 @@
 #include "TestGUI/Panels/textOverflowDemo.h"
 #include "TestGUI/Panels/rowDemo.h"
 #include "TestGUI/Panels/clickableDemo.h"
+#include "TestGUI/Panels/draggableDemo.h"
 #include "TestGUI/Panels/preTickDemo.h"
 
 #include <vector>
@@ -57,5 +58,6 @@ void InitPanels() {
     ConfigurePanel(panels.textOverflowDemo);          InitGUITextOverflowDemo();          CreateSidebarButton(panels.textOverflowDemo,          "Overflow");
     ConfigurePanel(panels.rowDemo);                   InitGUIRowDemo();                   CreateSidebarButton(panels.rowDemo,                   "Rows");
     ConfigurePanel(panels.clickableDemo);             InitGUIClickableDemo();             CreateSidebarButton(panels.clickableDemo,             "Clickables");
+    ConfigurePanel(panels.draggableDemo);             InitGUIDraggableDemo();             CreateSidebarButton(panels.draggableDemo,             "Draggables");
     ConfigurePanel(panels.preTickDemo);               InitGUIPreTickDemo();               CreateSidebarButton(panels.preTickDemo,               "PreTick");
 }

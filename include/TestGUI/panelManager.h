@@ -18,6 +18,7 @@ struct Panels {
     KOWGUI::Group* textOverflowDemo = new KOWGUI::Group;
     KOWGUI::Group* rowDemo = new KOWGUI::Group;
     KOWGUI::Group* clickableDemo = new KOWGUI::Group;
+    KOWGUI::Group* draggableDemo = new KOWGUI::Group;
     KOWGUI::Group* preTickDemo = new KOWGUI::Group;
 };
 

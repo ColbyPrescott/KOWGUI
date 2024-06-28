@@ -6,30 +6,36 @@
 
 using namespace KOWGUI;
 
-void FrontAppendLineToTextNode(Text* textNode, std::string newLine) {
-    static int lineNumber = 0;
-    lineNumber++;
+namespace ClickableDemo {
 
-    std::string existingText = textNode->GetText().substr(0, 150);
+    void FrontAppendLineToTextNode(Text* textNode, std::string newLine) {
+        static int lineNumber = 0;
+        lineNumber++;
 
-    textNode->SetText("%d: %s\n%s", lineNumber, newLine.c_str(), existingText.c_str());
+        std::string existingText = textNode->GetText().substr(0, 150);
+
+        textNode->SetText("%d: %s\n%s", lineNumber, newLine.c_str(), existingText.c_str());
+    }
+
+    void DemoPressed(BaseNode* thisNode) {
+        FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Press function");
+    }
+
+    void DemoReleased(BaseNode* thisNode) {
+        FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Release function");
+    }
+
+    void DemoFocused(BaseNode* thisNode) {
+        FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Focus function");
+    }
+
+    void DemoUnfocused(BaseNode* thisNode) {
+        FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Unfocus function");
+    }
+
 }
 
-void DemoPressed(BaseNode* thisNode) {
-    FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Press function");
-}
-
-void DemoReleased(BaseNode* thisNode) {
-    FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Release function");
-}
-
-void DemoFocused(BaseNode* thisNode) {
-    FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Focus function");
-}
-
-void DemoUnfocused(BaseNode* thisNode) {
-    FrontAppendLineToTextNode((Text*)panels.clickableDemo->FindShallowID("stateText"), "Unfocus function");
-}
+using namespace ClickableDemo;
 
 void InitGUIClickableDemo() {
     panels.clickableDemo->AddChildren({
