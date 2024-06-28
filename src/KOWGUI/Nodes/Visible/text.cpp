@@ -56,6 +56,13 @@ Text* Text::SetFontAlign(FontAlign fontAlign) {
     return this;
 }
 
+// Set horizontal and vertical alignments in one function
+Text* Text::SetAlignments(HorizontalAlign horizontalAlign, VerticalAlign verticalAlign) {
+    SetHorizontalAlign(horizontalAlign);
+    SetVerticalAlign(verticalAlign);
+    return this;
+}
+
 // Set horizontal, vertical, and font alignment in one function
 Text* Text::SetAlignments(HorizontalAlign horizontalAlign, VerticalAlign verticalAlign, FontAlign fontAlign) {
     SetHorizontalAlign(horizontalAlign);

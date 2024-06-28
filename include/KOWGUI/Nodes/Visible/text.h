@@ -160,6 +160,7 @@ namespace KOWGUI {
             Text* SetHorizontalAlign(HorizontalAlign horizontalAlign);
             Text* SetVerticalAlign(VerticalAlign verticalAlign);
             Text* SetFontAlign(FontAlign fontAlign);
+            Text* SetAlignments(HorizontalAlign horizontalAlign, VerticalAlign verticalAlign);
             Text* SetAlignments(HorizontalAlign horizontalAlign, VerticalAlign verticalAlign, FontAlign fontAlign);
             Text* SetOverflow(Overflow overflow);
 
