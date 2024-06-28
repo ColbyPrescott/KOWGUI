@@ -1,5 +1,5 @@
-#ifndef KOWGUI_UNFOCUSED_NODE_H // TO DO Uh, this header is wrong...?
-#define KOWGUI_UNFOCUSED_NODE_H
+#ifndef KOWGUI_FOCUSED_NODE_H
+#define KOWGUI_FOCUSED_NODE_H
 
 #include "KOWGUI/BaseNodes/feedbackBaseNode.h"
 
