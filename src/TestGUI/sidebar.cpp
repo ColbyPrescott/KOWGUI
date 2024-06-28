@@ -35,7 +35,7 @@ void CreateSidebarButton(Group* panel, std::string text, int height) {
     sidebarDraggable->SetHeight(sidebarDraggable->GetHeight() + height + 3);
 
     // Expand scrollable range
-    sidebarDraggable->SetMinY(-sidebarDraggable->GetHeight());
+    sidebarDraggable->SetMinY(-sidebarDraggable->GetHeight() + 240);
     sidebarDraggable->SetMaxY(sidebarDraggable->GetHeight());
 }
 
@@ -56,7 +56,7 @@ void CreateSidebarLabel(std::string text, int height) {
     sidebarDraggable->SetHeight(sidebarDraggable->GetHeight() + height + 3);
 
     // Expand scrollable range
-    sidebarDraggable->SetMinY(-sidebarDraggable->GetHeight());
+    sidebarDraggable->SetMinY(-sidebarDraggable->GetHeight() + 240);
     sidebarDraggable->SetMaxY(sidebarDraggable->GetHeight());
 }
 
