@@ -23,6 +23,9 @@ void Column::OrganizeUnique() {
     // Keep track of where the current node is being positioned
     int currentY = 0;
 
+    // Keep track of widest node's width
+    int maxWidth = 0;
+
     // Loop through all child nodes
     for(int i = 0; i < children.size(); i++) {
         // Set position of child node
@@ -31,6 +34,8 @@ void Column::OrganizeUnique() {
         currentY += children[i]->CalculateHeight();
         // Additionally add the spacing to the sum
         currentY += mSpacing;
+        // Increase note of widest width if wider
+        if(children[i]->CalculateWidth() > maxWidth) maxWidth = children[i]->CalculateWidth();
     }
 
     // Update this node's height to contain everything inside

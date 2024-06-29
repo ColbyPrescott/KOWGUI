@@ -23,6 +23,9 @@ void Row::OrganizeUnique() {
     // Keep track of where the current node is being positioned
     int currentX = 0;
 
+    // Keep track of tallest node's height
+    int maxHeight = 0;
+
     // TO DO I'm going to guess that disabling a node inside a row won't take it out of the calculations... should it be taken out?
 
     // Loop through all child nodes
@@ -33,10 +36,13 @@ void Row::OrganizeUnique() {
         currentX += children[i]->CalculateWidth();
         // Additionally add the spacing to the sum
         currentX += mSpacing;
+        // Increase note of tallest height if taller
+        if(children[i]->CalculateHeight() > maxHeight) maxHeight = children[i]->CalculateHeight();
     }
 
-    // Update this node's width to contain everything inside
+    // Update this node's size to contain everything inside
     SetWidth(currentX - mSpacing);
+    SetHeight(maxHeight);
 }
 
 // Organize children one after the other, equally scaling all of them to fit within this node's width
