@@ -142,13 +142,23 @@ namespace {
     }
 
     // Template node system for keys that need more text visible and a different release function, like the backspace or arrow keys
-    Clickable* CreateSpecialKey(std::string text) {
-        return (new Clickable)->SetSize(keySize, keySize)->AddChildren({
+    Clickable* CreateSpecialKey(std::string text, char keyCharacterOverride = ' ') {
+        // Bare bones key with no functionality
+        Clickable* pPrefab = (new Clickable)->SetSize(keySize, keySize)->AddChildren({
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocused)->SetOutlineColor(highlightColor)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocused)->SetOutlineColor(highlightColor)}),
 
             (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
         });
+
+        // If they special key just needs different data than text being displayed, add in the standard key functionality
+        if(keyCharacterOverride != ' ') {
+            pPrefab->AddChild((new Data)->SetShallowID("data")->SetProperty("keyCharacter", new char(keyCharacterOverride)));
+            pPrefab->SetRelease(TypeKeyAtCursor);
+        }
+
+        // Return the fully built prefab
+        return pPrefab;
     }
     
 }
@@ -200,7 +210,7 @@ Group* Keyboard::CreateKeyboard() {
                 CreateKey('J'),
                 CreateKey('K'),
                 CreateKey('L'),
-                CreateSpecialKey("Enter")->SetWidth(480 - keySize * 9),
+                CreateSpecialKey("Enter", '\n')->SetWidth(480 - keySize * 9),
             }),
             (new Row)->SetX(keySize * 2.0 / 3.0)->AddChildren({
                 CreateKey('Z'),
