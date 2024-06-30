@@ -98,6 +98,18 @@ namespace {
         if(typingCursorIndex < typingText.size()) typingCursorIndex++;
     }
 
+    // Called from the alphabet key Clickable node
+    void SwitchLayoutQWERTY(BaseNode* thisNode) {
+        thisNode->parent->parent->parent->FindShallowID("symbolsLayout")->SetDisabled(true);
+        thisNode->parent->parent->parent->FindShallowID("QWERTYLayout")->SetDisabled(false);
+    }
+
+    // Called from the symbols key Clickable node
+    void SwitchLayoutSymbols(BaseNode* thisNode) {
+        thisNode->parent->parent->parent->FindShallowID("QWERTYLayout")->SetDisabled(true);
+        thisNode->parent->parent->parent->FindShallowID("symbolsLayout")->SetDisabled(false);
+    }
+
     // Called from close button Clickable node
     void CloseKeyboard(BaseNode* thisNode) {
         // If a direct string was edited, update that string and remove the pointer
@@ -185,7 +197,7 @@ Group* Keyboard::CreateKeyboard() {
             (new Line)->SetPositions(closeButtonIconMargin, closeButtonSize - closeButtonIconMargin, closeButtonSize - closeButtonIconMargin, closeButtonIconMargin)->SetColor(highlightColor)->SetLineWidth(closeButtonIconLineWidth),
         }),
 
-        // QWERTY Character keys
+        // QWERTY character keys
         (new Column)->SetShallowID("QWERTYLayout")->SetDisabled(false)->SetPosition(0, screenHeight - keySize * 4)->AddChildren({
             (new Row)->SetX(keySize * 0.0 / 3.0)->AddChildren({
                 CreateKey('Q'),
@@ -198,7 +210,7 @@ Group* Keyboard::CreateKeyboard() {
                 CreateKey('I'),
                 CreateKey('O'),
                 CreateKey('P'),
-                CreateSpecialKey("<--")->SetWidth(480 - keySize * 10)->SetRelease(RemoveKeyAtCursor),
+                CreateSpecialKey("<--")->SetWidth(screenWidth - keySize * 10)->SetRelease(RemoveKeyAtCursor),
             }),
             (new Row)->SetX(keySize * 1.0 / 3.0)->AddChildren({
                 CreateKey('A'),
@@ -210,7 +222,7 @@ Group* Keyboard::CreateKeyboard() {
                 CreateKey('J'),
                 CreateKey('K'),
                 CreateKey('L'),
-                CreateSpecialKey("Enter", '\n')->SetWidth(480 - keySize * 9),
+                CreateSpecialKey("Enter", '\n')->SetWidth(screenWidth - keySize * 9.333),
             }),
             (new Row)->SetX(keySize * 2.0 / 3.0)->AddChildren({
                 CreateKey('Z'),
@@ -227,9 +239,55 @@ Group* Keyboard::CreateKeyboard() {
                 CreateKey(' ')->SetWidth(keySize * 5),
                 CreateSpecialKey("<")->SetWidth(keySize * 1.5)->SetRelease(MoveCursorLeft),
                 CreateSpecialKey(">")->SetWidth(keySize * 1.5)->SetRelease(MoveCursorRight),
-                CreateSpecialKey("#!?")->SetWidth(screenWidth - keySize * 10.666),
+                CreateSpecialKey("#!?")->SetWidth(screenWidth - keySize * 10.666)->SetRelease(SwitchLayoutSymbols),
             }),
-        })
+        }),
+
+        // Symbol character keys
+        (new Column)->SetShallowID("symbolsLayout")->SetDisabled(true)->SetPosition(0, screenHeight - keySize * 4)->AddChildren({
+            (new Row)->SetX(keySize * 0.0 / 3.0)->AddChildren({
+                CreateKey('1'),
+                CreateKey('2'),
+                CreateKey('3'),
+                CreateKey('4'),
+                CreateKey('5'),
+                CreateKey('6'),
+                CreateKey('7'),
+                CreateKey('8'),
+                CreateKey('9'),
+                CreateKey('0'),
+                CreateSpecialKey("<--")->SetWidth(screenWidth - keySize * 10)->SetRelease(RemoveKeyAtCursor),
+            }),
+            (new Row)->SetX(keySize * 1.0 / 3.0)->AddChildren({
+                CreateKey('A'),
+                CreateKey('S'),
+                CreateKey('D'),
+                CreateKey('F'),
+                CreateKey('G'),
+                CreateKey('H'),
+                CreateKey('J'),
+                CreateKey('K'),
+                CreateKey('L'),
+                CreateSpecialKey("Enter", '\n')->SetWidth(screenWidth - keySize * 9.333),
+            }),
+            (new Row)->SetX(keySize * 2.0 / 3.0)->AddChildren({
+                CreateKey('Z'),
+                CreateKey('X'),
+                CreateKey('C'),
+                CreateKey('V'),
+                CreateKey('B'),
+                CreateKey('N'),
+                CreateKey('M'),
+                (new Text)->SetSize(screenWidth - keySize * 7.666, keySize)->SetText("Interactive terminal something something...")->SetFontSize(10)->SetColor(highlightColor)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
+            }),
+            (new Row)->AddChildren({
+                CreateToggleKey("Shift")->SetShallowID("shiftKey")->SetWidth(keySize * (2 + 2.0 / 3.0)),
+                CreateKey(' ')->SetWidth(keySize * 5),
+                CreateSpecialKey("<")->SetWidth(keySize * 1.5)->SetRelease(MoveCursorLeft),
+                CreateSpecialKey(">")->SetWidth(keySize * 1.5)->SetRelease(MoveCursorRight),
+                CreateSpecialKey("ABC")->SetWidth(screenWidth - keySize * 10.666)->SetRelease(SwitchLayoutQWERTY),
+            }),
+        }),
     });
 }
 
