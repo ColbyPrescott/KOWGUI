@@ -60,6 +60,11 @@ namespace {
         std::string afterCursor = typingText.substr(typingCursorIndex);
         char characterToAdd = *(char*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyCharacter");
 
+        // Get whether or not the shift key is pressed
+        bool shiftActivated = ((Toggleable*)thisNode->parent->parent->FindShallowID("shiftKey"))->GetActivated();
+        // Update characterToAdd to be lowercase or uppercase based on shift key. They are already uppercase, so only do something if they need otherwise
+        if(!shiftActivated) characterToAdd = (char)tolower((int)characterToAdd);
+
         // Update text
         typingText = beforeCursor + characterToAdd + afterCursor;
         // Move cursor to after new character
@@ -209,7 +214,7 @@ Group* Keyboard::CreateKeyboard() {
                 CreateSpecialKey("#!?")->SetWidth(keySize * 2),
             }),
             (new Row)->AddChildren({
-                CreateToggleKey("Shift")->SetWidth(keySize * (2 + 2.0 / 3.0)),
+                CreateToggleKey("Shift")->SetShallowID("shiftKey")->SetWidth(keySize * (2 + 2.0 / 3.0)),
                 CreateKey(' ')->SetWidth(keySize * 5),
                 CreateSpecialKey("<")->SetWidth(keySize * 1.5)->SetRelease(MoveCursorLeft),
                 CreateSpecialKey(">")->SetWidth(keySize * 1.5)->SetRelease(MoveCursorRight),
