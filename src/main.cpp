@@ -21,7 +21,10 @@ int main() {
 
     InitPanels();
 
-    LoadPanel(panels.loopedDemo);
+    keyboard = KOWGUI::Keyboard::CreateKeyboard();
+    gui.root->AddChild(keyboard);
+
+    LoadPanel(panels.keyboardDemo);
 
     while(1) {
 

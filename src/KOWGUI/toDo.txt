@@ -19,6 +19,7 @@ Node types:
     - Clip should stop interactable from being selected
     - Clip border should unfocus clickable
     - Clip border should not stop draggable from moving (for scrollable windows)
+- Timer system? For like, regularly spawning nodes with particle code? Wait th
 
 
 Prefabs:
@@ -36,7 +37,7 @@ Prefabs:
     - Plug into computer to type in terminal
 - Graph
 - Slider / interactable or like volume gauge
-- Timer system? For like, regularly spawning nodes with particle code?
+- Drop down
 - Color picker
 
 
@@ -90,6 +91,7 @@ Refactoring and other code stuff:
 - gui[ID] mimicks FindID
 - Setting position of line first vertex while adding the node as a child will incorrectly update the width and 
   height representing the second vertex because calculating size depends on the parent being already fully initialized
+- Redo header guard names with folder structure. KOWGUI_NODES_BASIC_GROUP_H
 
 
 

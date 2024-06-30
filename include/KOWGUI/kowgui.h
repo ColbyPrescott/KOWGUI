@@ -29,4 +29,6 @@
 #include "KOWGUI/Nodes/Feedback/Negated/nFocused.h"
 #include "KOWGUI/Nodes/Feedback/Negated/nActivated.h"
 
+#include "KOWGUI/Prefabs/keyboard.h"
+
 #endif

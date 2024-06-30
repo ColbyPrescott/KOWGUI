@@ -18,6 +18,7 @@ void InitGUIActivatedDemo();
 void InitGUILoopedDemo();
 void InitGUIGroupDemo();
 void InitGUIRowDemo();
+void InitGUIKeyboardDemo();
 void InitGUIColorDemo();
 void InitGUIPreTickDemo();
 

@@ -55,6 +55,8 @@ void InitPanels() {
     CreateSidebarLabel("Other Nodes");
     ConfigurePanel(panels.groupDemo);                 InitGUIGroupDemo();                 CreateSidebarButton(panels.groupDemo,                 "Groups");
     ConfigurePanel(panels.rowDemo);                   InitGUIRowDemo();                   CreateSidebarButton(panels.rowDemo,                   "Rows");
+    CreateSidebarLabel("Prefabs");
+    ConfigurePanel(panels.keyboardDemo);              InitGUIKeyboardDemo();              CreateSidebarButton(panels.keyboardDemo,              "Keyboards");
     CreateSidebarLabel("Other");
     ConfigurePanel(panels.colorDemo);                 InitGUIColorDemo();                 CreateSidebarButton(panels.colorDemo,                 "Colors");
     ConfigurePanel(panels.preTickDemo);               InitGUIPreTickDemo();               CreateSidebarButton(panels.preTickDemo,               "PreTick");
