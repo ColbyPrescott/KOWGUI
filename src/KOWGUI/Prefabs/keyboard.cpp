@@ -61,7 +61,7 @@ namespace {
         char characterToAdd = *(char*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyCharacter");
 
         // Get whether or not the shift key is pressed
-        bool shiftActivated = ((Toggleable*)thisNode->parent->parent->FindShallowID("shiftKey"))->GetActivated();
+        bool shiftActivated = ((Toggleable*)thisNode->parent->parent->parent->FindShallowID("shiftKey"))->GetActivated();
         // Update characterToAdd to be lowercase or uppercase based on shift key. They are already uppercase, so only do something if they need otherwise
         if(!shiftActivated) characterToAdd = (char)tolower((int)characterToAdd);
 
@@ -245,7 +245,7 @@ Group* Keyboard::CreateKeyboard() {
 
         // Symbol character keys
         (new Column)->SetShallowID("symbolsLayout")->SetDisabled(true)->SetPosition(0, screenHeight - keySize * 4)->AddChildren({
-            (new Row)->SetX(keySize * 0.0 / 3.0)->AddChildren({
+            (new Row)->AddChildren({
                 CreateKey('1'),
                 CreateKey('2'),
                 CreateKey('3'),
@@ -258,34 +258,45 @@ Group* Keyboard::CreateKeyboard() {
                 CreateKey('0'),
                 CreateSpecialKey("<--")->SetWidth(screenWidth - keySize * 10)->SetRelease(RemoveKeyAtCursor),
             }),
-            (new Row)->SetX(keySize * 1.0 / 3.0)->AddChildren({
-                CreateKey('A'),
-                CreateKey('S'),
-                CreateKey('D'),
-                CreateKey('F'),
-                CreateKey('G'),
-                CreateKey('H'),
-                CreateKey('J'),
-                CreateKey('K'),
-                CreateKey('L'),
-                CreateSpecialKey("Enter", '\n')->SetWidth(screenWidth - keySize * 9.333),
-            }),
-            (new Row)->SetX(keySize * 2.0 / 3.0)->AddChildren({
-                CreateKey('Z'),
-                CreateKey('X'),
-                CreateKey('C'),
-                CreateKey('V'),
-                CreateKey('B'),
-                CreateKey('N'),
-                CreateKey('M'),
-                (new Text)->SetSize(screenWidth - keySize * 7.666, keySize)->SetText("Interactive terminal something something...")->SetFontSize(10)->SetColor(highlightColor)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
+            (new Row)->AddChildren({
+                CreateKey('!'),
+                CreateKey('@'),
+                CreateKey('#'),
+                CreateKey('$'),
+                CreateKey('%'),
+                CreateKey('^'),
+                CreateKey('&'),
+                CreateKey('*'),
+                CreateKey('('),
+                CreateKey(')'),
+                CreateKey('-'),
+                CreateKey('='),
             }),
             (new Row)->AddChildren({
-                CreateToggleKey("Shift")->SetShallowID("shiftKey")->SetWidth(keySize * (2 + 2.0 / 3.0)),
-                CreateKey(' ')->SetWidth(keySize * 5),
-                CreateSpecialKey("<")->SetWidth(keySize * 1.5)->SetRelease(MoveCursorLeft),
-                CreateSpecialKey(">")->SetWidth(keySize * 1.5)->SetRelease(MoveCursorRight),
-                CreateSpecialKey("ABC")->SetWidth(screenWidth - keySize * 10.666)->SetRelease(SwitchLayoutQWERTY),
+                CreateKey('['),
+                CreateKey(']'),
+                CreateKey('{'),
+                CreateKey('}'),
+                CreateKey('/'),
+                CreateKey('|'),
+                CreateKey('\\'),
+                CreateKey('.'),
+                CreateKey(','),
+                CreateKey('?'),
+                CreateKey('_'),
+                CreateKey('+'),
+            }),
+            (new Row)->AddChildren({
+                CreateKey('<'),
+                CreateKey('>'),
+                CreateKey('`'),
+                CreateKey('~'),
+                CreateKey(' ')->SetWidth(keySize * 2),
+                CreateKey(';'),
+                CreateKey(':'),
+                CreateKey('\''),
+                CreateKey('"'),
+                CreateSpecialKey("ABC")->SetWidth(screenWidth - keySize * 10)->SetRelease(SwitchLayoutQWERTY),
             }),
         }),
     });
