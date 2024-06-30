@@ -209,6 +209,11 @@ Group* Keyboard::CreateKeyboard() {
     });
 }
 
-void Keyboard::Open(Group* pKeyboard) {
+// Open a keyboard with direct access to a string
+void Keyboard::Open(Group* pKeyboard, std::string& str) {
+    // Set typing text to the editing string
+    typingText = str;
+
+    // Show keyboard
     pKeyboard->SetDisabled(false);
 }

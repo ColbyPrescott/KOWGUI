@@ -11,7 +11,6 @@ namespace KOWGUI {
         Group* CreateKeyboard();
         // void CreateNumpad(int x, int y, int width, int height, bool movable, bool resizable);
 
-        void Open(Group* keyboard);
         void Open(Group* keyboard, std::string& str);
         void Open(Group* keyboard, std::string startStr, void (*closeCalback)(std::string));
         // void Open(Group* numpad, int num, void (*closeCalback)(int));
