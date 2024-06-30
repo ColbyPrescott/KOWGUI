@@ -146,7 +146,8 @@ void Text::PrintAligned(vex::brain::lcd& rScreen, int x, int y, std::vector<std:
         int lineOffset = (mFontSize * mWrapProperties.lineSpacing) * i;
 
         // Print the line to the screen with all the offsets applied
-        rScreen.printAt(x + horizontalAlignOffset, y + fontAlignOffset + verticalAlignOffset + lineOffset, false, lines[i].c_str());
+        // Using %s instead of directly printing the line ensures that an escape character like % will be read as a percent sign instead of the escape character
+        rScreen.printAt(x + horizontalAlignOffset, y + fontAlignOffset + verticalAlignOffset + lineOffset, false, "%s", lines[i].c_str());
     }
 }
 

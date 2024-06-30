@@ -37,7 +37,7 @@ namespace DraggableDemo {
         Text* textNode = (Text*)panels.draggableDemo->FindShallowID("valueText");
         Draggable* demoDraggable = (Draggable*)panels.draggableDemo->FindShallowID("demoDraggable");
 
-        textNode->SetText("Value X: %.2f%%%%\nValue Y: %.2f%%%%", demoDraggable->GetPercentX() * 100.0, demoDraggable->GetPercentY() * 100.0);
+        textNode->SetText("Value X: %.2f%%\nValue Y: %.2f%%", demoDraggable->GetPercentX() * 100.0, demoDraggable->GetPercentY() * 100.0);
     }
 
 }
@@ -53,7 +53,7 @@ void InitGUIDraggableDemo() {
         }),
 
         // Percent value info
-        (new Text)->SetShallowID("valueText")->SetPosition(140, 170)->SetText("Value X: xxx%%\nValue Y: xxx%%")->SetFontSize(20)->SetAlignments(HorizontalAlign::left, VerticalAlign::top, FontAlign::ascender)->SetPreTick(UpdatePercentValues),
+        (new Text)->SetShallowID("valueText")->SetPosition(140, 170)->SetText("Value X: xxx%\nValue Y: xxx%")->SetFontSize(20)->SetAlignments(HorizontalAlign::left, VerticalAlign::top, FontAlign::ascender)->SetPreTick(UpdatePercentValues),
 
         // Highlight for the draggable range
         (new Rectangle)->SetPosition(10, 10)->SetSize(120, 220)->SetOutlineColor(Color::white)->SetOutlineWidth(2),
