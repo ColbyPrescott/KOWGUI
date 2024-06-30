@@ -34,6 +34,8 @@ namespace {
     std::string typingText = "Some good text UwU";
     int typingCursorIndex = 0;
 
+    std::string* pDirectString = nullptr;
+
 
     // Functions for keyboard functionality
 
@@ -93,6 +95,13 @@ namespace {
 
     // Called from close button Clickable node
     void CloseKeyboard(BaseNode* thisNode) {
+        // If a direct string was edited, update that string and remove the pointer
+        if(pDirectString != nullptr) {
+            *pDirectString = typingText;
+            pDirectString = nullptr;
+        }
+
+        // Hide keyboard
         thisNode->parent->SetDisabled(true); // TO DO FindInverseShallowID? Climb the tree structure instead of going deeper? The parent and children variables are not guaranteed to stay public
     }
 
@@ -211,8 +220,11 @@ Group* Keyboard::CreateKeyboard() {
 
 // Open a keyboard with direct access to a string
 void Keyboard::Open(Group* pKeyboard, std::string& str) {
-    // Set typing text to the editing string
+    // Copy typing text to the editing string
     typingText = str;
+
+    // Note the address of the string being edited directly
+    pDirectString = &str;
 
     // Show keyboard
     pKeyboard->SetDisabled(false);
