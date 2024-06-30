@@ -186,7 +186,7 @@ Group* Keyboard::CreateKeyboard() {
         }),
 
         // QWERTY Character keys
-        (new Column)->SetDisabled(false)->SetPosition(0, screenHeight - keySize * 4)->AddChildren({
+        (new Column)->SetShallowID("QWERTYLayout")->SetDisabled(false)->SetPosition(0, screenHeight - keySize * 4)->AddChildren({
             (new Row)->SetX(keySize * 0.0 / 3.0)->AddChildren({
                 CreateKey('Q'),
                 CreateKey('W'),
@@ -220,14 +220,14 @@ Group* Keyboard::CreateKeyboard() {
                 CreateKey('B'),
                 CreateKey('N'),
                 CreateKey('M'),
-                (new Group)->SetSize(keySize * 0.5, keySize),
-                CreateSpecialKey("#!?")->SetWidth(keySize * 2),
+                (new Text)->SetSize(screenWidth - keySize * 7.666, keySize)->SetText("Interactive terminal something something...")->SetFontSize(10)->SetColor(highlightColor)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
             }),
             (new Row)->AddChildren({
                 CreateToggleKey("Shift")->SetShallowID("shiftKey")->SetWidth(keySize * (2 + 2.0 / 3.0)),
                 CreateKey(' ')->SetWidth(keySize * 5),
                 CreateSpecialKey("<")->SetWidth(keySize * 1.5)->SetRelease(MoveCursorLeft),
                 CreateSpecialKey(">")->SetWidth(keySize * 1.5)->SetRelease(MoveCursorRight),
+                CreateSpecialKey("#!?")->SetWidth(screenWidth - keySize * 10.666),
             }),
         })
     });
