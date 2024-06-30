@@ -31,7 +31,7 @@ namespace {
 
     // Variables for keyboard functionality
 
-    std::string typingText = "Some good text UwU";
+    std::string typingText = "";
     int typingCursorIndex = 0;
 
     std::string* pDirectString = nullptr;
@@ -175,6 +175,8 @@ namespace {
     
 }
 
+
+
 Group* Keyboard::CreateKeyboard() {
     return (new Group)->SetDisabled(true)->SetSize(screenWidth, screenHeight)->AddChildren({
         // Clickable to absorb inputs behind buttons
@@ -309,6 +311,13 @@ void Keyboard::Open(Group* pKeyboard, std::string& str) {
 
     // Note the address of the string being edited directly
     pDirectString = &str;
+
+    // Ensure QWERTY layout is open first
+    pKeyboard->FindShallowID("symbolsLayout")->SetDisabled(true);
+    pKeyboard->FindShallowID("QWERTYLayout")->SetDisabled(false);
+
+    // Ensure shift toggle is not activated
+    ((Toggleable*)pKeyboard->FindShallowID("shiftKey"))->SetActivated(false);
 
     // Show keyboard
     pKeyboard->SetDisabled(false);
