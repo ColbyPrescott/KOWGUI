@@ -111,7 +111,7 @@ namespace KOWGUI {
             // Which part of the node's area the text should vertically snap to
             VerticalAlign mVerticalAlign = VerticalAlign::top;
             // What part of the text to drawn at Y coordinate of 0
-            FontAlign mFontAlign = FontAlign::baseline;
+            FontAlign mFontAlign = FontAlign::ascender;
 
             // What should happen when text can't fit inside node's area
             Overflow mOverflow = Overflow::wrap;
