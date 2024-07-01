@@ -394,7 +394,8 @@ void Keyboard::Open(Group* pKeyboard, std::string& str) {
     // Note the address of the string being edited directly
     pDirectString = &str;
 
-    // TO DO Place cursor at end of string
+    // Place cursor at end of string
+    typingCursorIndex = typingText.size();
 
     // Ensure QWERTY layout is open first
     pKeyboard->FindShallowID("symbolsLayout")->SetDisabled(true);
