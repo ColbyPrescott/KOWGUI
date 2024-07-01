@@ -1,7 +1,9 @@
 #include "KOWGUI/Prefabs/keyboard.h"
 
 #include "KOWGUI/kowgui.h"
+#include "vex_task.h"
 
+#include <iostream>
 #include <stdlib.h>
 
 using namespace KOWGUI;
@@ -36,11 +38,19 @@ namespace {
 
     std::string* pDirectString = nullptr;
 
+    vex::task serialTask;
+    // Whether or not serialTask has already been started
+    bool serialTaskStarted = false;
+    // Whether or not serialTask should be consuming serial data or quietly putting it back like I actually know how to pause it
+    bool currentlyUsingSerial = false;
+
+    Group* pFakeNode = nullptr;
+
 
     // Functions for keyboard functionality
 
     // Called from typing text Text node
-    void UpdateTypingText(BaseNode* thisNode) {
+    void UpdateTypingTextNode(BaseNode* thisNode) {
         // Cast for specific node
         Text* textNode = (Text*)thisNode;
 
@@ -53,17 +63,11 @@ namespace {
         textNode->SetText("%s%c%s", beforeCursor.c_str(), cursorCharacter, afterCursor.c_str());
     }
 
-    // Called from each standard key Clickable node
-    void TypeKeyAtCursor(BaseNode* thisNode) {
+    // Add a specific character to typingText at the cursor position
+    void TypeCharAtCursor(char characterToAdd) {
         // Construct parts of text
         std::string beforeCursor = typingText.substr(0, typingCursorIndex);
         std::string afterCursor = typingText.substr(typingCursorIndex);
-        char characterToAdd = *(char*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyCharacter");
-
-        // Get whether or not the shift key is pressed
-        bool shiftActivated = ((Toggleable*)thisNode->parent->parent->parent->FindShallowID("shiftKey"))->GetActivated();
-        // Update characterToAdd to be lowercase or uppercase based on shift key. They are already uppercase, so only do something if they need otherwise
-        if(!shiftActivated) characterToAdd = (char)tolower((int)characterToAdd);
 
         // Update text
         typingText = beforeCursor + characterToAdd + afterCursor;
@@ -71,8 +75,20 @@ namespace {
         typingCursorIndex++;
     }
 
+    // Called from each standard key Clickable node
+    void TypeCharFromDataAtCursor(BaseNode* thisNode) {
+        char characterToAdd = *(char*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyCharacter");
+
+        // Get whether or not the shift key is pressed
+        bool shiftActivated = ((Toggleable*)thisNode->parent->parent->parent->FindShallowID("shiftKey"))->GetActivated();
+        // Update characterToAdd to be lowercase or uppercase based on shift key. They are already uppercase, so only do something if they need otherwise
+        if(!shiftActivated) characterToAdd = (char)tolower((int)characterToAdd);
+        
+        TypeCharAtCursor(characterToAdd);
+    }
+
     // Called from the backspace key Clickable node
-    void RemoveKeyAtCursor(BaseNode* thisNode) {
+    void RemoveCharAtCursor(BaseNode* thisNode) {
         // Avoid deleting nonexistent characters
         if(typingCursorIndex == 0) return;
 
@@ -110,6 +126,68 @@ namespace {
         thisNode->parent->parent->parent->FindShallowID("symbolsLayout")->SetDisabled(false);
     }
 
+    // Print typingText into the interactive terminal so it can be read while typing over serial
+    void PrintTypingTextInInteractiveTerminal() {
+        // Construct parts of text
+        std::string beforeCursor = typingText.substr(0, typingCursorIndex);
+        std::string afterCursor = typingText.substr(typingCursorIndex);
+        char cursorCharacter = '|';
+
+        // Update text
+        printf("\n\n\n\n\n%s%c%s\n", beforeCursor.c_str(), cursorCharacter, afterCursor.c_str());
+    }
+
+    // Task loop to turn inputs from the interactive terminal into KOWGUI keyboard inputs
+    int ReadSerialInput() {
+        while(true) {
+            // Get single character from USB serial input
+            char data;
+            std::cin.clear(); std::cin.get(data);
+
+            // There doesn't seem to be any way to pause this serial read loop cleanly. If the keyboard is closed, silently put the data back as though it was never read in the first place
+            if(!currentlyUsingSerial) {
+                std::cin.putback(data);
+                vex::task::sleep(20);
+                continue;
+            }
+
+            // Test for edge cases
+            if(data == 27) { // Escape character
+                std::cin.clear(); std::cin.get(data);
+
+                if(data == 91) {
+                    std::cin.clear(); std::cin.get(data);
+
+                         if(data == 68) MoveCursorLeft(pFakeNode); // Left arrow key
+                    else if(data == 67) MoveCursorRight(pFakeNode); // Right arrow key
+                    else if(data == 65) typingCursorIndex = 0; // Up arrow key
+                    else if(data == 66) typingCursorIndex = typingText.size(); // Down arrow key
+                }
+            } else if(data == 127) RemoveCharAtCursor(pFakeNode); // Backspace key
+            else if(data == 13) TypeCharAtCursor('\n'); // Enter key
+
+            // If no edge cases, type the standard character
+            else TypeCharAtCursor(data);
+
+            // Nothing displays in the interactive terminal by default. Show what is being typed
+            PrintTypingTextInInteractiveTerminal();
+
+            vex::task::sleep(20);
+        }
+
+        return 0;
+    }
+
+    // Called from USB status Text node
+    void UpdateSerialConnectionTextNode(BaseNode* thisNode) {
+        Text* textNode = (Text*)thisNode;
+        int usbStatus = vexSystemUsbStatus();
+
+        if     (usbStatus == 0) textNode->SetText("USB Disconnected");
+        else if(usbStatus == 3) textNode->SetText("USB Connected\nType in Interactive Terminal");
+        else                    textNode->SetText("Please report status %d", usbStatus);
+    }
+
     // Called from close button Clickable node
     void CloseKeyboard(BaseNode* thisNode) {
         // If a direct string was edited, update that string and remove the pointer
@@ -117,6 +195,9 @@ namespace {
             *pDirectString = typingText;
             pDirectString = nullptr;
         }
+
+        // Stop absorbing serial data. Don't be selfish, let other code take a nibble if it wants to too
+        currentlyUsingSerial = false;
 
         // Hide keyboard
         thisNode->parent->SetDisabled(true); // TO DO FindInverseShallowID? Climb the tree structure instead of going deeper? The parent and children variables are not guaranteed to stay public
@@ -127,7 +208,7 @@ namespace {
 
     // Template node system for a standard key like C, O, D, or E
     Clickable* CreateKey(char keyCharacter) {
-        return (new Clickable)->SetSize(keySize, keySize)->SetRelease(TypeKeyAtCursor)->AddChildren({
+        return (new Clickable)->SetSize(keySize, keySize)->SetRelease(TypeCharFromDataAtCursor)->AddChildren({
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocused)->SetOutlineColor(highlightColor)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocused)->SetOutlineColor(highlightColor)}),
 
@@ -166,7 +247,7 @@ namespace {
         // If they special key just needs different data than text being displayed, add in the standard key functionality
         if(keyCharacterOverride != ' ') {
             pPrefab->AddChild((new Data)->SetShallowID("data")->SetProperty("keyCharacter", new char(keyCharacterOverride)));
-            pPrefab->SetRelease(TypeKeyAtCursor);
+            pPrefab->SetRelease(TypeCharFromDataAtCursor);
         }
 
         // Return the fully built prefab
@@ -177,6 +258,7 @@ namespace {
 
 
 
+// Create a standard QWERTY layout keyboard prefab for typing strings
 Group* Keyboard::CreateKeyboard() {
     return (new Group)->SetDisabled(true)->SetSize(screenWidth, screenHeight)->AddChildren({
         // Clickable to absorb inputs behind buttons
@@ -187,7 +269,7 @@ Group* Keyboard::CreateKeyboard() {
 
         // Typing text
         (new Rectangle)->SetPosition(typingAreaMargin, typingAreaMargin)->SetSize(screenWidth - closeButtonSize - typingAreaMargin * 2, screenHeight - keySize * 4 - typingAreaMargin * 2)->SetFillColor(Color::black)->SetOutlineColor(highlightColor)->AddChildren({
-            (new Text)->SetText("Error, someting went tewwibwy wong, sowwy! <:3")->SetFont(Fonts::monospace)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::wrapScale)->SetWrapLineSpacing(1.1)->SetPreTick(UpdateTypingText),
+            (new Text)->SetText("Error, someting went tewwibwy wong, sowwy! <:3")->SetFont(Fonts::monospace)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::wrapScale)->SetWrapLineSpacing(1.1)->SetPreTick(UpdateTypingTextNode),
         }),
 
         // Close button
@@ -212,7 +294,7 @@ Group* Keyboard::CreateKeyboard() {
                 CreateKey('I'),
                 CreateKey('O'),
                 CreateKey('P'),
-                CreateSpecialKey("<--")->SetWidth(screenWidth - keySize * 10)->SetRelease(RemoveKeyAtCursor),
+                CreateSpecialKey("<--")->SetWidth(screenWidth - keySize * 10)->SetRelease(RemoveCharAtCursor),
             }),
             (new Row)->SetX(keySize * 1.0 / 3.0)->AddChildren({
                 CreateKey('A'),
@@ -234,7 +316,7 @@ Group* Keyboard::CreateKeyboard() {
                 CreateKey('B'),
                 CreateKey('N'),
                 CreateKey('M'),
-                (new Text)->SetSize(screenWidth - keySize * 7.666, keySize)->SetText("Interactive terminal something something...")->SetFontSize(10)->SetColor(highlightColor)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
+                (new Text)->SetSize(screenWidth - keySize * 7.666, keySize)->SetText("USB disconnected")->SetFontSize(12)->SetColor(highlightColor)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateSerialConnectionTextNode),
             }),
             (new Row)->AddChildren({
                 CreateToggleKey("Shift")->SetShallowID("shiftKey")->SetWidth(keySize * (2 + 2.0 / 3.0)),
@@ -258,7 +340,7 @@ Group* Keyboard::CreateKeyboard() {
                 CreateKey('8'),
                 CreateKey('9'),
                 CreateKey('0'),
-                CreateSpecialKey("<--")->SetWidth(screenWidth - keySize * 10)->SetRelease(RemoveKeyAtCursor),
+                CreateSpecialKey("<--")->SetWidth(screenWidth - keySize * 10)->SetRelease(RemoveCharAtCursor),
             }),
             (new Row)->AddChildren({
                 CreateKey('!'),
@@ -312,6 +394,8 @@ void Keyboard::Open(Group* pKeyboard, std::string& str) {
     // Note the address of the string being edited directly
     pDirectString = &str;
 
+    // TO DO Place cursor at end of string
+
     // Ensure QWERTY layout is open first
     pKeyboard->FindShallowID("symbolsLayout")->SetDisabled(true);
     pKeyboard->FindShallowID("QWERTYLayout")->SetDisabled(false);
@@ -321,4 +405,17 @@ void Keyboard::Open(Group* pKeyboard, std::string& str) {
 
     // Show keyboard
     pKeyboard->SetDisabled(false);
+
+
+    // Start reading serial input
+    currentlyUsingSerial = true;
+
+    // Start serial reading task if not already started
+    if(!serialTaskStarted) {
+        serialTaskStarted = true;
+        serialTask = vex::task(ReadSerialInput);
+    }
+
+    // Show typingText in interactive terminal
+    PrintTypingTextInInteractiveTerminal();
 }
