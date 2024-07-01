@@ -37,6 +37,7 @@ namespace {
     int typingCursorIndex = 0;
 
     std::string* pDirectString = nullptr;
+    void (*pCloseFunc)(std::string) = nullptr;
 
     vex::task serialTask;
     // Whether or not serialTask has already been started
@@ -48,6 +49,19 @@ namespace {
 
 
     // Functions for keyboard functionality
+
+    // For opening the keyboard, make sure that it opens to the same state each time
+    void ResetKeyboardState(Group* keyboard) {
+        // Place cursor at end of string
+        typingCursorIndex = typingText.size();
+
+        // Ensure QWERTY layout is open first
+        keyboard->FindShallowID("symbolsLayout")->SetDisabled(true);
+        keyboard->FindShallowID("QWERTYLayout")->SetDisabled(false);
+
+        // Ensure shift toggle is not activated
+        ((Toggleable*)keyboard->FindShallowID("shiftKey"))->SetActivated(false);
+    }
 
     // Called from typing text Text node
     void UpdateTypingTextNode(BaseNode* thisNode) {
@@ -180,6 +194,18 @@ namespace {
         return 0;
     }
 
+    // Start turning serial input into KOWGUI keyboard input
+    void StartSerialRead() {
+        // Enable reading serial input
+        currentlyUsingSerial = true;
+
+        // Start serial reading task if not already started
+        if(!serialTaskStarted) {
+            serialTaskStarted = true;
+            serialTask = vex::task(ReadSerialInput);
+        }
+    }
+
     // Called from USB status Text node
     void UpdateSerialConnectionTextNode(BaseNode* thisNode) {
         Text* textNode = (Text*)thisNode;
@@ -198,6 +224,12 @@ namespace {
         if(pDirectString != nullptr) {
             *pDirectString = typingText;
             pDirectString = nullptr;
+        }
+
+        // If a close function was set, call it and remove the function pointer
+        if(pCloseFunc != nullptr) {
+            pCloseFunc(typingText);
+            pCloseFunc = nullptr;
         }
 
         // Stop absorbing serial data. Don't be selfish, let other code take a nibble if it wants to too
@@ -390,37 +422,38 @@ Group* Keyboard::CreateKeyboard() {
     });
 }
 
-// Open a keyboard with direct access to a string
-void Keyboard::Open(Group* pKeyboard, std::string& str) {
+// Open a keyboard with direct access to a string, set automatically once the keyboard is closed
+void Keyboard::Open(Group* keyboard, std::string& str) {
     // Copy typing text to the editing string
     typingText = str;
-
     // Note the address of the string being edited directly
     pDirectString = &str;
-
-    // Place cursor at end of string
-    typingCursorIndex = typingText.size();
-
-    // Ensure QWERTY layout is open first
-    pKeyboard->FindShallowID("symbolsLayout")->SetDisabled(true);
-    pKeyboard->FindShallowID("QWERTYLayout")->SetDisabled(false);
-
-    // Ensure shift toggle is not activated
-    ((Toggleable*)pKeyboard->FindShallowID("shiftKey"))->SetActivated(false);
+    // Open to the same state each time
+    ResetKeyboardState(keyboard);
 
     // Show keyboard
-    pKeyboard->SetDisabled(false);
+    keyboard->SetDisabled(false);
 
+    // Start turning serial input into KOWGUI keyboard input
+    StartSerialRead();
+    // Show typingText in interactive terminal
+    PrintTypingTextInInteractiveTerminal();
+}
 
-    // Start reading serial input
-    currentlyUsingSerial = true;
+// Open a keyboard with an initialization string, then call a function once the keyboard is closed
+void Keyboard::Open(Group* keyboard, std::string startStr, void (*closeCallback)(std::string)) {
+    // Copy typing text to the editing string
+    typingText = startStr;
+    // Note the address of the function to call once the keyboard is closed
+    pCloseFunc = closeCallback;
+    // Open to the same state each time
+    ResetKeyboardState(keyboard);
 
-    // Start serial reading task if not already started
-    if(!serialTaskStarted) {
-        serialTaskStarted = true;
-        serialTask = vex::task(ReadSerialInput);
-    }
-
+    // Show keyboard
+    keyboard->SetDisabled(false);
+    
+    // Start turning serial input into KOWGUI keyboard input
+    StartSerialRead();
     // Show typingText in interactive terminal
     PrintTypingTextInInteractiveTerminal();
 }

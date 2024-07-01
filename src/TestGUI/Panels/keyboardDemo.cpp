@@ -9,7 +9,7 @@ using namespace KOWGUI;
 
 namespace {
 
-    std::string testStr = "Edit me!";
+    std::string testStr = "Edit testStr directly! (This Text node is updated during preTick)";
 
     void UpdateStringText(BaseNode* thisNode) {
         ((Text*)thisNode)->SetText(testStr);
@@ -23,11 +23,21 @@ void InitGUIKeyboardDemo() {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
 
-            (new Text)->SetText("Open")->SetFontSize(20)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
+            (new Text)->SetText("Open Direct")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
         }),
-        
-        (new Rectangle)->SetPosition(150, 30)->SetSize(150, 100)->SetFillColor(Color::gray)->AddChildren({
-            (new Text)->SetFontSize(20)->SetPreTick(UpdateStringText),
+        (new Rectangle)->SetPosition(150, 30)->SetSize(150, 60)->SetFillColor(Color::gray)->AddChildren({
+            (new Text)->SetFontSize(12)->SetPreTick(UpdateStringText),
+        }),
+
+        // (new Clickable)->SetPosition(30, 100)->SetSize(80, 40)->SetRelease([](BaseNode* thisNode){Keyboard::Open(keyboard, testStr, [](std::string str){((Text*)panels.keyboardDemo->FindShallowID("indirectText"))->SetText(str);})->AddChildren({
+        (new Clickable)->SetPosition(30, 100)->SetSize(80, 40)->SetRelease([](BaseNode* thisNode){Keyboard::Open(keyboard, ((Text*)thisNode->parent->FindShallowID("indirectText"))->GetText(), [](std::string str){((Text*)panels.keyboardDemo->FindShallowID("indirectText"))->SetText(str);});})->AddChildren({
+            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
+            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
+
+            (new Text)->SetText("Open With Func")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
+        }),
+        (new Rectangle)->SetPosition(150, 100)->SetSize(150, 60)->SetFillColor(Color::gray)->AddChildren({
+            (new Text)->SetShallowID("indirectText")->SetText("Edit this Text node by getting and setting the content")->SetFontSize(12),
         }),
     });
 }
