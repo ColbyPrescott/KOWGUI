@@ -144,6 +144,8 @@ namespace {
             char data;
             std::cin.clear(); std::cin.get(data);
 
+            // TO DO Serial keyboard will immidiately read any buffered inputs upon opening keyboard. Find a way to ignore them. Without std::cin.ignore() because that breaks everything
+
             // There doesn't seem to be any way to pause this serial read loop cleanly. If the keyboard is closed, silently put the data back as though it was never read in the first place
             if(!currentlyUsingSerial) {
                 std::cin.putback(data);
@@ -183,9 +185,11 @@ namespace {
         Text* textNode = (Text*)thisNode;
         int usbStatus = vexSystemUsbStatus();
 
-        if     (usbStatus == 0) textNode->SetText("USB Disconnected");
-        else if(usbStatus == 3) textNode->SetText("USB Connected\nType in Interactive Terminal");
-        else                    textNode->SetText("Please report status %d", usbStatus);
+        if     (usbStatus == 0)  textNode->SetText("USB Disconnected");
+        else if(usbStatus == 3)  textNode->SetText("Brain Connected\nType in Interactive Terminal");
+        else if(usbStatus == 4)  textNode->SetText("Controller Connecting..."); // I think
+        else if(usbStatus == 12) textNode->SetText("Controller Connected\nType in Interactive Terminal");
+        else                     textNode->SetText("Please report status %d", usbStatus);
     }
 
     // Called from close button Clickable node
