@@ -28,6 +28,8 @@ void Column::OrganizeUnique() {
 
     // Loop through all child nodes
     for(int i = 0; i < children.size(); i++) {
+        // Ignore node if disabled
+        if(children[i]->GetDisabled()) continue;
         // Set position of child node
         children[i]->SetY(currentY);
         // Add child node's height to the sum
@@ -38,22 +40,38 @@ void Column::OrganizeUnique() {
         if(children[i]->CalculateWidth() > maxWidth) maxWidth = children[i]->CalculateWidth();
     }
 
-    // Update this node's height to contain everything inside
+    // Update this node's size to contain everything inside
     SetHeight(currentY - mSpacing);
+    SetWidth(maxWidth);
 }
 
 // Organize children one after the other, equally scaling all of them to fit within this node's height
 void Column::OrganizeUniform() {
     // Get number of nodes that are supposed to fit within this node's height
-    int numChildren = children.size();
+    int numEnabledChildren = 0;
+    // Loop through each node and increment count if not disabled
+    for(int i = 0; i < children.size(); i++) if(!children[i]->GetDisabled()) numEnabledChildren++;
+
+    // Prevent a division by zero error
+    if(numEnabledChildren == 0) return;
 
     // Calculate what size each child node should be. Amount of total space is removed from total height, which is then divided by number of child nodes
-    int nodeHeight = round((CalculateHeight() - mSpacing * (numChildren - 1)) / (double)numChildren);
+    int nodeHeight = round((CalculateHeight() - mSpacing * (numEnabledChildren - 1)) / (double)numEnabledChildren);
+
+
+    // Keep track of where the current node is being positioned
+    int currentY = 0;
 
     // Loop through all child nodes, updating their height and position
-    for(int i = 0; i < numChildren; i++) {
+    for(int i = 0; i < children.size(); i++) {
+        // Ignore node if disabled
+        if(children[i]->GetDisabled()) continue;
+        // Update child node height
         children[i]->SetHeight(nodeHeight);
-        children[i]->SetY((nodeHeight + mSpacing) * i);
+        // Update child node position
+        children[i]->SetY(currentY);
+        // Add to currentY for next enabled node
+        currentY += nodeHeight + mSpacing;
     }
 }
 

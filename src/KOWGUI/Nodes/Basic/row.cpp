@@ -26,10 +26,10 @@ void Row::OrganizeUnique() {
     // Keep track of tallest node's height
     int maxHeight = 0;
 
-    // TO DO I'm going to guess that disabling a node inside a row won't take it out of the calculations... should it be taken out?
-
     // Loop through all child nodes
     for(int i = 0; i < children.size(); i++) {
+        // Ignore node if disabled
+        if(children[i]->GetDisabled()) continue;
         // Set position of child node
         children[i]->SetX(currentX);
         // Add child node's width to the sum
@@ -48,15 +48,30 @@ void Row::OrganizeUnique() {
 // Organize children one after the other, equally scaling all of them to fit within this node's width
 void Row::OrganizeUniform() {
     // Get number of nodes that are supposed to fit within this node's width
-    int numChildren = children.size();
+    int numEnabledChildren = 0;
+    // Loop through each node and increment count if not disabled
+    for(int i = 0; i < children.size(); i++) if(!children[i]->GetDisabled()) numEnabledChildren++;
+
+    // Prevent a division by zero error
+    if(numEnabledChildren == 0) return;
 
     // Calculate what size each child node should be. Amount of total space is removed from total width, which is then divided by number of child nodes
-    int nodeWidth = round((CalculateWidth() - mSpacing * (numChildren - 1)) / (double)numChildren);
+    int nodeWidth = round((CalculateWidth() - mSpacing * (numEnabledChildren - 1)) / (double)numEnabledChildren);
+
+
+    // Keep track of where the current node is being positioned
+    int currentX = 0;
 
     // Loop through all child nodes, updating their width and position
-    for(int i = 0; i < numChildren; i++) {
+    for(int i = 0; i < children.size(); i++) {
+        // Ignore node if disabled
+        if(children[i]->GetDisabled()) continue;
+        // Update child node width
         children[i]->SetWidth(nodeWidth);
-        children[i]->SetX((nodeWidth + mSpacing) * i);
+        // Update child node position
+        children[i]->SetX(currentX);
+        // Add to currentX for next enabled node
+        currentX += nodeWidth + mSpacing;
     }
 }
 
