@@ -23,7 +23,7 @@ int main() {
 
     InitPanels();
 
-    keyboard = KOWGUI::Keyboard::CreateKeyboard();
+    keyboard = KOWGUI::Keyboard::CreateKeyboard(KOWGUI::Color::darkSlateGray, theme.buttonNFocused, theme.buttonFocused, theme.lightText);
     gui.root->AddChild(keyboard);
 
     LoadPanel(panels.keyboardDemo);
