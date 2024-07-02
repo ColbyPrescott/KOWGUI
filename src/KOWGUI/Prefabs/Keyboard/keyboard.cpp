@@ -244,7 +244,7 @@ namespace {
 
     // Functions for keyboard building
 
-    // Template node system for a standard key like C, O, D, or E
+    // Template prefab for a standard key like C, O, D, or E
     Clickable* CreateKey(char keyCharacter) {
         return (new Clickable)->SetSize(keySize, keySize)->SetRelease(TypeCharFromDataAtCursor)->AddChildren({
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
@@ -256,7 +256,7 @@ namespace {
         });
     }
 
-    // Template node system for the shift key
+    // Template prefab for the shift key
     Toggleable* CreateToggleKey(std::string text) {
         return (new Toggleable)->SetSize(keySize, keySize)->AddChildren({
             (new NActivated)->AddChildren({
@@ -272,7 +272,7 @@ namespace {
         });
     }
 
-    // Template node system for keys that need more text visible and a different release function, like the backspace or arrow keys
+    // Template prefab for keys that need more text visible and a different release function, like the backspace or arrow keys
     Clickable* CreateSpecialKey(std::string text, char keyCharacterOverride = ' ') {
         // Bare bones key with no functionality
         Clickable* pPrefab = (new Clickable)->SetSize(keySize, keySize)->AddChildren({
