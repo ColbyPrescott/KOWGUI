@@ -28,7 +28,7 @@ namespace {
 
     std::shared_ptr<Color> backgroundColor((new Color)->SetHex("#424242"));
     std::shared_ptr<Color> buttonNFocusedColor((new Color)->SetHex("#6e6e6e"));
-    std::shared_ptr<Color> buttonFocusedColor((new Color)->SetHex("#a3a3a3"));
+    std::shared_ptr<Color> buttonFocusedColor((new Color)->SetHex("#a3a3a3")); // TO DO Focus color is gray even when customized?
     std::shared_ptr<Color> highlightColor((new Color)->SetHex("#ffffff"));
 
 

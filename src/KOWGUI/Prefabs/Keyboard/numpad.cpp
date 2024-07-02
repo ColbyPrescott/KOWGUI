@@ -39,9 +39,10 @@ namespace {
     void TypeDigitFromDataAtEnd(BaseNode* thisNode) {
         int digitToAdd = *(int*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyDigit");
 
-        // Shift all digits left by one digit, making room for a zero, then converted to new digit by adding it
+        // Shift all digits left by one digit, making room for a zero, then converted to new digit by adding / subtracting it
         typingNumberAsInteger *= 10;
-        typingNumberAsInteger += digitToAdd;
+        if(typingNumberAsInteger >= 0) typingNumberAsInteger += digitToAdd;
+        else typingNumberAsInteger -= digitToAdd;
 
         // If currently typing decimals, this new digit should add to the number of digits after the decimal
         if(typingDecimals) numTypingDecimalDigits++;
@@ -72,14 +73,19 @@ namespace {
         typingDecimals = true;
     }
 
+    // Called from the 
+    void InvertTypingNumberSign(BaseNode* thisNode) {
+        typingNumberAsInteger *= -1;
+    }
+
     // Called from the typing number Text node
     void UpdateTypingTextNode(BaseNode* thisNode) {
         // If not typing a decimal, simply display the integer as is
         if(!typingDecimals) ((Text*)thisNode)->SetText("%d", typingNumberAsInteger);
         else {
             // If typing decimal, display it by splitting the number before and after the decimal character and putting a period in between
-            int digitsBeforeDecimal = floor((double)typingNumberAsInteger / pow(10, numTypingDecimalDigits));
-            int digitsAfterDecimal = typingNumberAsInteger % (int)pow(10.0, (double)numTypingDecimalDigits);
+            int digitsBeforeDecimal = (double)typingNumberAsInteger / pow(10, numTypingDecimalDigits);
+            int digitsAfterDecimal = fabs(typingNumberAsInteger % (int)pow(10.0, (double)numTypingDecimalDigits));
             ((Text*)thisNode)->SetText("%d.%d", digitsBeforeDecimal, digitsAfterDecimal);
         }
     }
@@ -107,7 +113,7 @@ namespace {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
 
-            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor.get()),
+            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor.get())->SetOverflow(Overflow::wrap)->SetWrapLineSpacing(0.4),
         });
     }
 
@@ -155,11 +161,9 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
                         CreateDigitKey(3),
                     }),
                     (new Row)->SetScaleToFit(true)->AddChildren({
-                        (new Rectangle)->SetShallowID("intMessage")->SetDisabled(true)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())->AddChildren({
-                            (new Text)->SetText("Int")->SetFontSize(20)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::wrapScale),
-                        }),
-                        CreateSpecialKey(".")->SetShallowID("decimalKey")->SetDisabled(false)->SetRelease(StartTypingDecimal),
                         CreateDigitKey(0),
+                        CreateSpecialKey(".")->SetShallowID("decimalKey")->SetDisabled(false)->SetRelease(StartTypingDecimal),
+                        CreateSpecialKey("+\n-")->SetRelease(InvertTypingNumberSign),
                         CreateSpecialKey("<")->SetRelease(RemoveDigitFromEnd),
                     }),
                 }),
