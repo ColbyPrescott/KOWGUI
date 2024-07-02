@@ -7,5 +7,6 @@
 extern vex::brain Brain;
 extern KOWGUI::GUI gui;
 extern KOWGUI::Group* keyboard;
+extern KOWGUI::Group* numpad;
 
 #endif

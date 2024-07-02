@@ -23,6 +23,9 @@ int main() {
 
     InitPanels();
 
+    numpad = KOWGUI::Keyboard::CreateNumpad();
+    gui.root->AddChild(numpad);
+
     keyboard = KOWGUI::Keyboard::CreateKeyboard(KOWGUI::Color::darkSlateGray, theme.buttonNFocused, theme.buttonFocused, theme.lightText);
     gui.root->AddChild(keyboard);
 
