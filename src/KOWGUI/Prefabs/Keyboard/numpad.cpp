@@ -32,17 +32,29 @@ namespace {
     // How many digits of typingNumberAsInteger are placed after the decimal
     int numTypingDecimalDigits = 0;
 
+    const int maxTypingInteger = 2147483647; // 32 bit signed integer limit
+
 
     // Functions for numpad functionality
 
     // Called from each digit key
     void TypeDigitFromDataAtEnd(BaseNode* thisNode) {
-        int digitToAdd = *(int*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyDigit");
+        // Return immidiately if the more easily detectable multiplication error will occur
+        if(typingNumberAsInteger > maxTypingInteger / 10 || typingNumberAsInteger < -maxTypingInteger / 10) return;
+        // Save old typing number for detecting and reverting integer overflow in single digits
+        int32_t prevTypingNumberAsInteger = typingNumberAsInteger;
 
+        int digitToAdd = *(int*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyDigit");
         // Shift all digits left by one digit, making room for a zero, then converted to new digit by adding / subtracting it
         typingNumberAsInteger *= 10;
         if(typingNumberAsInteger >= 0) typingNumberAsInteger += digitToAdd;
         else typingNumberAsInteger -= digitToAdd;
+
+        // If integer overflow in single digits, revert changes
+        if((prevTypingNumberAsInteger >= 0) != (typingNumberAsInteger >= 0)) {
+            typingNumberAsInteger = prevTypingNumberAsInteger;
+            return;
+        }
 
         // If currently typing decimals, this new digit should add to the number of digits after the decimal
         if(typingDecimals) numTypingDecimalDigits++;
@@ -67,13 +79,13 @@ namespace {
         if(numTypingDecimalDigits == 0) typingDecimals = false;
     }
 
-    // Called from the decimal key
+    // Called from the decimal key Clickable node
     void StartTypingDecimal(BaseNode* thisNode) {
         // Enable mode for typing decimals. If it's already true, this won't change anything
         typingDecimals = true;
     }
 
-    // Called from the 
+    // Called from the sign key Clickable node
     void InvertTypingNumberSign(BaseNode* thisNode) {
         typingNumberAsInteger *= -1;
     }
@@ -84,9 +96,9 @@ namespace {
         if(!typingDecimals) ((Text*)thisNode)->SetText("%d", typingNumberAsInteger);
         else {
             // If typing decimal, display it by splitting the number before and after the decimal character and putting a period in between
-            int digitsBeforeDecimal = (double)typingNumberAsInteger / pow(10, numTypingDecimalDigits);
+            int digitsBeforeDecimal = fabs((double)typingNumberAsInteger / pow(10, numTypingDecimalDigits)); // Cast to integer floors number with both positive and negative numbers accounted for
             int digitsAfterDecimal = fabs(typingNumberAsInteger % (int)pow(10.0, (double)numTypingDecimalDigits));
-            ((Text*)thisNode)->SetText("%d.%d", digitsBeforeDecimal, digitsAfterDecimal);
+            ((Text*)thisNode)->SetText("%s%d.%d", typingNumberAsInteger < 0 ? "-" : "", digitsBeforeDecimal, digitsAfterDecimal);
         }
     }
 
