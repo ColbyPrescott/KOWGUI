@@ -14,8 +14,8 @@ namespace KOWGUI {
 
         void Open(Group* keyboard, std::string& str);
         void Open(Group* keyboard, std::string startStr, void (*closeCallback)(std::string));
-        void Open(Group* numpad, int startNum, void (*closeCalback)(int));
-        // void Open(Group* numpad, double num, void (*closeCalback)(double));
+        void Open(Group* numpad, int startNum, void (*closeCallback)(int));
+        void Open(Group* numpad, double startNum, void (*closeCallback)(double));
 
     }
 }

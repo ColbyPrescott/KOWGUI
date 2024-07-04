@@ -4,6 +4,7 @@
 #include "globalVars.h"
 
 #include <string>
+#include <stdlib.h>
 
 using namespace KOWGUI;
 
@@ -11,8 +12,35 @@ namespace {
 
     std::string testStr = "Edit testStr directly! (This Text node is updated during preTick)";
 
+    // Functions to update the text in each Text node
     void UpdateStringText(BaseNode* thisNode) {
         ((Text*)thisNode)->SetText(testStr);
+    }
+
+    void UpdateIntegerText(BaseNode* thisNode) {
+        ((Text*)thisNode)->SetText("%d", *(int*)((Data*)thisNode->parent->FindShallowID("integerDemoData"))->GetProperty("number"));
+    }
+
+    void UpdateDecimalText(BaseNode* thisNode) {
+        ((Text*)thisNode)->SetText("%.5f", *(double*)((Data*)thisNode->parent->FindShallowID("decimalDemoData"))->GetProperty("number"));
+    }
+
+    // Functions to update Data nodes after the numpad closes
+    void UpdateIntegerDemoNumber(int num) {
+        *(int*)((Data*)panels.keyboardDemo->FindShallowID("integerDemoData"))->GetProperty("number") = num;
+    }
+
+    void UpdateDecimalDemoNumber(double num) {
+        *(double*)((Data*)panels.keyboardDemo->FindShallowID("decimalDemoData"))->GetProperty("number") = num;
+    }
+
+    // Functions to open the numpad for each demo
+    void OpenIntegerDemoNumpad(BaseNode* thisNode) {
+        Keyboard::Open(numpad, *(int*)((Data*)thisNode->FindShallowID("integerDemoData"))->GetProperty("number"), UpdateIntegerDemoNumber);
+    }
+
+    void OpenDecimalDemoNumpad(BaseNode* thisNode) {
+        Keyboard::Open(numpad, *(double*)((Data*)thisNode->FindShallowID("decimalDemoData"))->GetProperty("number"), UpdateDecimalDemoNumber);
     }
 
 }
@@ -42,11 +70,23 @@ void InitGUIKeyboardDemo() {
         }),
 
         // Integer numpad demo
-        (new Clickable)->SetPosition(30, 170)->SetSize(80, 40)->SetRelease([](BaseNode* thisNode){Keyboard::Open(numpad, 10, [](int num){});})->AddChildren({
+        (new Clickable)->SetPosition(30, 170)->SetSize(80, 40)->SetRelease(OpenIntegerDemoNumpad)->AddChildren({
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
 
-            (new Text)->SetText("10")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
+            (new Text)->SetText("418")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateIntegerText),
+
+            (new Data)->SetShallowID("integerDemoData")->SetProperty("number", new int(1810)),
+        }),
+
+        // Decimal numpad demo
+        (new Clickable)->SetPosition(150, 170)->SetSize(80, 40)->SetRelease(OpenDecimalDemoNumpad)->AddChildren({
+            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
+            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
+
+            (new Text)->SetText("418")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateDecimalText),
+
+            (new Data)->SetShallowID("decimalDemoData")->SetProperty("number", new double(3.621)),
         }),
     });
 }

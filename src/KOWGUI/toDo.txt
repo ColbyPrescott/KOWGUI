@@ -33,6 +33,8 @@ Prefabs:
     - Or, most recent shower thought, everything is functions but more complicated systems can be shoved into a namespace with extra functions that take a node pointer as parameter
 - Keyboard
     - Ints / doubles / floats: Numpad, could be resized and dragged around
+    - Live update in numpad
+    - Keyboard is fine as is. Numpad code may break if multiple open at the same time
 - Graph
 - Slider / interactable or like volume gauge
 - Drop down

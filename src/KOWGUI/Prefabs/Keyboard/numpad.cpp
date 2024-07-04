@@ -34,6 +34,9 @@ namespace {
 
     const int maxTypingInteger = 2147483647; // 32 bit signed integer limit
 
+    void (*pCloseFuncInt)(int) = nullptr;
+    void (*pCloseFuncDouble)(double) = nullptr;
+
 
     // Functions for numpad functionality
 
@@ -97,7 +100,7 @@ namespace {
         else {
             // If typing decimal, display it by splitting the number before and after the decimal character and putting a period in between
             int digitsBeforeDecimal = fabs((double)typingNumberAsInteger / pow(10, numTypingDecimalDigits)); // Cast to integer floors number with both positive and negative numbers accounted for
-            int digitsAfterDecimal = fabs(typingNumberAsInteger % (int)pow(10.0, (double)numTypingDecimalDigits));
+            int digitsAfterDecimal = fabs((double)(typingNumberAsInteger % (int)pow(10.0, (double)numTypingDecimalDigits)));
             ((Text*)thisNode)->SetText("%s%d.%d", typingNumberAsInteger < 0 ? "-" : "", digitsBeforeDecimal, digitsAfterDecimal);
         }
     }
@@ -105,6 +108,16 @@ namespace {
     // Called from the close button Clickable node
     void CloseNumpad(BaseNode* thisNode) {
         thisNode->parent->parent->SetDisabled(true);
+
+        if(pCloseFuncInt != nullptr) {
+            pCloseFuncInt(typingNumberAsInteger);
+            pCloseFuncInt = nullptr;
+        }
+
+        if(pCloseFuncDouble != nullptr) {
+            pCloseFuncDouble((double)typingNumberAsInteger / pow(10, numTypingDecimalDigits));
+            pCloseFuncDouble = nullptr;
+        }
     }
 
     // Template prefab for a standard key like 1, 2, or 3
@@ -186,5 +199,35 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
 
 // Open a numpad with an initialization integer, then call a function once the keyboard is closed
 void Keyboard::Open(Group* numpad, int startNum, void (*closeCalback)(int)) {
+    typingNumberAsInteger = startNum;
+    typingDecimals = false;
+    numTypingDecimalDigits = 0;
+    numpad->FindShallowID("decimalKey")->SetDisabled(true);
+
+    pCloseFuncInt = closeCalback;
+
+    numpad->SetDisabled(false);
+}
+
+// Open a numpad with an initialization double, then call a function once the keyboard is closed
+void Keyboard::Open(Group* numpad, double startNum, void (*closeCallback)(double)) {
+    // Calculate number of decimal digits
+    // Reset counter
+    numTypingDecimalDigits = 0;
+    // Shift decimal place to the right until tempDecimals is equal to itself with decimals removed. 
+    // Calculation must be done fresh every time to avoid build up of floating point precision error. 
+    // If this happens, the number will sky rocket and then the typing number will end up as 0 for some reason? Seems fixed now. Idk why I'm writing about this
+    while(startNum * pow(10, numTypingDecimalDigits) != floor(startNum * pow(10, numTypingDecimalDigits))) numTypingDecimalDigits++;
+
+    // Remove decimal point for typingNumerAsInteger
+    typingNumberAsInteger = startNum * pow(10, numTypingDecimalDigits);
+    // Set mode for typing decimal based on whether there already is a decimal part
+    typingDecimals = numTypingDecimalDigits > 0;
+    // Enable the decimal key
+    numpad->FindShallowID("decimalKey")->SetDisabled(false);
+
+    pCloseFuncDouble = closeCallback;
+
+    // Show numpad
     numpad->SetDisabled(false);
 }
