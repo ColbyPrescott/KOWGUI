@@ -28,7 +28,7 @@ namespace {
 
     std::shared_ptr<Color> backgroundColor((new Color)->SetHex("#424242"));
     std::shared_ptr<Color> buttonNFocusedColor((new Color)->SetHex("#6e6e6e"));
-    std::shared_ptr<Color> buttonFocusedColor((new Color)->SetHex("#a3a3a3")); // TO DO Focus color is gray even when customized?
+    std::shared_ptr<Color> buttonFocusedColor((new Color)->SetHex("#a3a3a3"));
     std::shared_ptr<Color> highlightColor((new Color)->SetHex("#ffffff"));
 
 
@@ -301,8 +301,8 @@ Group* Keyboard::CreateKeyboard(Color* customBackgroundColor, Color* customButto
     // Set colors for prefab generation if they are specified
     if(customBackgroundColor != nullptr) backgroundColor = std::make_shared<Color>(*customBackgroundColor);
     if(customButtonNFocusedColor != nullptr) buttonNFocusedColor = std::make_shared<Color>(*customButtonNFocusedColor);
-    if(customButtonFocusedColor != nullptr) buttonFocusedColor = std::make_shared<Color>(*buttonFocusedColor); // TO DO Oh wait there's the issue
-    if(customHighlightColor != nullptr) highlightColor = std::make_shared<Color>(*highlightColor);
+    if(customButtonFocusedColor != nullptr) buttonFocusedColor = std::make_shared<Color>(*customButtonFocusedColor);
+    if(customHighlightColor != nullptr) highlightColor = std::make_shared<Color>(*customHighlightColor);
 
     // Make and return the keyboard prefab
     return (new Group)->SetDisabled(true)->SetSize(screenWidth, screenHeight)->AddChildren({
