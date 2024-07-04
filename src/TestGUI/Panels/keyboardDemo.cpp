@@ -76,6 +76,7 @@ void InitGUIKeyboardDemo() {
 
             (new Text)->SetText("418")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateIntegerText),
 
+            // Live update info text
             (new Text)->SetY(14)->SetText("Live Update")->SetFontSize(12)->SetAlignments(HorizontalAlign::center, VerticalAlign::bottom),
 
             (new Data)->SetShallowID("integerDemoData")->SetProperty("number", new int(1810)),
@@ -88,7 +89,7 @@ void InitGUIKeyboardDemo() {
 
             (new Text)->SetText("418")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateDecimalText),
 
-            (new Data)->SetShallowID("decimalDemoData")->SetProperty("number", new double(3.621)),
+            (new Data)->SetShallowID("decimalDemoData")->SetProperty("number", new double(3.14159265)),
         }),
     });
 }

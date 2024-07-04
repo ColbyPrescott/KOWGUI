@@ -166,9 +166,14 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
     if(customButtonFocusedColor != nullptr) buttonFocusedColor = std::make_shared<Color>(*customButtonFocusedColor);
     if(customHighlightColor != nullptr) highlightColor = std::make_shared<Color>(*customHighlightColor);
 
+    // Set the window bar's type of node based on whether it should be movable
+    BaseNode* barNode = nullptr;
+    if(movable) barNode = new Draggable;
+    else barNode = new Clickable;
+
     // Make and return the numpad prefab
     return (new Group)->SetDisabled(true)->AddChildren({
-        (new Draggable)->SetPosition(x, y)->SetSize(width, windowBarHeight)->AddChildren({
+        barNode->SetPosition(x, y)->SetSize(width, windowBarHeight)->AddChildren({
             // Window bar background
             (new Rectangle)->SetFillColor(windowBarColor.get())->SetOutlineColor(highlightColor.get()),
 
@@ -218,7 +223,7 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
     });
 }
 
-// Open a numpad with an initialization integer, then call a function once the keyboard is closed
+// Open a numpad with an initialization integer, then call a function once closed or every button press
 void Keyboard::Open(Group* numpad, int startNum, void (*updateCallback)(int), bool liveUpdate) {
     // Reset numpad state
     // Initialize typingNumber for modification
