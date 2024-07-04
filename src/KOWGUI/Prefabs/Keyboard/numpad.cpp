@@ -16,6 +16,9 @@ namespace {
     const int closeButtonIconMargin = 3;
     const int closeButtonIconLineWidth = 2;
 
+    const int windowResizeWidth = 8;
+    const int windowResizeLineWidth = 2;
+
     std::shared_ptr<Color> windowBarColor((new Color)->SetHex("#424242"));
     std::shared_ptr<Color> buttonNFocusedColor((new Color)->SetHex("#6e6e6e"));
     std::shared_ptr<Color> buttonFocusedColor((new Color)->SetHex("#a3a3a3"));
@@ -116,9 +119,23 @@ namespace {
         else {
             // If typing decimal, display it by splitting the number before and after the decimal character and putting a period in between
             int digitsBeforeDecimal = fabs((double)typingNumberAsInteger / pow(10, numTypingDecimalDigits)); // Cast to integer floors number with both positive and negative numbers accounted for
-            int digitsAfterDecimal = fabs((double)(typingNumberAsInteger % (int)pow(10.0, (double)numTypingDecimalDigits)));
+            int digitsAfterDecimal = fabs((double)(typingNumberAsInteger % (int)pow(10.0, (double)numTypingDecimalDigits))); // TO DO Doesn't show preceding zeros
             ((Text*)thisNode)->SetText("%s%d.%d", typingNumberAsInteger < 0 ? "-" : "", digitsBeforeDecimal, digitsAfterDecimal);
         }
+    }
+
+    // Called from the window resize Draggable node
+    void ResizeNumpad(BaseNode* thisNode) {
+        Draggable* thisDraggable = (Draggable*)thisNode;
+        int newWidth = thisDraggable->GetX() + windowResizeWidth;
+        int newHeight = thisDraggable->GetY() + windowResizeWidth;
+
+        // Resize the window bar
+        thisDraggable->parent->parent->SetWidth(newWidth);
+        // Reposition close button
+        thisDraggable->parent->parent->FindShallowID("closeButton")->SetX(newWidth - windowBarHeight);
+        // Resize the grid area
+        thisDraggable->parent->parent->FindShallowID("gridContainer")->SetSize(newWidth, newHeight);
     }
 
     // Called from the close button Clickable node
@@ -171,17 +188,28 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
     if(movable) barNode = new Draggable;
     else barNode = new Clickable;
 
-    // Make and return the numpad prefab
+    // Create the window resizer prefab if the numpad is resizable
+    Group* windowResizer = new Group;
+    if(resizable) {
+        windowResizer->SetY(windowBarHeight)->AddChildren({
+            (new Draggable)->SetPosition(width - windowResizeWidth, height - windowResizeWidth)->SetSize(windowResizeWidth * 2, windowResizeWidth * 2)->SetMinX(30)->SetMinY(30)->SetPreTick(ResizeNumpad)->AddChildren({
+                (new Line)->SetPositions(windowResizeWidth * 2, 0, windowResizeWidth * 2, windowResizeWidth * 2)->SetColor(highlightColor.get())->SetLineWidth(windowResizeLineWidth),
+                (new Line)->SetPositions(windowResizeWidth * 2, windowResizeWidth * 2, 0, windowResizeWidth * 2)->SetColor(highlightColor.get())->SetLineWidth(windowResizeLineWidth),
+            }),
+        });
+    }
+
+    // Assemble and return the numpad prefab
     return (new Group)->SetDisabled(true)->AddChildren({
         barNode->SetPosition(x, y)->SetSize(width, windowBarHeight)->AddChildren({
             // Window bar background
             (new Rectangle)->SetFillColor(windowBarColor.get())->SetOutlineColor(highlightColor.get()),
 
             // Window bar text
-            (new Text)->SetText("Numpad")->SetFontSize(windowBarHeight - 4)->SetAlignments(HorizontalAlign::left, VerticalAlign::middle),
+            (new Text)->SetText("Numpad")->SetFontSize(windowBarHeight - 4)->SetAlignments(HorizontalAlign::left, VerticalAlign::middle)->SetOverflow(Overflow::hidden),
 
             // Close button
-            (new Clickable)->SetPosition(width - windowBarHeight, 0)->SetSize(windowBarHeight, windowBarHeight)->SetRelease(CloseNumpad)->AddChildren({
+            (new Clickable)->SetShallowID("closeButton")->SetPosition(width - windowBarHeight, 0)->SetSize(windowBarHeight, windowBarHeight)->SetRelease(CloseNumpad)->AddChildren({
                 (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
                 (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
 
@@ -189,8 +217,11 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
                 (new Line)->SetPositions(closeButtonIconMargin, windowBarHeight - closeButtonIconMargin, windowBarHeight - closeButtonIconMargin, closeButtonIconMargin)->SetColor(highlightColor.get())->SetLineWidth(closeButtonIconLineWidth),
             }),
 
+            // Window resizer
+            windowResizer,
+
             // Clickable to absorb inputs and reposition area
-            (new Clickable)->SetPosition(0, windowBarHeight)->SetSize(width, height)->AddChildren({
+            (new Clickable)->SetShallowID("gridContainer")->SetPosition(0, windowBarHeight)->SetSize(width, height)->AddChildren({
                 // Numpad grid layout
                 (new Column)->SetScaleToFit(true)->AddChildren({
                     (new Rectangle)->SetFillColor(Color::black)->SetOutlineColor(highlightColor.get())->AddChildren({

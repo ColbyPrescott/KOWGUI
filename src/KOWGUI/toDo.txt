@@ -19,7 +19,9 @@ Node types:
     - Clip should stop interactable from being selected
     - Clip border should unfocus clickable
     - Clip border should not stop draggable from moving (for scrollable windows)
-- Timer system? For like, regularly spawning nodes with particle code? Wait th
+- Timer system? For like, regularly spawning nodes with particle code?
+- Alignment
+  - Automatically position one of its own edges to an edge of the parent node
 
 
 Prefabs:
