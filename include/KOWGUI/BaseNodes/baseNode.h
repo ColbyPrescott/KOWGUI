@@ -42,6 +42,8 @@ namespace KOWGUI {
         void LinkChild(BaseNode* child);
     
     public:
+        ~BaseNode();
+
         // Node that this node is attatched to. Position and scale are inherited
         BaseNode* parent = nullptr;
         // All nodes that are attatched to this one

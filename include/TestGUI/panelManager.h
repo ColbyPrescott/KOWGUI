@@ -26,6 +26,7 @@ struct Panels {
     KOWGUI::Group* keyboardDemo = new KOWGUI::Group;
     KOWGUI::Group* colorDemo = new KOWGUI::Group;
     KOWGUI::Group* preTickDemo = new KOWGUI::Group;
+    KOWGUI::Group* removalDemo = new KOWGUI::Group;
 };
 
 extern Panels panels;

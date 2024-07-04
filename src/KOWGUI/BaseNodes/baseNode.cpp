@@ -3,8 +3,18 @@
 #include "KOWGUI/General/gui.h"
 
 #include <iostream>
+#include <algorithm>
 
 using namespace KOWGUI;
+
+// BaseNode deconstructor, deletes all child nodes and removes tree connections
+BaseNode::~BaseNode() {
+    // Delete all child nodes recursivley, backwards so that removal doesn't offset indices
+    for(int i = children.size() - 1; i >= 0; i--) delete children[i];
+
+    // Unlink parent. Pointer needs to be removed from parent's children vector. Child node's parent pointer is taken care of by disintegrating the entire object from memory
+    parent->children.erase(std::find(parent->children.begin(), parent->children.end(), this));
+}
 
 // Call internal preTick function if it's not nullptr
 void BaseNode::CallPreTick() {

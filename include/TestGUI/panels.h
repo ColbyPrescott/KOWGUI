@@ -21,5 +21,6 @@ void InitGUIRowDemo();
 void InitGUIKeyboardDemo();
 void InitGUIColorDemo();
 void InitGUIPreTickDemo();
+void InitGUIRemovalDemo();
 
 #endif

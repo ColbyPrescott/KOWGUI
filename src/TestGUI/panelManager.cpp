@@ -60,4 +60,5 @@ void InitPanels() {
     CreateSidebarLabel("Other");
     ConfigurePanel(panels.colorDemo);                 InitGUIColorDemo();                 CreateSidebarButton(panels.colorDemo,                 "Colors");
     ConfigurePanel(panels.preTickDemo);               InitGUIPreTickDemo();               CreateSidebarButton(panels.preTickDemo,               "PreTick");
+    ConfigurePanel(panels.removalDemo);               InitGUIRemovalDemo();               CreateSidebarButton(panels.removalDemo,               "Removal");
 }
