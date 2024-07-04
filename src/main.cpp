@@ -23,7 +23,7 @@ int main() {
 
     InitPanels();
 
-    numpad = KOWGUI::Keyboard::CreateNumpad();
+    numpad = KOWGUI::Keyboard::CreateNumpad(10, 10, 100, 150, true, true, theme.sliderNFocused, theme.buttonNFocused, theme.buttonFocused, theme.lightText);
     gui.root->AddChild(numpad);
 
     keyboard = KOWGUI::Keyboard::CreateKeyboard(KOWGUI::Color::darkSlateGray, theme.buttonNFocused, theme.buttonFocused, theme.lightText);
@@ -31,7 +31,7 @@ int main() {
 
     LoadPanel(panels.keyboardDemo);
 
-    while(1) {
+    while(true) {
 
         gui.Tick();
 

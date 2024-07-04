@@ -16,7 +16,7 @@ namespace {
     const int closeButtonIconMargin = 3;
     const int closeButtonIconLineWidth = 2;
 
-    std::shared_ptr<Color> backgroundColor((new Color)->SetHex("#424242"));
+    std::shared_ptr<Color> windowBarColor((new Color)->SetHex("#424242"));
     std::shared_ptr<Color> buttonNFocusedColor((new Color)->SetHex("#6e6e6e"));
     std::shared_ptr<Color> buttonFocusedColor((new Color)->SetHex("#a3a3a3"));
     std::shared_ptr<Color> highlightColor((new Color)->SetHex("#ffffff"));
@@ -34,11 +34,18 @@ namespace {
 
     const int maxTypingInteger = 2147483647; // 32 bit signed integer limit
 
-    void (*pCloseFuncInt)(int) = nullptr;
-    void (*pCloseFuncDouble)(double) = nullptr;
+    void (*pUpdateFuncInt)(int) = nullptr;
+    void (*pUpdateFuncDouble)(double) = nullptr;
+    bool callUpdateFuncOnChange = false;
 
 
     // Functions for numpad functionality
+
+    // Call the update function that is set
+    void CallUpdateFunction() {
+        if(pUpdateFuncInt != nullptr) pUpdateFuncInt(typingNumberAsInteger);
+        if(pUpdateFuncDouble != nullptr) pUpdateFuncDouble((double)typingNumberAsInteger / pow(10, numTypingDecimalDigits));
+    }
 
     // Called from each digit key
     void TypeDigitFromDataAtEnd(BaseNode* thisNode) {
@@ -61,6 +68,9 @@ namespace {
 
         // If currently typing decimals, this new digit should add to the number of digits after the decimal
         if(typingDecimals) numTypingDecimalDigits++;
+
+        // Call update function if scheduled
+        if(callUpdateFuncOnChange) CallUpdateFunction();
     }
 
     // Called from the backspace key Clickable node
@@ -80,6 +90,9 @@ namespace {
         if(typingDecimals) numTypingDecimalDigits--;
         // If the last decimal was removed, stop typing decimal mode
         if(numTypingDecimalDigits == 0) typingDecimals = false;
+
+        // Call update function if scheduled
+        if(callUpdateFuncOnChange) CallUpdateFunction();
     }
 
     // Called from the decimal key Clickable node
@@ -91,6 +104,9 @@ namespace {
     // Called from the sign key Clickable node
     void InvertTypingNumberSign(BaseNode* thisNode) {
         typingNumberAsInteger *= -1;
+
+        // Call update function if scheduled
+        if(callUpdateFuncOnChange) CallUpdateFunction();
     }
 
     // Called from the typing number Text node
@@ -110,17 +126,12 @@ namespace {
         // Hide numpad
         thisNode->parent->parent->SetDisabled(true);
 
-        // If a close function was set for integers, call it and remove the function pointer
-        if(pCloseFuncInt != nullptr) {
-            pCloseFuncInt(typingNumberAsInteger);
-            pCloseFuncInt = nullptr;
-        }
+        // Call update function
+        CallUpdateFunction();
 
-        // If a close function was set for decimals, call it and remove the function pointer
-        if(pCloseFuncDouble != nullptr) {
-            pCloseFuncDouble((double)typingNumberAsInteger / pow(10, numTypingDecimalDigits));
-            pCloseFuncDouble = nullptr;
-        }
+        // Remove function pointers to show that they are no longer in use
+        pUpdateFuncInt = nullptr;
+        pUpdateFuncDouble = nullptr;
     }
 
     // Template prefab for a standard key like 1, 2, or 3
@@ -148,11 +159,18 @@ namespace {
 }
 
 // Create a standard numpad prefab for typing numbers
-Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable, bool resizable) {
+Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable, bool resizable, Color* customWindowBarColor, Color* customButtonNFocusedColor, Color* customButtonFocusedColor, Color* customHighlightColor) {
+    // Set colors for prefab generation if they are specified
+    if(customWindowBarColor != nullptr) windowBarColor = std::make_shared<Color>(*customWindowBarColor);
+    if(customButtonNFocusedColor != nullptr) buttonNFocusedColor = std::make_shared<Color>(*customButtonNFocusedColor);
+    if(customButtonFocusedColor != nullptr) buttonFocusedColor = std::make_shared<Color>(*customButtonFocusedColor);
+    if(customHighlightColor != nullptr) highlightColor = std::make_shared<Color>(*customHighlightColor);
+
+    // Make and return the numpad prefab
     return (new Group)->SetDisabled(true)->AddChildren({
         (new Draggable)->SetPosition(x, y)->SetSize(width, windowBarHeight)->AddChildren({
             // Window bar background
-            (new Rectangle)->SetFillColor(Color::dimGray)->SetOutlineColor(highlightColor.get()),
+            (new Rectangle)->SetFillColor(windowBarColor.get())->SetOutlineColor(highlightColor.get()),
 
             // Window bar text
             (new Text)->SetText("Numpad")->SetFontSize(windowBarHeight - 4)->SetAlignments(HorizontalAlign::left, VerticalAlign::middle),
@@ -201,7 +219,7 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
 }
 
 // Open a numpad with an initialization integer, then call a function once the keyboard is closed
-void Keyboard::Open(Group* numpad, int startNum, void (*closeCalback)(int)) {
+void Keyboard::Open(Group* numpad, int startNum, void (*updateCallback)(int), bool liveUpdate) {
     // Reset numpad state
     // Initialize typingNumber for modification
     typingNumberAsInteger = startNum;
@@ -211,19 +229,21 @@ void Keyboard::Open(Group* numpad, int startNum, void (*closeCalback)(int)) {
     numTypingDecimalDigits = 0;
     // Hide decimal key
     numpad->FindShallowID("decimalKey")->SetDisabled(true);
-    // Remove close functions in case they weren't already removed
-    pCloseFuncInt = nullptr;
-    pCloseFuncDouble = nullptr;
+    // Remove update functions in case they weren't already removed
+    pUpdateFuncInt = nullptr;
+    pUpdateFuncDouble = nullptr;
 
-    // Note the address of the function to call once the keyboard is closed
-    pCloseFuncInt = closeCalback;
+    // Note the address of the function to call once the keyboard is closed / changed
+    pUpdateFuncInt = updateCallback;
+    // Set whether or not the update function should be called each change, or just when closed
+    callUpdateFuncOnChange = liveUpdate;
 
     // Show numpad
     numpad->SetDisabled(false);
 }
 
 // Open a numpad with an initialization double, then call a function once the keyboard is closed
-void Keyboard::Open(Group* numpad, double startNum, void (*closeCallback)(double)) {
+void Keyboard::Open(Group* numpad, double startNum, void (*updateCallback)(double), bool liveUpdate) {
     // Reset numpad state
     // Calculate number of decimal digits
     // Reset counter
@@ -236,12 +256,14 @@ void Keyboard::Open(Group* numpad, double startNum, void (*closeCallback)(double
     typingDecimals = numTypingDecimalDigits > 0;
     // Enable the decimal key
     numpad->FindShallowID("decimalKey")->SetDisabled(false);
-    // Remove close functions in case they weren't already removed
-    pCloseFuncInt = nullptr;
-    pCloseFuncDouble = nullptr;
+    // Remove update functions in case they weren't already removed
+    pUpdateFuncInt = nullptr;
+    pUpdateFuncDouble = nullptr;
 
-    // Note the address of the function to call once the numpad is closed
-    pCloseFuncDouble = closeCallback;
+    // Note the address of the function to call once the numpad is closed / changed
+    pUpdateFuncDouble = updateCallback;
+    // Set whether or not the update function should be called each change, or just when closed
+    callUpdateFuncOnChange = liveUpdate;
 
     // Show numpad
     numpad->SetDisabled(false);

@@ -36,7 +36,7 @@ namespace {
 
     // Functions to open the numpad for each demo
     void OpenIntegerDemoNumpad(BaseNode* thisNode) {
-        Keyboard::Open(numpad, *(int*)((Data*)thisNode->FindShallowID("integerDemoData"))->GetProperty("number"), UpdateIntegerDemoNumber);
+        Keyboard::Open(numpad, *(int*)((Data*)thisNode->FindShallowID("integerDemoData"))->GetProperty("number"), UpdateIntegerDemoNumber, true);
     }
 
     void OpenDecimalDemoNumpad(BaseNode* thisNode) {
@@ -75,6 +75,8 @@ void InitGUIKeyboardDemo() {
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
 
             (new Text)->SetText("418")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateIntegerText),
+
+            (new Text)->SetY(14)->SetText("Live Update")->SetFontSize(12)->SetAlignments(HorizontalAlign::center, VerticalAlign::bottom),
 
             (new Data)->SetShallowID("integerDemoData")->SetProperty("number", new int(1810)),
         }),
