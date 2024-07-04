@@ -107,13 +107,16 @@ namespace {
 
     // Called from the close button Clickable node
     void CloseNumpad(BaseNode* thisNode) {
+        // Hide numpad
         thisNode->parent->parent->SetDisabled(true);
 
+        // If a close function was set for integers, call it and remove the function pointer
         if(pCloseFuncInt != nullptr) {
             pCloseFuncInt(typingNumberAsInteger);
             pCloseFuncInt = nullptr;
         }
 
+        // If a close function was set for decimals, call it and remove the function pointer
         if(pCloseFuncDouble != nullptr) {
             pCloseFuncDouble((double)typingNumberAsInteger / pow(10, numTypingDecimalDigits));
             pCloseFuncDouble = nullptr;
@@ -199,33 +202,45 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
 
 // Open a numpad with an initialization integer, then call a function once the keyboard is closed
 void Keyboard::Open(Group* numpad, int startNum, void (*closeCalback)(int)) {
+    // Reset numpad state
+    // Initialize typingNumber for modification
     typingNumberAsInteger = startNum;
+    // Disable mode for typing decimals
     typingDecimals = false;
+    // Since this is an integer, no digits should be part of the decimal
     numTypingDecimalDigits = 0;
+    // Hide decimal key
     numpad->FindShallowID("decimalKey")->SetDisabled(true);
+    // Remove close functions in case they weren't already removed
+    pCloseFuncInt = nullptr;
+    pCloseFuncDouble = nullptr;
 
+    // Note the address of the function to call once the keyboard is closed
     pCloseFuncInt = closeCalback;
 
+    // Show numpad
     numpad->SetDisabled(false);
 }
 
 // Open a numpad with an initialization double, then call a function once the keyboard is closed
 void Keyboard::Open(Group* numpad, double startNum, void (*closeCallback)(double)) {
+    // Reset numpad state
     // Calculate number of decimal digits
     // Reset counter
     numTypingDecimalDigits = 0;
-    // Shift decimal place to the right until tempDecimals is equal to itself with decimals removed. 
-    // Calculation must be done fresh every time to avoid build up of floating point precision error. 
-    // If this happens, the number will sky rocket and then the typing number will end up as 0 for some reason? Seems fixed now. Idk why I'm writing about this
+    // Shift decimal place to the right until tempDecimals is equal to itself with decimals removed
     while(startNum * pow(10, numTypingDecimalDigits) != floor(startNum * pow(10, numTypingDecimalDigits))) numTypingDecimalDigits++;
-
     // Remove decimal point for typingNumerAsInteger
     typingNumberAsInteger = startNum * pow(10, numTypingDecimalDigits);
     // Set mode for typing decimal based on whether there already is a decimal part
     typingDecimals = numTypingDecimalDigits > 0;
     // Enable the decimal key
     numpad->FindShallowID("decimalKey")->SetDisabled(false);
+    // Remove close functions in case they weren't already removed
+    pCloseFuncInt = nullptr;
+    pCloseFuncDouble = nullptr;
 
+    // Note the address of the function to call once the numpad is closed
     pCloseFuncDouble = closeCallback;
 
     // Show numpad

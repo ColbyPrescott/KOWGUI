@@ -222,6 +222,12 @@ namespace {
 
     // Called from close button Clickable node
     void CloseKeyboard(BaseNode* thisNode) {
+        // Stop absorbing serial data. Don't be selfish, let other code take a nibble if it wants to too
+        currentlyUsingSerial = false;
+
+        // Hide keyboard
+        thisNode->parent->SetDisabled(true); // TO DO FindInverseShallowID? Climb the tree structure instead of going deeper? The parent and children variables are not guaranteed to stay public
+        
         // If a direct string was edited, update that string and remove the pointer
         if(pDirectString != nullptr) {
             *pDirectString = typingText;
@@ -233,12 +239,6 @@ namespace {
             pCloseFunc(typingText);
             pCloseFunc = nullptr;
         }
-
-        // Stop absorbing serial data. Don't be selfish, let other code take a nibble if it wants to too
-        currentlyUsingSerial = false;
-
-        // Hide keyboard
-        thisNode->parent->SetDisabled(true); // TO DO FindInverseShallowID? Climb the tree structure instead of going deeper? The parent and children variables are not guaranteed to stay public
     }
 
 
@@ -301,7 +301,7 @@ Group* Keyboard::CreateKeyboard(Color* customBackgroundColor, Color* customButto
     // Set colors for prefab generation if they are specified
     if(customBackgroundColor != nullptr) backgroundColor = std::make_shared<Color>(*customBackgroundColor);
     if(customButtonNFocusedColor != nullptr) buttonNFocusedColor = std::make_shared<Color>(*customButtonNFocusedColor);
-    if(customButtonFocusedColor != nullptr) buttonFocusedColor = std::make_shared<Color>(*buttonFocusedColor);
+    if(customButtonFocusedColor != nullptr) buttonFocusedColor = std::make_shared<Color>(*buttonFocusedColor); // TO DO Oh wait there's the issue
     if(customHighlightColor != nullptr) highlightColor = std::make_shared<Color>(*highlightColor);
 
     // Make and return the keyboard prefab
