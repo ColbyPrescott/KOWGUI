@@ -35,6 +35,30 @@ int main() {
 
         gui.Tick();
 
+        for(int i = 0; i < 100; i++) {
+            KOWGUI::Group* test = (new KOWGUI::Group)->AddChildren({
+                (new KOWGUI::Group),
+                // (new KOWGUI::Data)->SetProperty("memoryLeakTest", new KOWGUI::Group), // TO DO Crash, the memory this node tracks is not freed
+                (new KOWGUI::Row),
+                (new KOWGUI::Column),
+                // (new KOWGUI::Rectangle), // TO DO Crash, may be from color smart pointers?
+                // (new KOWGUI::Circle), // TO DO Crash, may be from color smart pointers?
+                // (new KOWGUI::Line), // TO DO Crash, may be from color smart pointers?
+                // (new KOWGUI::Text), // TO DO Crash, may be from color smart pointers?
+                (new KOWGUI::Clickable),
+                (new KOWGUI::Draggable),
+                (new KOWGUI::Toggleable),
+                (new KOWGUI::Selected),
+                (new KOWGUI::Focused),
+                (new KOWGUI::Activated),
+                (new KOWGUI::Looped),
+                (new KOWGUI::NSelected),
+                (new KOWGUI::NFocused),
+                (new KOWGUI::NActivated),
+            });
+            delete test;
+        }
+
         // Allow other tasks to run
         this_thread::sleep_for(20);
     }

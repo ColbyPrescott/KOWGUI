@@ -13,7 +13,7 @@ BaseNode::~BaseNode() {
     for(int i = children.size() - 1; i >= 0; i--) delete children[i];
 
     // Unlink parent. Pointer needs to be removed from parent's children vector. Child node's parent pointer is taken care of by disintegrating the entire object from memory
-    parent->children.erase(std::find(parent->children.begin(), parent->children.end(), this));
+    if(parent != nullptr) parent->children.erase(std::find(parent->children.begin(), parent->children.end(), this));
 }
 
 // Call internal preTick function if it's not nullptr
@@ -235,4 +235,11 @@ BaseNode* BaseNode::FindShallowID(std::string shallowID) {
     std::cerr << "KOWGUI: Could not find shallow ID " << shallowID << std::endl;
     vex::this_thread::sleep_for(5);
     return nullptr;
+}
+
+
+
+// Schedule this node to be safely deleted at the start of the next tick
+void BaseNode::ScheduleDeletion() {
+    mDeletionScheduled = true;
 }

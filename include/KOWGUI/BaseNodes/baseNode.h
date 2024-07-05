@@ -40,6 +40,9 @@ namespace KOWGUI {
         // Pointer to the GUI object. All nodes have this for speed and convenience
         GUI* mpContainingGUI = nullptr;
         void LinkChild(BaseNode* child);
+
+        // Whether or not the node should be deleted at the start of the next tick
+        bool mDeletionScheduled = false;
     
     public:
         ~BaseNode();
@@ -87,6 +90,8 @@ namespace KOWGUI {
         bool GetDisabled();
 
         BaseNode* FindShallowID(std::string shallowID);
+
+        void ScheduleDeletion();
 
         friend class GUI;
 

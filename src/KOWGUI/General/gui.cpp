@@ -50,7 +50,7 @@ void GUI::Tick() {
     // Clear screen for new frame
     mpVexBrain->Screen.clearScreen();
 
-    // Nodes that still need exploring to filly recurse through tree
+    // Nodes that still need exploring to fully recurse through tree
     std::vector<BaseNode*> remainingNodes = {root};
     // Collect pointers to every node in order of priority
     std::vector<BaseNode*> allNodes = {};
@@ -61,6 +61,21 @@ void GUI::Tick() {
     while(remainingNodes.size() != 0) {
         // Give the current node in the loop a name
         BaseNode* currentNode = remainingNodes[0];
+
+        // Delete and skip current node if scheduled for deletion
+        if(currentNode->mDeletionScheduled) {
+            // Remove currentNode from remainingNodes vector
+            remainingNodes.erase(remainingNodes.begin());
+            // Clean up screen input variables
+            if(mpSelectedNode == currentNode) {
+                mpSelectedNode = nullptr;
+                mPrevTickFocusedNode = false;
+            }
+            // Free memory
+            delete currentNode;
+            // Skip rest of node processing
+            continue;
+        }
 
         // Skip current node if disabled or soft disabled
         if(currentNode->GetDisabled() ||
