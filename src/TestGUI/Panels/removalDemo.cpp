@@ -30,7 +30,7 @@ void InitGUIRemovalDemo() {
         (new Rectangle)->SetShallowID("removalTestA")->SetPosition(200, 30)->SetSize(50, 50)->SetFillColor(Color::red)->AddChildren({
             (new Rectangle)->SetPosition(20, 40)->SetSize(40, 30)->SetFillColor(Color::lime)->SetOutlineColor(Color::white)->SetOutlineWidth(5),
             (new Rectangle)->SetPosition(-20, -20)->SetSize(80, 5)->SetFillColor(Color::blue)->AddChildren({
-                (new Circle)->SetPosition(70, 70)->SetWidth(20)->SetFillColor(Color::cyan),
+                (new Circle)->SetPosition(70, 70)->SetWidth(20)->SetFillColor(std::make_shared<Color>()->SetRGB(0, 150, 150)), // TO DO Hah... haha... put a print statement in the color deconstructor, why isn't this being deleted? Seems the deconstructor of any specific node doesn't get called??
                 (new Circle)->SetPosition(60, 110)->SetWidth(15)->SetFillColor(Color::white),
             }),
             (new Rectangle)->SetPosition(30, 10)->SetSize(80, 5)->SetFillColor(Color::purple),

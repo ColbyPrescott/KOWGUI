@@ -79,7 +79,7 @@ Features:
 Refactoring and other code stuff:
 - Some comments have the text "TO DO" so they can be found with 
   - Linux / Mac: grep -r "TO DO"
-  - Windows: findstr /S "TO DO" *.cpp *.h
+  - Windows: findstr /s /c:"TO DO" *.cpp *.h
 - Move all cpp files into the headers so a user will only need to copy the include folder
   - On second look at PROS, it seems like precompiled binaries could be a viable option
 - Use of 'p' before pointer names in inconsistent

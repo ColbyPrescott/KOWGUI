@@ -41,10 +41,13 @@ int main() {
                 // (new KOWGUI::Data)->SetProperty("memoryLeakTest", new KOWGUI::Group), // TO DO Crash, the memory this node tracks is not freed
                 (new KOWGUI::Row),
                 (new KOWGUI::Column),
-                // (new KOWGUI::Rectangle), // TO DO Crash, may be from color smart pointers?
-                // (new KOWGUI::Circle), // TO DO Crash, may be from color smart pointers?
-                // (new KOWGUI::Line), // TO DO Crash, may be from color smart pointers?
-                // (new KOWGUI::Text), // TO DO Crash, may be from color smart pointers?
+                // (new KOWGUI::Rectangle)->SetFillColor(std::make_shared<KOWGUI::Color>()->SetRGB(255, 255, 255)), // TO DO Crash, the smart pointers still don't act how I expect them to. 
+                //                          I'm guessing that they need to be set to null in the deconstructor, but they aren't getting called! `delete (BaseNode*)pCircle;` will only call 
+                //                          the BaseNode deconstructor, and supposedly only free BaseNode memory too
+                (new KOWGUI::Rectangle),
+                (new KOWGUI::Circle),
+                (new KOWGUI::Line),
+                (new KOWGUI::Text),
                 (new KOWGUI::Clickable),
                 (new KOWGUI::Draggable),
                 (new KOWGUI::Toggleable),

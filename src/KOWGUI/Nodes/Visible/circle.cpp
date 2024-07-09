@@ -16,14 +16,14 @@ Circle* Circle::SetRadius(int radius) {
 }
 
 // Set the color that fills in the circle
-Circle* Circle::SetFillColor(Color* fillColor) {
-    mpFillColor = std::make_shared<Color>(*fillColor);
+Circle* Circle::SetFillColor(std::shared_ptr<Color> fillColor) {
+    mpFillColor = fillColor;
     return this;
 }
 
 // Set the color that borders the circle
-Circle* Circle::SetOutlineColor(Color* outlineColor) {
-    mpOutlineColor = std::make_shared<Color>(*outlineColor);
+Circle* Circle::SetOutlineColor(std::shared_ptr<Color> outlineColor) {
+    mpOutlineColor = outlineColor;
     return this;
 }
 

@@ -15,9 +15,9 @@ namespace KOWGUI {
             bool mCentered = false;
 
             // Color that fills in the circle
-            std::shared_ptr<Color> mpFillColor = std::make_shared<Color>(*Color::transparent);
+            std::shared_ptr<Color> mpFillColor = Color::transparent;
             // Color that borders the circle
-            std::shared_ptr<Color> mpOutlineColor = std::make_shared<Color>(*Color::transparent);
+            std::shared_ptr<Color> mpOutlineColor = Color::transparent;
             // How wide the border is in pixels
             int mOutlineWidth = 1;
 
@@ -38,8 +38,8 @@ namespace KOWGUI {
             Circle* SetCentered(bool centered);
             Circle* SetRadius(int radius);
 
-            Circle* SetFillColor(Color* fillColor);
-            Circle* SetOutlineColor(Color* outlineColor);
+            Circle* SetFillColor(std::shared_ptr<Color> fillColor);
+            Circle* SetOutlineColor(std::shared_ptr<Color> outlineColor);
             Circle* SetOutlineWidth(int outlineWidth);
 
             void Draw(vex::brain::lcd& rScreen);

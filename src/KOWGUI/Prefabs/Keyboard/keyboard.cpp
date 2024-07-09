@@ -26,10 +26,10 @@ namespace {
 
     const int keySize = 38;
 
-    std::shared_ptr<Color> backgroundColor((new Color)->SetHex("#424242"));
-    std::shared_ptr<Color> buttonNFocusedColor((new Color)->SetHex("#6e6e6e"));
-    std::shared_ptr<Color> buttonFocusedColor((new Color)->SetHex("#a3a3a3"));
-    std::shared_ptr<Color> highlightColor((new Color)->SetHex("#ffffff"));
+    std::shared_ptr<Color> backgroundColor = std::make_shared<Color>()->SetHex("#424242");
+    std::shared_ptr<Color> buttonNFocusedColor = std::make_shared<Color>()->SetHex("#6e6e6e");
+    std::shared_ptr<Color> buttonFocusedColor = std::make_shared<Color>()->SetHex("#a3a3a3");
+    std::shared_ptr<Color> highlightColor = std::make_shared<Color>()->SetHex("#ffffff");
 
 
 
@@ -247,10 +247,10 @@ namespace {
     // Template prefab for a standard key like C, O, D, or E
     Clickable* CreateKey(char keyCharacter) {
         return (new Clickable)->SetSize(keySize, keySize)->SetRelease(TypeCharFromDataAtCursor)->AddChildren({
-            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
-            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
+            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
+            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
 
-            (new Text)->SetPosition(1, 2)->SetText("%c", keyCharacter)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor.get()),
+            (new Text)->SetPosition(1, 2)->SetText("%c", keyCharacter)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
 
             (new Data)->SetShallowID("data")->SetProperty("keyCharacter", new char(keyCharacter)),
         });
@@ -260,15 +260,15 @@ namespace {
     Toggleable* CreateToggleKey(std::string text) {
         return (new Toggleable)->SetSize(keySize, keySize)->AddChildren({
             (new NActivated)->AddChildren({
-                (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
-                (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
+                (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
+                (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
             }),
             (new Activated)->AddChildren({
-                (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
-                (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
+                (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
+                (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
             }),
 
-            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor.get()),
+            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
         });
     }
 
@@ -276,10 +276,10 @@ namespace {
     Clickable* CreateSpecialKey(std::string text, char keyCharacterOverride = ' ') {
         // Bare bones key with no functionality
         Clickable* pPrefab = (new Clickable)->SetSize(keySize, keySize)->AddChildren({
-            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
-            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
+            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
+            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
 
-            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor.get()),
+            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
         });
 
         // If they special key just needs different data than text being displayed, add in the standard key functionality
@@ -297,12 +297,12 @@ namespace {
 
 
 // Create a standard QWERTY layout keyboard prefab for typing strings
-Group* Keyboard::CreateKeyboard(Color* customBackgroundColor, Color* customButtonNFocusedColor, Color* customButtonFocusedColor, Color* customHighlightColor) {
+Group* Keyboard::CreateKeyboard(std::shared_ptr<Color> customBackgroundColor, std::shared_ptr<Color> customButtonNFocusedColor, std::shared_ptr<Color> customButtonFocusedColor, std::shared_ptr<Color> customHighlightColor) {
     // Set colors for prefab generation if they are specified
-    if(customBackgroundColor != nullptr) backgroundColor = std::make_shared<Color>(*customBackgroundColor);
-    if(customButtonNFocusedColor != nullptr) buttonNFocusedColor = std::make_shared<Color>(*customButtonNFocusedColor);
-    if(customButtonFocusedColor != nullptr) buttonFocusedColor = std::make_shared<Color>(*customButtonFocusedColor);
-    if(customHighlightColor != nullptr) highlightColor = std::make_shared<Color>(*customHighlightColor);
+    if(customBackgroundColor != nullptr) backgroundColor = customBackgroundColor;
+    if(customButtonNFocusedColor != nullptr) buttonNFocusedColor = customButtonNFocusedColor;
+    if(customButtonFocusedColor != nullptr) buttonFocusedColor = customButtonFocusedColor;
+    if(customHighlightColor != nullptr) highlightColor = customHighlightColor;
 
     // Make and return the keyboard prefab
     return (new Group)->SetDisabled(true)->SetSize(screenWidth, screenHeight)->AddChildren({
@@ -310,20 +310,20 @@ Group* Keyboard::CreateKeyboard(Color* customBackgroundColor, Color* customButto
         (new Clickable),
 
         // Background
-        (new Rectangle)->SetFillColor(backgroundColor.get()),
+        (new Rectangle)->SetFillColor(backgroundColor),
 
         // Typing text
-        (new Rectangle)->SetPosition(typingAreaMargin, typingAreaMargin)->SetSize(screenWidth - closeButtonSize - typingAreaMargin * 2, screenHeight - keySize * 4 - typingAreaMargin * 2)->SetFillColor(Color::black)->SetOutlineColor(highlightColor.get())->AddChildren({
+        (new Rectangle)->SetPosition(typingAreaMargin, typingAreaMargin)->SetSize(screenWidth - closeButtonSize - typingAreaMargin * 2, screenHeight - keySize * 4 - typingAreaMargin * 2)->SetFillColor(Color::black)->SetOutlineColor(highlightColor)->AddChildren({
             (new Text)->SetText("Error, someting went tewwibwy wong, sowwy! <:3")->SetFont(Fonts::monospace)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::wrapScale)->SetWrapLineSpacing(1.1)->SetPreTick(UpdateTypingTextNode),
         }),
 
         // Close button
         (new Clickable)->SetPosition(screenWidth - closeButtonSize, typingAreaMargin)->SetSize(closeButtonSize, closeButtonSize)->SetRelease(CloseKeyboard)->AddChildren({
-            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
-            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
+            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
+            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
 
-            (new Line)->SetPositions(closeButtonIconMargin, closeButtonIconMargin, closeButtonSize - closeButtonIconMargin, closeButtonSize - closeButtonIconMargin)->SetColor(highlightColor.get())->SetLineWidth(closeButtonIconLineWidth),
-            (new Line)->SetPositions(closeButtonIconMargin, closeButtonSize - closeButtonIconMargin, closeButtonSize - closeButtonIconMargin, closeButtonIconMargin)->SetColor(highlightColor.get())->SetLineWidth(closeButtonIconLineWidth),
+            (new Line)->SetPositions(closeButtonIconMargin, closeButtonIconMargin, closeButtonSize - closeButtonIconMargin, closeButtonSize - closeButtonIconMargin)->SetColor(highlightColor)->SetLineWidth(closeButtonIconLineWidth),
+            (new Line)->SetPositions(closeButtonIconMargin, closeButtonSize - closeButtonIconMargin, closeButtonSize - closeButtonIconMargin, closeButtonIconMargin)->SetColor(highlightColor)->SetLineWidth(closeButtonIconLineWidth),
         }),
 
         // QWERTY character keys
@@ -361,7 +361,7 @@ Group* Keyboard::CreateKeyboard(Color* customBackgroundColor, Color* customButto
                 CreateKey('B'),
                 CreateKey('N'),
                 CreateKey('M'),
-                (new Text)->SetSize(screenWidth - keySize * 7.666, keySize)->SetText("USB disconnected")->SetFontSize(12)->SetColor(highlightColor.get())->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateSerialConnectionTextNode),
+                (new Text)->SetSize(screenWidth - keySize * 7.666, keySize)->SetText("USB disconnected")->SetFontSize(12)->SetColor(highlightColor)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateSerialConnectionTextNode),
             }),
             (new Row)->AddChildren({
                 CreateToggleKey("Shift")->SetShallowID("shiftKey")->SetWidth(keySize * (2 + 2.0 / 3.0)),

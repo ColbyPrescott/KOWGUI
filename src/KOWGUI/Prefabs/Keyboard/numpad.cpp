@@ -19,10 +19,10 @@ namespace {
     const int windowResizeWidth = 8;
     const int windowResizeLineWidth = 2;
 
-    std::shared_ptr<Color> windowBarColor((new Color)->SetHex("#424242"));
-    std::shared_ptr<Color> buttonNFocusedColor((new Color)->SetHex("#6e6e6e"));
-    std::shared_ptr<Color> buttonFocusedColor((new Color)->SetHex("#a3a3a3"));
-    std::shared_ptr<Color> highlightColor((new Color)->SetHex("#ffffff"));
+    std::shared_ptr<Color> windowBarColor = std::make_shared<Color>()->SetHex("#424242");
+    std::shared_ptr<Color> buttonNFocusedColor = std::make_shared<Color>()->SetHex("#6e6e6e");
+    std::shared_ptr<Color> buttonFocusedColor = std::make_shared<Color>()->SetHex("#a3a3a3");
+    std::shared_ptr<Color> highlightColor = std::make_shared<Color>()->SetHex("#ffffff");
 
 
 
@@ -154,10 +154,10 @@ namespace {
     // Template prefab for a standard key like 1, 2, or 3
     Clickable* CreateDigitKey(int keyDigit) {
         return (new Clickable)->SetRelease(TypeDigitFromDataAtEnd)->AddChildren({
-            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
-            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
+            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
+            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
 
-            (new Text)->SetPosition(1, 2)->SetText("%d", keyDigit)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor.get()),
+            (new Text)->SetPosition(1, 2)->SetText("%d", keyDigit)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
 
             (new Data)->SetShallowID("data")->SetProperty("keyDigit", new int(keyDigit)),
         });
@@ -166,22 +166,22 @@ namespace {
     // Template prefab for keys that need more text visible and a different release function, like the decimal and delete keys
     Clickable* CreateSpecialKey(std::string text) {
         return (new Clickable)->AddChildren({
-            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
-            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
+            (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
+            (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
 
-            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor.get())->SetOverflow(Overflow::wrap)->SetWrapLineSpacing(0.4),
+            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor)->SetOverflow(Overflow::wrap)->SetWrapLineSpacing(0.4),
         });
     }
 
 }
 
 // Create a standard numpad prefab for typing numbers
-Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable, bool resizable, Color* customWindowBarColor, Color* customButtonNFocusedColor, Color* customButtonFocusedColor, Color* customHighlightColor) {
+Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable, bool resizable, std::shared_ptr<Color> customWindowBarColor, std::shared_ptr<Color> customButtonNFocusedColor, std::shared_ptr<Color> customButtonFocusedColor, std::shared_ptr<Color> customHighlightColor) {
     // Set colors for prefab generation if they are specified
-    if(customWindowBarColor != nullptr) windowBarColor = std::make_shared<Color>(*customWindowBarColor);
-    if(customButtonNFocusedColor != nullptr) buttonNFocusedColor = std::make_shared<Color>(*customButtonNFocusedColor);
-    if(customButtonFocusedColor != nullptr) buttonFocusedColor = std::make_shared<Color>(*customButtonFocusedColor);
-    if(customHighlightColor != nullptr) highlightColor = std::make_shared<Color>(*customHighlightColor);
+    if(customWindowBarColor != nullptr) windowBarColor = customWindowBarColor;
+    if(customButtonNFocusedColor != nullptr) buttonNFocusedColor = customButtonNFocusedColor;
+    if(customButtonFocusedColor != nullptr) buttonFocusedColor = customButtonFocusedColor;
+    if(customHighlightColor != nullptr) highlightColor = customHighlightColor;
 
     // Set the window bar's type of node based on whether it should be movable
     BaseNode* barNode = nullptr;
@@ -193,8 +193,8 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
     if(resizable) {
         windowResizer->SetY(windowBarHeight)->AddChildren({
             (new Draggable)->SetPosition(width - windowResizeWidth, height - windowResizeWidth)->SetSize(windowResizeWidth * 2, windowResizeWidth * 2)->SetMinX(30)->SetMinY(30)->SetPreTick(ResizeNumpad)->AddChildren({
-                (new Line)->SetPositions(windowResizeWidth * 2, 0, windowResizeWidth * 2, windowResizeWidth * 2)->SetColor(highlightColor.get())->SetLineWidth(windowResizeLineWidth),
-                (new Line)->SetPositions(windowResizeWidth * 2, windowResizeWidth * 2, 0, windowResizeWidth * 2)->SetColor(highlightColor.get())->SetLineWidth(windowResizeLineWidth),
+                (new Line)->SetPositions(windowResizeWidth * 2, 0, windowResizeWidth * 2, windowResizeWidth * 2)->SetColor(highlightColor)->SetLineWidth(windowResizeLineWidth),
+                (new Line)->SetPositions(windowResizeWidth * 2, windowResizeWidth * 2, 0, windowResizeWidth * 2)->SetColor(highlightColor)->SetLineWidth(windowResizeLineWidth),
             }),
         });
     }
@@ -203,18 +203,18 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
     return (new Group)->SetDisabled(true)->AddChildren({
         barNode->SetPosition(x, y)->SetSize(width, windowBarHeight)->AddChildren({
             // Window bar background
-            (new Rectangle)->SetFillColor(windowBarColor.get())->SetOutlineColor(highlightColor.get()),
+            (new Rectangle)->SetFillColor(windowBarColor)->SetOutlineColor(highlightColor),
 
             // Window bar text
             (new Text)->SetText("Numpad")->SetFontSize(windowBarHeight - 4)->SetAlignments(HorizontalAlign::left, VerticalAlign::middle)->SetOverflow(Overflow::hidden),
 
             // Close button
             (new Clickable)->SetShallowID("closeButton")->SetPosition(width - windowBarHeight, 0)->SetSize(windowBarHeight, windowBarHeight)->SetRelease(CloseNumpad)->AddChildren({
-                (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
-                (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor.get())->SetOutlineColor(highlightColor.get())}),
+                (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
+                (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
 
-                (new Line)->SetPositions(closeButtonIconMargin, closeButtonIconMargin, windowBarHeight - closeButtonIconMargin, windowBarHeight - closeButtonIconMargin)->SetColor(highlightColor.get())->SetLineWidth(closeButtonIconLineWidth),
-                (new Line)->SetPositions(closeButtonIconMargin, windowBarHeight - closeButtonIconMargin, windowBarHeight - closeButtonIconMargin, closeButtonIconMargin)->SetColor(highlightColor.get())->SetLineWidth(closeButtonIconLineWidth),
+                (new Line)->SetPositions(closeButtonIconMargin, closeButtonIconMargin, windowBarHeight - closeButtonIconMargin, windowBarHeight - closeButtonIconMargin)->SetColor(highlightColor)->SetLineWidth(closeButtonIconLineWidth),
+                (new Line)->SetPositions(closeButtonIconMargin, windowBarHeight - closeButtonIconMargin, windowBarHeight - closeButtonIconMargin, closeButtonIconMargin)->SetColor(highlightColor)->SetLineWidth(closeButtonIconLineWidth),
             }),
 
             // Window resizer
@@ -224,7 +224,7 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
             (new Clickable)->SetShallowID("gridContainer")->SetPosition(0, windowBarHeight)->SetSize(width, height)->AddChildren({
                 // Numpad grid layout
                 (new Column)->SetScaleToFit(true)->AddChildren({
-                    (new Rectangle)->SetFillColor(Color::black)->SetOutlineColor(highlightColor.get())->AddChildren({
+                    (new Rectangle)->SetFillColor(Color::black)->SetOutlineColor(highlightColor)->AddChildren({
                         (new Text)->SetText("418")->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::wrapScale)->SetPreTick(UpdateTypingTextNode),
                     }),
                     (new Row)->SetScaleToFit(true)->AddChildren({

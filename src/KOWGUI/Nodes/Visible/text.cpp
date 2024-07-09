@@ -25,8 +25,8 @@ Text* Text::SetFontSize(int fontSize) {
 }
 
 // Set the color of the text
-Text* Text::SetColor(Color* color) {
-    mpColor = std::make_shared<Color>(*color);
+Text* Text::SetColor(std::shared_ptr<Color> color) {
+    mpColor = color;
     return this;
 }
 

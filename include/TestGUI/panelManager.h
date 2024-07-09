@@ -33,12 +33,12 @@ extern Panels panels;
 
 
 struct {
-    KOWGUI::Color* sidebarBackground = (new KOWGUI::Color)->SetHex("#2F4F4F");
-    KOWGUI::Color* lightText = (new KOWGUI::Color)->SetRGB(255, 255, 255);
-    KOWGUI::Color* buttonNFocused = (new KOWGUI::Color)->SetHex("#1b9477");
-    KOWGUI::Color* buttonFocused = (new KOWGUI::Color)->SetHex("#26d1a8");
-    KOWGUI::Color* sliderNFocused = (new KOWGUI::Color)->SetHex("#661b94");
-    KOWGUI::Color* sliderFocused = (new KOWGUI::Color)->SetHex("#8e26cf");
+    std::shared_ptr<KOWGUI::Color> sidebarBackground = std::make_shared<KOWGUI::Color>()->SetHex("#2F4F4F");
+    std::shared_ptr<KOWGUI::Color> lightText = std::make_shared<KOWGUI::Color>()->SetRGB(255, 255, 255);
+    std::shared_ptr<KOWGUI::Color> buttonNFocused = std::make_shared<KOWGUI::Color>()->SetHex("#1b9477");
+    std::shared_ptr<KOWGUI::Color> buttonFocused = std::make_shared<KOWGUI::Color>()->SetHex("#26d1a8");
+    std::shared_ptr<KOWGUI::Color> sliderNFocused = std::make_shared<KOWGUI::Color>()->SetHex("#661b94");
+    std::shared_ptr<KOWGUI::Color> sliderFocused = std::make_shared<KOWGUI::Color>()->SetHex("#8e26cf");
 } theme;
 
 

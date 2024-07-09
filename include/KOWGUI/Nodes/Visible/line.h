@@ -12,7 +12,7 @@ namespace KOWGUI {
     class Line : public VisibleBaseNode {
         private:
             int mLineWidth = 1;
-            std::shared_ptr<Color> mpColor = std::make_shared<Color>(*Color::white); // Default transparent like rectangles?
+            std::shared_ptr<Color> mpColor = Color::white; // Default transparent like rectangles?
 
         public:
             Line* SetX(int x) {BaseNode::SetX(x); return this;}
@@ -36,7 +36,7 @@ namespace KOWGUI {
             Line* SetPosition2(int x2, int y2);
             Line* SetPositions(int x1, int y1, int x2, int y2);
 
-            Line* SetColor(Color* color);
+            Line* SetColor(std::shared_ptr<Color> color);
             Line* SetLineWidth(int lineWidth);
 
             void Draw(vex::brain::lcd& rScreen);

@@ -3,14 +3,14 @@
 using namespace KOWGUI;
 
 // Set the color that fills in the rectangle
-Rectangle* Rectangle::SetFillColor(Color* fillColor) {
-    mpFillColor = std::make_shared<Color>(*fillColor);
+Rectangle* Rectangle::SetFillColor(std::shared_ptr<Color> fillColor) {
+    mpFillColor = fillColor;
     return this;
 }
 
 // Set the color that borders the rectangle
-Rectangle* Rectangle::SetOutlineColor(Color* outlineColor) {
-    mpOutlineColor = std::make_shared<Color>(*outlineColor);
+Rectangle* Rectangle::SetOutlineColor(std::shared_ptr<Color> outlineColor) {
+    mpOutlineColor = outlineColor;
     return this;
 }
 

@@ -104,7 +104,7 @@ namespace KOWGUI {
             // How big the text is, measured as the height in pixels from ascender to descender
             int mFontSize = 30;
             // Color of the text
-            std::shared_ptr<Color> mpColor = std::make_shared<Color>(*Color::white);
+            std::shared_ptr<Color> mpColor = Color::white;
 
             // Which part of the node's area the text should horizontally snap to
             HorizontalAlign mHorizontalAlign = HorizontalAlign::left;
@@ -156,7 +156,7 @@ namespace KOWGUI {
             Text* SetText(std::string text);
             Text* SetFont(font& fontName); // TO DO Should this take a pointer instead of a reference to match everything else?
             Text* SetFontSize(int fontSize);
-            Text* SetColor(Color* color);
+            Text* SetColor(std::shared_ptr<Color> color);
             Text* SetHorizontalAlign(HorizontalAlign horizontalAlign);
             Text* SetVerticalAlign(VerticalAlign verticalAlign);
             Text* SetFontAlign(FontAlign fontAlign);

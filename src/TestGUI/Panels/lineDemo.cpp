@@ -16,7 +16,7 @@ void AddRandomLine(BaseNode* thisNode) {
                 rand() % 240, 
                 rand() % (480 - sidebarWidth), 
                 rand() % 240)->
-            SetColor((new Color)->SetRGB(
+            SetColor(std::make_shared<Color>()->SetRGB(
                 rand() % 255,
                 rand() % 255,
                 rand() % 255

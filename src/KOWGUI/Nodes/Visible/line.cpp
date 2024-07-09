@@ -54,8 +54,8 @@ Line* Line::SetPositions(int x1, int y1, int x2, int y2) {
 
 
 // Set the color of the line
-Line* Line::SetColor(Color* color) {
-    mpColor = std::make_shared<Color>(*color);
+Line* Line::SetColor(std::shared_ptr<Color> color) {
+    mpColor = color;
     return this;
 }
 

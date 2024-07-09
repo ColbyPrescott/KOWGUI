@@ -12,9 +12,9 @@ namespace KOWGUI {
     class Rectangle : public VisibleBaseNode {
         private:
             // Color that fills in the rectangle
-            std::shared_ptr<Color> mpFillColor = std::make_shared<Color>(*Color::transparent);
+            std::shared_ptr<Color> mpFillColor = Color::transparent;
             // Color that borders the rectangle
-            std::shared_ptr<Color> mpOutlineColor = std::make_shared<Color>(*Color::transparent);
+            std::shared_ptr<Color> mpOutlineColor = Color::transparent;
             // How wide the border is in pixels
             int mOutlineWidth = 1;
 
@@ -32,8 +32,8 @@ namespace KOWGUI {
             Rectangle* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Rectangle* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
-            Rectangle* SetFillColor(Color* fillColor);
-            Rectangle* SetOutlineColor(Color* outlineColor);
+            Rectangle* SetFillColor(std::shared_ptr<Color> fillColor);
+            Rectangle* SetOutlineColor(std::shared_ptr<Color> outlineColor);
             Rectangle* SetOutlineWidth(int outlineWidth);
 
             void Draw(vex::brain::lcd& rScreen);
