@@ -45,7 +45,7 @@ namespace KOWGUI {
         bool mDeletionScheduled = false;
     
     public:
-        ~BaseNode();
+        virtual ~BaseNode();
 
         // Node that this node is attatched to. Position and scale are inherited
         BaseNode* parent = nullptr;
