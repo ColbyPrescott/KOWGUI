@@ -93,7 +93,7 @@ namespace {
 
     // Called from each standard key Clickable node
     void TypeCharFromDataAtCursor(BaseNode* thisNode) {
-        char characterToAdd = *(char*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyCharacter");
+        char characterToAdd = *(char*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyCharacter").get();
 
         // Get whether or not the shift key is pressed
         bool shiftActivated = ((Toggleable*)thisNode->parent->parent->parent->FindShallowID("shiftKey"))->GetActivated();
@@ -252,7 +252,7 @@ namespace {
 
             (new Text)->SetPosition(1, 2)->SetText("%c", keyCharacter)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
 
-            (new Data)->SetShallowID("data")->SetProperty("keyCharacter", new char(keyCharacter)),
+            (new Data)->SetShallowID("data")->SetProperty("keyCharacter", std::make_shared<char>(keyCharacter)),
         });
     }
 
@@ -284,7 +284,7 @@ namespace {
 
         // If they special key just needs different data than text being displayed, add in the standard key functionality
         if(keyCharacterOverride != ' ') {
-            pPrefab->AddChild((new Data)->SetShallowID("data")->SetProperty("keyCharacter", new char(keyCharacterOverride)));
+            pPrefab->AddChild((new Data)->SetShallowID("data")->SetProperty("keyCharacter", std::make_shared<char>(keyCharacterOverride)));
             pPrefab->SetRelease(TypeCharFromDataAtCursor);
         }
 

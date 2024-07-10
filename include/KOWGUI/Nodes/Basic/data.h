@@ -5,13 +5,13 @@
 
 #include <string>
 #include <map>
+#include <memory>
 
 namespace KOWGUI {
 
     class Data : public BaseNode {
         private:
-            // TO DO std::shared_ptr<void>
-            std::map<std::string, void*> mCustomProperties;
+            std::map<std::string, std::shared_ptr<void>> mCustomProperties; // TO DO Should Data nodes hold a map of information or just one piece of data?
 
         public:
             Data* SetX(int x) {BaseNode::SetX(x); return this;}
@@ -27,8 +27,9 @@ namespace KOWGUI {
             Data* ClearPreTick() {BaseNode::ClearPreTick(); return this;}
             Data* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
-            Data* SetProperty(std::string name, void* value);
-            void* GetProperty(std::string name);
+            Data* SetProperty(std::string name, std::shared_ptr<void> value);
+            std::shared_ptr<void> GetProperty(std::string name);
+            // TO DO Data::RemoveProperty(std::string name)
     };
 
 }

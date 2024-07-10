@@ -15,14 +15,14 @@ void CreateSidebarButton(Group* panel, std::string text, int height) {
     // Function for each panel button. Gets the panel stored as data and loads it
     void (*loadPanelFunc)(BaseNode*) = [](BaseNode* thisNode){
         Data* dataNode = (Data*)thisNode->FindShallowID("data");
-        Group* targetPanel = (Group*)dataNode->GetProperty("panel");
+        Group* targetPanel = (Group*)dataNode->GetProperty("panel").get();
         LoadPanel(targetPanel);
     };
 
     // Add a new button to the draggable node, positioned at it's height
     sidebarDraggable->AddChild(
         (new Clickable)->SetPosition(-sidebarWidth + sidebarScrollbarWidth, sidebarDraggable->GetHeight())->SetSize(sidebarWidth - sidebarScrollbarWidth, height)->SetRelease(loadPanelFunc)->AddChildren({
-            (new Data)->SetShallowID("data")->SetProperty("panel", (void*)panel),
+            (new Data)->SetShallowID("data")->SetProperty("panel", std::shared_ptr<void>(panel)),
 
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),

@@ -18,29 +18,29 @@ namespace {
     }
 
     void UpdateIntegerText(BaseNode* thisNode) {
-        ((Text*)thisNode)->SetText("%d", *(int*)((Data*)thisNode->parent->FindShallowID("integerDemoData"))->GetProperty("number"));
+        ((Text*)thisNode)->SetText("%d", *(int*)((Data*)thisNode->parent->FindShallowID("integerDemoData"))->GetProperty("number").get());
     }
 
     void UpdateDecimalText(BaseNode* thisNode) {
-        ((Text*)thisNode)->SetText("%.5f", *(double*)((Data*)thisNode->parent->FindShallowID("decimalDemoData"))->GetProperty("number"));
+        ((Text*)thisNode)->SetText("%.5f", *(double*)((Data*)thisNode->parent->FindShallowID("decimalDemoData"))->GetProperty("number").get());
     }
 
     // Functions to update Data nodes after the numpad closes
     void UpdateIntegerDemoNumber(int num) {
-        *(int*)((Data*)panels.keyboardDemo->FindShallowID("integerDemoData"))->GetProperty("number") = num;
+        *(int*)((Data*)panels.keyboardDemo->FindShallowID("integerDemoData"))->GetProperty("number").get() = num;
     }
 
     void UpdateDecimalDemoNumber(double num) {
-        *(double*)((Data*)panels.keyboardDemo->FindShallowID("decimalDemoData"))->GetProperty("number") = num;
+        *(double*)((Data*)panels.keyboardDemo->FindShallowID("decimalDemoData"))->GetProperty("number").get() = num;
     }
 
     // Functions to open the numpad for each demo
     void OpenIntegerDemoNumpad(BaseNode* thisNode) {
-        Keyboard::Open(numpad, *(int*)((Data*)thisNode->FindShallowID("integerDemoData"))->GetProperty("number"), UpdateIntegerDemoNumber, true);
+        Keyboard::Open(numpad, *(int*)((Data*)thisNode->FindShallowID("integerDemoData"))->GetProperty("number").get(), UpdateIntegerDemoNumber, true);
     }
 
     void OpenDecimalDemoNumpad(BaseNode* thisNode) {
-        Keyboard::Open(numpad, *(double*)((Data*)thisNode->FindShallowID("decimalDemoData"))->GetProperty("number"), UpdateDecimalDemoNumber);
+        Keyboard::Open(numpad, *(double*)((Data*)thisNode->FindShallowID("decimalDemoData"))->GetProperty("number").get(), UpdateDecimalDemoNumber);
     }
 
 }
@@ -79,7 +79,7 @@ void InitGUIKeyboardDemo() {
             // Live update info text
             (new Text)->SetY(14)->SetText("Live Update")->SetFontSize(12)->SetAlignments(HorizontalAlign::center, VerticalAlign::bottom),
 
-            (new Data)->SetShallowID("integerDemoData")->SetProperty("number", new int(1810)),
+            (new Data)->SetShallowID("integerDemoData")->SetProperty("number", std::make_shared<int>(1810)),
         }),
 
         // Decimal numpad demo
@@ -89,7 +89,7 @@ void InitGUIKeyboardDemo() {
 
             (new Text)->SetText("418")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateDecimalText),
 
-            (new Data)->SetShallowID("decimalDemoData")->SetProperty("number", new double(3.14159265)),
+            (new Data)->SetShallowID("decimalDemoData")->SetProperty("number", std::make_shared<double>(3.14159265)),
         }),
     });
 }

@@ -57,7 +57,7 @@ namespace {
         // Save old typing number for detecting and reverting integer overflow in single digits
         int32_t prevTypingNumberAsInteger = typingNumberAsInteger;
 
-        int digitToAdd = *(int*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyDigit");
+        int digitToAdd = *(int*)((Data*)thisNode->FindShallowID("data"))->GetProperty("keyDigit").get();
         // Shift all digits left by one digit, making room for a zero, then converted to new digit by adding / subtracting it
         typingNumberAsInteger *= 10;
         if(typingNumberAsInteger >= 0) typingNumberAsInteger += digitToAdd;
@@ -159,7 +159,7 @@ namespace {
 
             (new Text)->SetPosition(1, 2)->SetText("%d", keyDigit)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
 
-            (new Data)->SetShallowID("data")->SetProperty("keyDigit", new int(keyDigit)),
+            (new Data)->SetShallowID("data")->SetProperty("keyDigit", std::make_shared<int>(keyDigit)),
         });
     }
 

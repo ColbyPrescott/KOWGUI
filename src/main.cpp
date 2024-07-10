@@ -36,7 +36,7 @@ int main() {
         for(int i = 0; i < 100; i++) {
             KOWGUI::Group* test = (new KOWGUI::Group)->AddChildren({
                 (new KOWGUI::Group),
-                // (new KOWGUI::Data)->SetProperty("memoryLeakTest", new KOWGUI::Group), // TO DO Crash, the memory this node tracks is not freed
+                (new KOWGUI::Data)->SetProperty("memoryLeakTest", std::make_shared<KOWGUI::Group>()),
                 (new KOWGUI::Row),
                 (new KOWGUI::Column),
                 (new KOWGUI::Rectangle)->SetFillColor(std::make_shared<KOWGUI::Color>()->SetRGB(255, 255, 255)),
