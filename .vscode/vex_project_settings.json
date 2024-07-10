@@ -4,8 +4,8 @@
 		"json": 2
 	},
 	"project": {
-		"name": "BumpIt",
-		"description": "Custom GUI library and game!",
+		"name": "KOWGUI Demo",
+		"description": "Testing environment for KOWGUI development",
 		"creationDate": "4/12/2024, 4:34:09 PM",
 		"platform": "V5",
 		"language": "cpp",

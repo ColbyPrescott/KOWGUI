@@ -14,6 +14,8 @@ BaseNode::~BaseNode() {
 
     // Unlink parent. Pointer needs to be removed from parent's children vector. Child node's parent pointer is taken care of by disintegrating the entire object from memory
     if(parent != nullptr) parent->children.erase(std::find(parent->children.begin(), parent->children.end(), this));
+
+    // TO DO Remove ID
 }
 
 // Call internal preTick function if it's not nullptr

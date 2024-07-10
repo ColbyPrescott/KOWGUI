@@ -1,3 +1,8 @@
+Remaining TO DO for version 1.0:
+- Graph
+- Image
+- Delete node removes ID
+
 Node types:
 - Toggleable
   - If supplied an id or something, toggles could store their state on SD card
@@ -20,7 +25,7 @@ Node types:
     - Clip border should unfocus clickable
     - Clip border should not stop draggable from moving (for scrollable windows)
 - Timer system? For like, regularly spawning nodes with particle code?
-- Alignment
+- Aligner
   - Automatically position one of its own edges to an edge of the parent node
 
 
@@ -47,9 +52,7 @@ Features:
 - ID system
   - Classes maybe? Add a function to return a list of all elements with a specific class added?
 - Removing nodes
-  - Delete keyword
-  - Recursively call delete on children
-  - Remove ID
+  - Remove ID // TO DO Yikes! Forgot this!
 - Interactable
   - Recheck select, manual select
 - Error system
@@ -80,13 +83,11 @@ Refactoring and other code stuff:
 - Some comments have the text "TO DO" so they can be found with 
   - Linux / Mac: grep -r "TO DO"
   - Windows: findstr /s /c:"TO DO" *.cpp *.h
-- Move all cpp files into the headers so a user will only need to copy the include folder
-  - On second look at PROS, it seems like precompiled binaries could be a viable option
+- Try precompiled binaries for GitHub releases
 - Use of 'p' before pointer names in inconsistent
 - Should positions be represented by floats and rounded in the screen functions? Increasing a node's 
   position at a constant rate could have much more precision a lot easier
 - Usage of clipping region will need to have a system like JS canvas transform save restore
-- If you want to display a percent, you need to type four out due to the filtering of snprintf and lcd::print
 - FindID template to make casting more compact
 - gui[ID] mimicks FindID
 - Setting position of line first vertex while adding the node as a child will incorrectly update the width and 
