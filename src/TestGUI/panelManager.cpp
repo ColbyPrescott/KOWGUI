@@ -37,6 +37,7 @@ void InitPanels() {
     ConfigurePanel(panels.rectangleDemo);             InitGUIRectangleDemo();             CreateSidebarButton(panels.rectangleDemo,             "Rectangles");
     ConfigurePanel(panels.circleDemo);                InitGUICircleDemo();                CreateSidebarButton(panels.circleDemo,                "Circles");
     ConfigurePanel(panels.lineDemo);                  InitGUILineDemo();                  CreateSidebarButton(panels.lineDemo,                  "Lines");
+    ConfigurePanel(panels.imageDemo);                 InitGUIImageDemo();                 CreateSidebarButton(panels.imageDemo,                 "Images");
     CreateSidebarLabel("Text");
     ConfigurePanel(panels.textFontDemo);              InitGUITextFontDemo();              CreateSidebarButton(panels.textFontDemo,              "Fonts");
     ConfigurePanel(panels.textFontAlignDemo);         InitGUITextFontAlignDemo();         CreateSidebarButton(panels.textFontAlignDemo,         "Font Align");

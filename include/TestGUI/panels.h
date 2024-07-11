@@ -4,6 +4,7 @@
 void InitGUIRectangleDemo();
 void InitGUICircleDemo();
 void InitGUILineDemo();
+void InitGUIImageDemo();
 void InitGUITextFontDemo();
 void InitGUITextFontAlignDemo();
 void InitGUITextHorizontalAlignDemo();

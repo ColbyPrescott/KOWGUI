@@ -18,6 +18,7 @@
 #include "KOWGUI/Nodes/Visible/circle.h"
 #include "KOWGUI/Nodes/Visible/line.h"
 #include "KOWGUI/Nodes/Visible/text.h"
+#include "KOWGUI/Nodes/Visible/image.h"
 #include "KOWGUI/Nodes/Interactable/clickable.h"
 #include "KOWGUI/Nodes/Interactable/draggable.h"
 #include "KOWGUI/Nodes/Interactable/toggleable.h"

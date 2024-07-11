@@ -9,6 +9,7 @@ struct Panels {
     KOWGUI::Group* rectangleDemo = new KOWGUI::Group;
     KOWGUI::Group* circleDemo = new KOWGUI::Group;
     KOWGUI::Group* lineDemo = new KOWGUI::Group;
+    KOWGUI::Group* imageDemo = new KOWGUI::Group;
     KOWGUI::Group* textFontDemo = new KOWGUI::Group;
     KOWGUI::Group* textFontAlignDemo = new KOWGUI::Group;
     KOWGUI::Group* textHorizontalAlignDemo = new KOWGUI::Group;

@@ -1,12 +1,9 @@
 Remaining TO DO for version 1.0:
 - Graph
-- Image
 
 Node types:
 - Toggleable
   - If supplied an id or something, toggles could store their state on SD card
-- Image
-  - Must create or take image buffer for faster drawing
 - Video / animation
   - Frame is decided by timer
     - How would that affect disabling the node?
