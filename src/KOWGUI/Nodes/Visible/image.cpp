@@ -4,13 +4,13 @@
 
 using namespace KOWGUI;
 
-// Initialize an ImageBuffer with raw PNG or BMP data
+// Initialize an ImageBuffer with raw PNG data
 ImageBuffer::ImageBuffer(uint8_t* data, uint32_t size) {
     bufferData = data;
     bufferSize = size;
 }
 
-// Initialize an ImageBuffer with a PNG or BMP file path. 
+// Initialize an ImageBuffer with a PNG file path. 
 ImageBuffer::ImageBuffer(std::string filePath) {
     // Ensure SD card is inserted
     if(!isInserted()) {
@@ -46,7 +46,7 @@ Image* Image::SetImage(std::shared_ptr<ImageBuffer> imageBuffer) {
     return this;
 }
 
-// Set the displayed image via a PNG or BMP file path on the SD card. Creates a new ImageBuffer object
+// Set the displayed image via a PNG file path on the SD card. Creates a new ImageBuffer object
 Image* Image::SetImage(std::string filePath) {
     mpImageBuffer = std::make_shared<ImageBuffer>(filePath);
     return this;
