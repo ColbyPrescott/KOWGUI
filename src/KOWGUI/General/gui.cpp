@@ -32,6 +32,18 @@ void GUI::AddIDMap(BaseNode* node) {
     mpIDs[node->mID] = node;
 }
 
+// Remove a node from the ID system
+void GUI::RemoveIDMap(std::string iD) {
+    // If ID name isn't in map, throw a warning
+    if(mpIDs.find(iD) == mpIDs.end()) {
+        std::cerr << "KOWGUI: Could not remove non-existent ID " << iD << std::endl;
+        vex::this_thread::sleep_for(5);
+        return;
+    }
+    // Remove ID from the map
+    mpIDs.erase(iD);
+}
+
 
 
 // Look up an ID in the ID system

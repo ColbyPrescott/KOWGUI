@@ -15,7 +15,8 @@ BaseNode::~BaseNode() {
     // Unlink parent. Pointer needs to be removed from parent's children vector. Child node's parent pointer is taken care of by disintegrating the entire object from memory
     if(parent != nullptr) parent->children.erase(std::find(parent->children.begin(), parent->children.end(), this));
 
-    // TO DO Remove ID
+    // Remove ID
+    if(mpContainingGUI != nullptr) mpContainingGUI->RemoveIDMap(mID);
 }
 
 // Call internal preTick function if it's not nullptr
@@ -89,6 +90,7 @@ BaseNode* BaseNode::SetSize(int width, int height) {
 
 // Set identifier for this node so it can be referenced later more easily
 BaseNode* BaseNode::SetID(std::string iD) {
+    // ID is passed to GUI class during BaseNode::LinkChild()
     // TO DO Remove previous ID
     mID = iD;
     return this;

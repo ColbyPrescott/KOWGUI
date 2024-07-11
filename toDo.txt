@@ -1,7 +1,6 @@
 Remaining TO DO for version 1.0:
 - Graph
 - Image
-- Delete node removes ID
 
 Node types:
 - Toggleable
@@ -55,6 +54,7 @@ Features:
   - Remove ID // TO DO Yikes! Forgot this!
 - Interactable
   - Recheck select, manual select
+- Ability to disable screen clearing and rendering to let user assume more manual rendering code
 - Error system
   - Show in console?
   - Show on screen?
@@ -93,6 +93,7 @@ Refactoring and other code stuff:
 - Setting position of line first vertex while adding the node as a child will incorrectly update the width and 
   height representing the second vertex because calculating size depends on the parent being already fully initialized
 - Redo header guard names with folder structure. KOWGUI_NODES_BASIC_GROUP_H
+- Default int, int32, for all positions wastes memory. Use int16?
 
 
 

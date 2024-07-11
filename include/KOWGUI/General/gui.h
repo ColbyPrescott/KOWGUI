@@ -34,6 +34,7 @@ namespace KOWGUI {
             std::map<std::string, BaseNode*> mpIDs;
 
             void AddIDMap(BaseNode* node);
+            void RemoveIDMap(std::string iD);
 
         public:
             // Group node that every other node must be connected to for it to get processed
