@@ -13,24 +13,24 @@ ImageBuffer::ImageBuffer(uint8_t* data, uint32_t size) {
 // Initialize an ImageBuffer with a PNG file path. 
 ImageBuffer::ImageBuffer(std::string filePath) {
     // Ensure SD card is inserted
-    if(!isInserted()) {
+    if(!sdcard::isInserted()) {
         std::cerr << "KOWGUI: Could not load image. SD card is not inserted" << std::endl;
         vex::this_thread::sleep_for(5);
         return;
     }
 
     // Ensure file path exists
-    if(!exists(filePath.c_str())) {
+    if(!sdcard::exists(filePath.c_str())) {
         std::cerr << "KOWGUI: Could not load image. File path \"" << filePath << "\" does not exist" << std::endl;
         vex::this_thread::sleep_for(5);
         return;
     }
 
     // Initialize buffer data
-    bufferSize = size(filePath.c_str());
+    bufferSize = sdcard::size(filePath.c_str());
     bufferData = new uint8_t[bufferSize];
     // Load file data into buffer
-    loadfile(filePath.c_str(), bufferData, bufferSize);
+    sdcard::loadfile(filePath.c_str(), bufferData, bufferSize);
 }
 
 // ImageBuffer deconstructor. Free buffer memory
