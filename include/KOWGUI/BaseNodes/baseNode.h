@@ -88,6 +88,7 @@ namespace KOWGUI {
         std::string GetID();
         std::string GetShallowID();
         bool GetDisabled();
+        bool GetRooted();
 
         BaseNode* FindShallowID(std::string shallowID);
 

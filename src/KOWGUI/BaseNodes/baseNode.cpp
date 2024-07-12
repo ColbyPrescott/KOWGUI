@@ -220,6 +220,11 @@ bool BaseNode::GetDisabled() {
     return mDisabled;
 }
 
+// Get whether or not this node is connected to the root node of a GUI object
+bool BaseNode::GetRooted() {
+    return mpContainingGUI != nullptr;
+}
+
 
 
 BaseNode* BaseNode::FindShallowID(std::string shallowID) {
