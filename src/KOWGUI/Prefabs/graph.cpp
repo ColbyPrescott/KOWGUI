@@ -49,7 +49,8 @@ namespace {
             );
         }
 
-        // TO DO Delete Line nodes if there's less data than lines
+        // Delete Line nodes if there's less data than lines
+        for(int i = 0; i < -numDataNodeDifference + 1; i++) delete pLineContainer->children[0];
 
         // TO DO Replace with switch statement once graph fit is actually saved
         if(true) DrawGraphScale(dataVector, pLineContainer, graphWidth, graphHeight);

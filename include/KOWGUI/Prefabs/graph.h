@@ -20,7 +20,7 @@ namespace KOWGUI {
 
     namespace Graph {
 
-        Group* CreateGraph(std::shared_ptr<std::vector<double>> dataVector, GraphFit fit = GraphFit::scale);
+        Group* CreateGraph(std::shared_ptr<std::vector<double>> dataVector, GraphFit fit = GraphFit::scale); // TO DO Line and dot templates
         // Group* CreateGraph(GraphFit fit = GraphFit::scale); // TO DO
 
     }

@@ -34,6 +34,9 @@ void GUI::AddIDMap(BaseNode* node) {
 
 // Remove a node from the ID system
 void GUI::RemoveIDMap(std::string iD) {
+    // If no ID, simply return without any warning
+    if(iD.empty()) return;
+
     // If ID name isn't in map, throw a warning
     if(mpIDs.find(iD) == mpIDs.end()) {
         std::cerr << "KOWGUI: Could not remove non-existent ID " << iD << std::endl;
