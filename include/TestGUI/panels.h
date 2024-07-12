@@ -20,6 +20,7 @@ void InitGUILoopedDemo();
 void InitGUIGroupDemo();
 void InitGUIRowDemo();
 void InitGUIKeyboardDemo();
+void InitGUIGraphDemo();
 void InitGUIColorDemo();
 void InitGUIPreTickDemo();
 void InitGUIRemovalDemo();

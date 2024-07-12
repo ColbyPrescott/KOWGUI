@@ -31,5 +31,6 @@
 #include "KOWGUI/Nodes/Feedback/Negated/nActivated.h"
 
 #include "KOWGUI/Prefabs/keyboard.h"
+#include "KOWGUI/Prefabs/graph.h"
 
 #endif

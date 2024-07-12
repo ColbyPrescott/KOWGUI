@@ -25,6 +25,7 @@ struct Panels {
     KOWGUI::Group* groupDemo = new KOWGUI::Group;
     KOWGUI::Group* rowDemo = new KOWGUI::Group;
     KOWGUI::Group* keyboardDemo = new KOWGUI::Group;
+    KOWGUI::Group* graphDemo = new KOWGUI::Group;
     KOWGUI::Group* colorDemo = new KOWGUI::Group;
     KOWGUI::Group* preTickDemo = new KOWGUI::Group;
     KOWGUI::Group* removalDemo = new KOWGUI::Group;
