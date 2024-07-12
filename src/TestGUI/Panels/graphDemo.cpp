@@ -3,7 +3,7 @@
 
 using namespace KOWGUI;
 
-std::vector<double> testVector = {1, 2, 3, 10, 2, 1};
+std::vector<double> testVector = {0, 5, -2, 6, 0};
 std::shared_ptr<std::vector<double>> pTestVector(&testVector);
 
 void InitGUIGraphDemo() {

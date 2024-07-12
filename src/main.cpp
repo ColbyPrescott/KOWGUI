@@ -21,9 +21,9 @@ int main() {
 
     LoadPanel(panels.graphDemo);
 
+        gui.Tick();
     while(true) {
 
-        gui.Tick();
 
         // Allow other tasks to run
         this_thread::sleep_for(20);
