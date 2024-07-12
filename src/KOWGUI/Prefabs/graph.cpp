@@ -14,6 +14,9 @@ namespace {
         double dataMinValue = *std::min_element(rDataVector.begin(), rDataVector.end());
         double dataMaxValue = *std::max_element(rDataVector.begin(), rDataVector.end());
 
+        // If all data is the same and dividing by the difference will be a division by zero, add a small amount of variability
+        if(dataMinValue == dataMaxValue) dataMaxValue++;
+
         // Loop through every data point and update the Line node
         for(int i = 0; i < rDataVector.size() - 1; i++) {
             double currentValue = rDataVector[i];
@@ -50,7 +53,7 @@ namespace {
         }
 
         // Delete Line nodes if there's less data than lines
-        for(int i = 0; i < -numDataNodeDifference + 1; i++) delete pLineContainer->children[0];
+        for(int i = 0; i < -numDataNodeDifference + 1; i++) if(pLineContainer->children.size() > 0) delete pLineContainer->children[0];
 
         // TO DO Replace with switch statement once graph fit is actually saved
         if(true) DrawGraphScale(dataVector, pLineContainer, graphWidth, graphHeight);

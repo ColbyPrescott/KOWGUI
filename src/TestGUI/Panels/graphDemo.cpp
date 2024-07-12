@@ -36,7 +36,7 @@ void InitGUIGraphDemo() {
             (new Text)->SetPosition(1, 2)->SetText("+")->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
         }),
 
-        // Remove data point button // TO DO Removing too many will crash
+        // Remove data point button
         (new Clickable)->SetPosition(290, 20)->SetSize(30, 30)->SetRelease(RemovePointFromTestVector)->AddChildren({
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
