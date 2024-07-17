@@ -8,7 +8,11 @@ using namespace KOWGUI;
 
 namespace {
 
-    void DrawGraphScale(std::vector<double>& rDataVector, Group* pLineContainer, int graphWidth, int graphHeight) {
+    // Update nodes inside a graph in a way that scales everything to fit the graph area
+    void UpdateGraphScale(std::vector<double>& rDataVector, Group* pLineContainer, int graphWidth, int graphHeight) {
+        // Don't attempt to organize data if there's no data
+        if(rDataVector.empty()) return;
+        
         // Calculate extends of data range
         double dataMinValue = *std::min_element(rDataVector.begin(), rDataVector.end());
         double dataMaxValue = *std::max_element(rDataVector.begin(), rDataVector.end());
@@ -32,6 +36,7 @@ namespace {
         }
     }
 
+    // Update nodes inside the graph to represent the data
     void UpdateGraph(BaseNode* thisNode) {
         // Get specific nodes from the graph prefab
         Data* pDataNode = (Data*)thisNode->FindShallowID("data");
@@ -55,7 +60,7 @@ namespace {
         for(int i = 0; i < -numDataNodeDifference + 1; i++) if(pLineContainer->children.size() > 0) delete pLineContainer->children[0];
 
         // TO DO Replace with switch statement once graph fit is actually saved
-        if(true) DrawGraphScale(dataVector, pLineContainer, graphWidth, graphHeight);
+        if(true) UpdateGraphScale(dataVector, pLineContainer, graphWidth, graphHeight);
     }
 
 };
