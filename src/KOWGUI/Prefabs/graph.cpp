@@ -2,7 +2,6 @@
 
 #include "KOWGUI/kowgui.h"
 
-#include <iostream> // DEBUG
 #include <bits/stdc++.h>
 
 using namespace KOWGUI;
@@ -61,7 +60,7 @@ namespace {
 
 };
 
-Group* Graph::CreateGraph(std::shared_ptr<std::vector<double>> dataVector, GraphFit fit) {
+Group* Graph::CreateGraph(std::shared_ptr<std::vector<double>> dataVector, Fit fit) {
     return (new Group)->SetPreTick(UpdateGraph)->AddChildren({
         (new Data)->SetShallowID("data")->SetProperty("dataVector", dataVector),
         (new Group)->SetShallowID("lineContainer"),

@@ -8,20 +8,21 @@
 
 namespace KOWGUI {
 
-    enum class GraphFit {
-        // scroll,
-        scale,
-        // overwrite,
-
-    };
 
     // TO DO Min and max graph Y range
     // TO DO Max number of data points
 
     namespace Graph {
+        
+        enum class Fit {
+            // scroll,
+            scale,
+            // overwrite,
 
-        Group* CreateGraph(std::shared_ptr<std::vector<double>> dataVector, GraphFit fit = GraphFit::scale); // TO DO Line and dot templates
-        // Group* CreateGraph(GraphFit fit = GraphFit::scale); // TO DO
+        };
+
+        Group* CreateGraph(std::shared_ptr<std::vector<double>> dataVector, Fit fit = Fit::scale); // TO DO Line and dot templates
+        // Group* CreateGraph(Fit fit = Fit::scale); // TO DO
 
     }
 }
