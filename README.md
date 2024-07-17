@@ -8,7 +8,7 @@ KOWGUI is a simple yet powerful Graphical User Interface library
 for the VEX V5 API. It uses basic nodes to create complex systems 
 like Godot, and can arrange code in a compact manner like HTML.
 
-Out-of-the-box systems range from as simplistic and customizable as rectangles and click detectors to as complicated as terminal-integrated keyboards and graphs!
+Out-of-the-box systems range from as simplistic and customizable as rectangles and click detectors to as complicated as a terminal-integrated keyboard and graphs!
 
 ## Documentation
 
@@ -34,7 +34,7 @@ Out-of-the-box systems range from as simplistic and customizable as rectangles a
     PID controller values, and any other precise value.
 - **Building applications** <br>
     If you want to develop screen-related tools for the V5 Robot 
-    Brain, KOWGUI is an excellent base for flexible design.
+    Brain, KOWGUI is an excellent base for flexible designs.
 
 ## Fundamentals
 
@@ -63,7 +63,7 @@ void ButtonFunction(BaseNode* thisNode) {
 
 // GUI layout created in one large tree structure
 void InitGUIExampleButton() {
-    gui.root.AddChild(
+    gui.root->AddChild(
         (new Clickable)->SetPosition(50, 50)->SetSize(200, 100)->SetRelease(ButtonFunction)->AddChildren({
             // Background
             (new Rectangle)->SetFillColor(Color::lime),
@@ -87,7 +87,7 @@ void ButtonFunction(BaseNode* thisNode) {
 // GUI layout created by defining one node at a time
 void InitGUIExampleButton() {
     Clickable* button = new Clickable;
-    gui.root.AddChild(button);
+    gui.root->AddChild(button);
     button->SetPosition(50, 50);
     button->SetSize(200, 100);
     button->SetRelease(ButtonFunction);

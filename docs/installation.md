@@ -18,20 +18,27 @@
     `include/KOWGUI` into your `include` folder.  
 3. Copy, paste, and replace the downloaded `makefile` into the root directory of your project.
     <details>
-        <summary>Manual</summary>
+    <summary>Manual</summary>
 
-        KOWGUI has many layers of subfolders which aren't built by default. Add these lines after the section repeating variants of `SRC_C += $(wildcard src/*/*.cpp)`:
-        ```
-        SRC_C += $(wildcard src/*/*/*.cpp)
-        SRC_C += $(wildcard src/*/*/*.c)
-        SRC_C += $(wildcard src/*/*/*/*.cpp) 
-        SRC_C += $(wildcard src/*/*/*/*.c)```
+    > KOWGUI has many layers of subfolders which aren't built 
+    > by default. Add these lines after the section repeating 
+    > variants of `SRC_C += $(wildcard src/*/*.cpp)`:
+    > ```makefile
+    > SRC_C += $(wildcard src/*/*/*.cpp)
+    > SRC_C += $(wildcard src/*/*/*.c)
+    > SRC_C += $(wildcard src/*/*/*/*.cpp) 
+    > SRC_C += $(wildcard src/*/*/*/*.c)
+    > ```
+
     </details>
 4. Copy, paste, and replace the downloaded `vex/mkenv.mk` into the `vex` folder of your project.
     <details>
-        <summary>Manual</summary>
+    <summary>Manual</summary>
 
-        KOWGUI uses `dynamic_cast`. This needs to be enabled by replacing the `-fno-rtti` compiler flag with `-frtti` inside `vex/mkenv.mk`, likely on line 95. 
+    > KOWGUI uses `dynamic_cast`. This needs to be enabled by 
+    > replacing the `-fno-rtti` compiler flag with `-frtti` inside 
+    > `vex/mkenv.mk`, likely on line 95. 
+    
     </details>
 5. Start using KOWGUI by including the `KOWGUI/kowgui.h` header in any GUI-related files, creating a global instance of a `KOWGUI::GUI` object, then calling `GUI::Tick()` in a loop of your choice.
 
