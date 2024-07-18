@@ -111,11 +111,11 @@ void InitGUIExampleButton() {
 The only rules for layout is that nodes must have their memory 
 allocated with the `new` keyword, and nodes must be eventually 
 connected to the root node for processing or be removed with 
-the `delete` keyword.
-
-Using `delete` on an already rooted node can potentially throw 
-a wrench into frame processing. To safely delete a node that 
-has already been rooted, call its `ScheduleDeletion()` function.
+the `delete` keyword*. <br>
+<sup><sub>* Using `delete` on an already rooted node can potentially 
+throw a wrench into frame processing. To safely delete a node 
+that has already been rooted, call its `ScheduleDeletion()` 
+function.</sub></sup>
 
 ## Contributing
 
