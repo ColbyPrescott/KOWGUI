@@ -250,5 +250,11 @@ BaseNode* BaseNode::FindShallowID(std::string shallowID) {
 
 // Schedule this node to be safely deleted at the start of the next tick
 void BaseNode::ScheduleDeletion() {
+    // Throw warning if unrooted. This node is not being processed and therefore will never be deleted at the start of the next tick. This function will fail and leak memory instead of freeing it
+    if(!GetRooted()) {
+        std::cerr << "KOWGUI: Calling ScheduleDeletion() on an unrooted node. Use the delete keyword instead" << std::endl;
+        vex::this_thread::sleep_for(5);
+    }
+    // Flag this node to be deleted
     mDeletionScheduled = true;
 }

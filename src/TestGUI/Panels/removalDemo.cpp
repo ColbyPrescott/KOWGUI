@@ -37,6 +37,7 @@ void InitGUIRemovalDemo() {
         }),
 
         // Button to delete the mosaic
+        // This really only works because the mosaic is defined BEFORE the remove button. Still relatively unsafe to use a raw delete keyword
         (new Clickable)->SetPosition(30, 30)->SetSize(100, 50)->SetRelease(DeleteRemovalTestA)->AddChildren({
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
