@@ -1,6 +1,7 @@
 #ifndef KOWGUI_GRAPH_PREFAB_H
 #define KOWGUI_GRAPH_PREFAB_H
 
+#include "KOWGUI/BaseNodes/baseNode.h"
 #include "KOWGUI/Nodes/Basic/group.h"
 
 #include <memory>
@@ -20,6 +21,8 @@ namespace KOWGUI {
             // overwrite,
 
         };
+
+        void SetTextToDataPoint(BaseNode* thisNode);
 
         Group* CreateGraph(std::shared_ptr<std::vector<double>> dataVector, Fit fit = Fit::scale); // TO DO Line and dot templates
         // Group* CreateGraph(Fit fit = Fit::scale); // TO DO

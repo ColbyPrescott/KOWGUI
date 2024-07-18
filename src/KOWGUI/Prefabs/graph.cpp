@@ -6,6 +6,21 @@
 
 using namespace KOWGUI;
 
+// Set a Text node to show the coordinate of the graph point it is a child of
+void Graph::SetTextToDataPoint(BaseNode* thisNode) {
+    // Climb parent tree until the graphLine is reached
+    // TO DO Once created, replace this with FindParentShallowID
+    BaseNode* pCurrentNode = thisNode;
+    while(pCurrentNode->GetShallowID() != "graphLine") pCurrentNode = pCurrentNode->parent;
+
+    // Get data from the line
+    Data* pDataNode = (Data*)pCurrentNode->FindShallowID("vectorPositionData");
+    int vectorPositionX = *(int*)pDataNode->GetProperty("vectorPositionX").get();
+    double vectorPositionY = *(double*)pDataNode->GetProperty("vectorPositionY").get();
+
+    ((Text*)thisNode)->SetText("(%d, %.1f)", vectorPositionX, vectorPositionY);
+}
+
 namespace {
 
     // Update nodes inside a graph in a way that scales everything to fit the graph area
@@ -32,6 +47,10 @@ namespace {
             // Y coordinate calculated like (num - min1) / (max1 - min1) * (max2 - min2) + min2. Maps number from one range to another
             pCurrentLine->SetY1((currentValue - dataMinValue) / (dataMaxValue - dataMinValue) * (-graphHeight) + graphHeight);
             pCurrentLine->SetY2((nextValue - dataMinValue) / (dataMaxValue - dataMinValue) * (-graphHeight) + graphHeight);
+
+            // Give line its own position data
+            *(int*)((Data*)pCurrentLine->FindShallowID("vectorPositionData"))->GetProperty("vectorPositionX").get() = i;
+            *(double*)((Data*)pCurrentLine->FindShallowID("vectorPositionData"))->GetProperty("vectorPositionY").get() = currentValue;
         }
 
         // The last Line node does not have a next data point to connect to. Set it separately
@@ -40,6 +59,8 @@ namespace {
         pLastLine->SetX2(graphWidth);
         pLastLine->SetY1((rDataVector.back() - dataMinValue) / (dataMaxValue - dataMinValue) * (-graphHeight) + graphHeight);
         pLastLine->SetY2((rDataVector.back() - dataMinValue) / (dataMaxValue - dataMinValue) * (-graphHeight) + graphHeight);
+        *(int*)((Data*)pLastLine->FindShallowID("vectorPositionData"))->GetProperty("vectorPositionX").get() = pLineContainer->children.size() - 1;
+        *(double*)((Data*)pLastLine->FindShallowID("vectorPositionData"))->GetProperty("vectorPositionY").get() = rDataVector.back();
     }
 
     // Update nodes inside the graph to represent the data
@@ -56,20 +77,28 @@ namespace {
         int numDataNodeDifference = dataVector.size() - pLineContainer->children.size();
 
         // Create more Line nodes if there's more data than lines
+        int dotWidth = 6;
+        int labelButtonWidth = 15;
         for(int i = 0; i < numDataNodeDifference; i++) {
             pLineContainer->AddChild(
-                (new Line)->SetColor(Color::white)->SetLineWidth(1)->AddChildren({
-                    (new Circle)->SetCentered(true)->SetWidth(6)->SetFillColor(Color::white)->AddChildren({
-                        // TO DO Experimental labels on graph points
-                        // (new Toggleable)->SetPosition(-5, -5)->SetSize(10, 10)->AddChildren({
-                        //     (new Activated)->AddChildren({
-                        //         (new Rectangle)->SetX(10)->SetSize(70, 20)->SetFillColor(Color::gray)->AddChildren({
-                        //             (new Text)->SetText("(x, y)")->SetFontSize(18)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::visible),
-                        //         }),
+                (new Line)->SetShallowID("graphLine")->SetColor(Color::white)->SetLineWidth(1)->AddChildren({ // TO DO Set shallowID automatically once replaced with changable template
+                    // Data for updating the label text
+                    (new Data)->SetShallowID("vectorPositionData")->SetProperty("vectorPositionX", std::make_shared<int>())->SetProperty("vectorPositionY", std::make_shared<double>()), // TO DO Also add this automatically
+                    // Dot
+                    (new Circle)->SetCentered(true)->SetWidth(dotWidth)->SetFillColor(Color::white)->AddChildren({
+                        // Toggleable label
+                        (new Toggleable)->SetPosition(-labelButtonWidth / 2, -labelButtonWidth / 2)->SetSize(labelButtonWidth, labelButtonWidth)->AddChildren({
+                            (new Activated)->AddChildren({
+                                // Background
+                                (new Rectangle)->SetX(labelButtonWidth)->SetWidth(70)->SetFillColor(Color::gray)->AddChildren({
+                                    // Label text
+                                    (new Text)->SetText("(x, y)")->SetFontSize(12)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::visible)->SetPreTick(Graph::SetTextToDataPoint),
+                                }),
 
-                        //         (new Rectangle)->SetFillColor(Color::red),
-                        //     }),
-                        // }),
+                                // Visible part of close button
+                                (new Rectangle)->SetFillColor(Color::red),
+                            }),
+                        }),
                     }),
                 })
             );
