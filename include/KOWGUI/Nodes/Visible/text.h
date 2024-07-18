@@ -79,7 +79,7 @@ namespace KOWGUI {
             }
         };
 
-        static font optimizedSmall = {
+        static font pixelated = {
             vex::fontType::cjk16, // vexFont
             17, // height
             {
