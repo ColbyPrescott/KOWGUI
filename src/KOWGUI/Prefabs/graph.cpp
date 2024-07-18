@@ -92,7 +92,7 @@ namespace {
                                 // Background
                                 (new Rectangle)->SetX(labelButtonWidth)->SetWidth(70)->SetFillColor(Color::gray)->AddChildren({
                                     // Label text
-                                    (new Text)->SetText("(x, y)")->SetFontSize(12)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::visible)->SetPreTick(Graph::SetTextToDataPoint),
+                                    (new Text)->SetText("(x, y)")->SetFontSize(12)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetOverflow(Text::Overflow::visible)->SetPreTick(Graph::SetTextToDataPoint),
                                 }),
 
                                 // Visible part of close button

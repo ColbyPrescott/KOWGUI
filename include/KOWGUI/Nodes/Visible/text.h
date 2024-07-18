@@ -11,96 +11,53 @@
 
 namespace KOWGUI {
 
-    // TO DO Move this stuff into a separate file. The Text node should be in this file alone
-
-    enum class HorizontalAlign {
-        left,
-        center,
-        right
-    };
-
-    enum class VerticalAlign {
-        top,
-        middle,
-        bottom
-    };
-
-    enum class FontAlign {
-        top,
-        ascender,
-        middle,
-        baseline,
-        descender,
-        bottom
-    };
-
-    enum class Overflow {
-        visible, // Simply let the overflowing text print outside the node
-        hidden, // Overflowing text just gets cut off
-        scroll, // Slowly move the text to the left
-        wrap, // New line when width gets filled
-        wrapScale // Decrement font size until text fits within width and height
-    };
-
-    struct font {
-        vex::fontType vexFont;
-        int height;
-        int fontAlignmentHeights[6];
-    };
-
-    namespace Fonts {
-        // TO DO Label these fonts with their actual names? Monospace and proportional 
-        // are font TYPES, and cjk16 is... uh... how is such a small font supposed to display
-        // the detail required for Chinese, Japanese, or Korean languages? What am I missing here?
-
-        static font monospace = {
-            vex::fontType::mono60, // vexFont
-            49, // height
-            {
-                -48, // top
-                -37, // ascender
-                -13, // middle
-                0, // baseline
-                12, // descender
-                12, // bottom
-            }
-        };
-
-        static font proportional = {
-            vex::fontType::prop60, // vexFont
-            54, // height
-            {
-                -57, // top
-                -41, // ascender
-                -15, // middle
-                0, // baseline
-                13, // descender
-                33, // bottom
-            }
-        };
-
-        static font pixelated = {
-            vex::fontType::cjk16, // vexFont
-            17, // height
-            {
-                -17, // top
-                -13, // ascender
-                -5, // middle
-                0, // baseline
-                4, // descender
-                10, // bottom
-            }
-        };
-
-    }
-
     class Text : public VisibleBaseNode {
+        public:
+            enum class HorizontalAlign {
+                left, // Align the left edge of the text to the left edge of the node
+                center, // Align the center of the text to the center of the node
+                right // Align the right edge of the text to the right edge of the node
+            };
+
+            enum class VerticalAlign {
+                top, // Align the text's Y coordinate of 0 to the top of the node
+                middle, // Align the text's Y coordinate of 0 to the middle of the node
+                bottom // Align the text's Y coordinate of 0 to the bottom of the node
+            };
+
+            enum class FontAlign {
+                top, // Align the text's Y coordinate to the very top of the font
+                ascender, // Align the text's Y coordinate to the top of the letter 'h'. Useful when placing text at the top of the node
+                middle, // Align the text's Y coordinate to the middle of the letter 'x'. Useful when placing text in the middle of the node
+                baseline, // Align the text's Y coordinate to the bottom of the letter 'h'. Useful when placing text on a line
+                descender, // Align the text's Y coordinate to the bottom of the letter 'g'. Useful when placing text at the bottom of the node
+                bottom // Align the text's Y coordinate to the very bottom of the font
+            };
+
+            enum class Overflow {
+                visible, // Simply let the overflowing text print outside the node
+                hidden, // Overflowing text just gets cut off
+                scroll, // Slowly move the text to the left
+                wrap, // New line when width gets filled
+                wrapScale // Decrement font size until text fits within width and height
+            };
+
+            struct Font {
+                vex::fontType vexFont;
+                int height;
+                int fontAlignmentHeights[6];
+            };
+            
+            static const Font fontMonospace;
+            static const Font fontProportional;
+            static const Font fontPixelated;
+
         private:
             // Text that will be displayed
             std::string mText = "";
 
             // Font to use
-            font* mpFont = &Fonts::proportional;
+            const Font* mpFont = &fontProportional;
             // How big the text is, measured as the height in pixels from ascender to descender
             int mFontSize = 30;
             // Color of the text
@@ -154,7 +111,7 @@ namespace KOWGUI {
             Text* AddChildren(std::vector<BaseNode*> newChildren) {BaseNode::AddChildren(newChildren); return this;}
 
             Text* SetText(std::string text);
-            Text* SetFont(font& fontName); // TO DO Should this take a pointer instead of a reference to match everything else?
+            Text* SetFont(const Font& fontName);
             Text* SetFontSize(int fontSize);
             Text* SetColor(std::shared_ptr<Color> color);
             Text* SetHorizontalAlign(HorizontalAlign horizontalAlign);

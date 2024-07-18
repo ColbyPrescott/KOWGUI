@@ -157,7 +157,7 @@ namespace {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
 
-            (new Text)->SetPosition(1, 2)->SetText("%d", keyDigit)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
+            (new Text)->SetPosition(1, 2)->SetText("%d", keyDigit)->SetFont(Text::fontMonospace)->SetFontSize(25)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetColor(highlightColor),
 
             (new Data)->SetShallowID("data")->SetProperty("keyDigit", std::make_shared<int>(keyDigit)),
         });
@@ -169,7 +169,7 @@ namespace {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
 
-            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor)->SetOverflow(Overflow::wrap)->SetWrapLineSpacing(0.4),
+            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Text::fontMonospace)->SetFontSize(25)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetColor(highlightColor)->SetOverflow(Text::Overflow::wrap)->SetWrapLineSpacing(0.4),
         });
     }
 
@@ -206,7 +206,7 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
             (new Rectangle)->SetFillColor(windowBarColor)->SetOutlineColor(highlightColor),
 
             // Window bar text
-            (new Text)->SetText("Numpad")->SetFontSize(windowBarHeight - 4)->SetAlignments(HorizontalAlign::left, VerticalAlign::middle)->SetOverflow(Overflow::hidden),
+            (new Text)->SetText("Numpad")->SetFontSize(windowBarHeight - 4)->SetAlignments(Text::HorizontalAlign::left, Text::VerticalAlign::middle)->SetOverflow(Text::Overflow::hidden),
 
             // Close button
             (new Clickable)->SetShallowID("closeButton")->SetPosition(width - windowBarHeight, 0)->SetSize(windowBarHeight, windowBarHeight)->SetRelease(CloseNumpad)->AddChildren({
@@ -225,7 +225,7 @@ Group* Keyboard::CreateNumpad(int x, int y, int width, int height, bool movable,
                 // Numpad grid layout
                 (new Column)->SetScaleToFit(true)->AddChildren({
                     (new Rectangle)->SetFillColor(Color::black)->SetOutlineColor(highlightColor)->AddChildren({
-                        (new Text)->SetText("418")->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::wrapScale)->SetPreTick(UpdateTypingTextNode),
+                        (new Text)->SetText("418")->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetOverflow(Text::Overflow::wrapScale)->SetPreTick(UpdateTypingTextNode),
                     }),
                     (new Row)->SetScaleToFit(true)->AddChildren({
                         CreateDigitKey(7),

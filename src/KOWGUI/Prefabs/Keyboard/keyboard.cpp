@@ -250,7 +250,7 @@ namespace {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
 
-            (new Text)->SetPosition(1, 2)->SetText("%c", keyCharacter)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
+            (new Text)->SetPosition(1, 2)->SetText("%c", keyCharacter)->SetFont(Text::fontMonospace)->SetFontSize(25)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetColor(highlightColor),
 
             (new Data)->SetShallowID("data")->SetProperty("keyCharacter", std::make_shared<char>(keyCharacter)),
         });
@@ -268,7 +268,7 @@ namespace {
                 (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
             }),
 
-            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
+            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Text::fontMonospace)->SetFontSize(25)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetColor(highlightColor),
         });
     }
 
@@ -279,7 +279,7 @@ namespace {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(buttonNFocusedColor)->SetOutlineColor(highlightColor)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(buttonFocusedColor)->SetOutlineColor(highlightColor)}),
 
-            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Fonts::monospace)->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetColor(highlightColor),
+            (new Text)->SetPosition(1, 2)->SetText(text)->SetFont(Text::fontMonospace)->SetFontSize(25)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetColor(highlightColor),
         });
 
         // If they special key just needs different data than text being displayed, add in the standard key functionality
@@ -314,7 +314,7 @@ Group* Keyboard::CreateKeyboard(std::shared_ptr<Color> customBackgroundColor, st
 
         // Typing text
         (new Rectangle)->SetPosition(typingAreaMargin, typingAreaMargin)->SetSize(screenWidth - closeButtonSize - typingAreaMargin * 2, screenHeight - keySize * 4 - typingAreaMargin * 2)->SetFillColor(Color::black)->SetOutlineColor(highlightColor)->AddChildren({
-            (new Text)->SetText("Error, someting went tewwibwy wong, sowwy! <:3")->SetFont(Fonts::monospace)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::wrapScale)->SetWrapLineSpacing(1.1)->SetPreTick(UpdateTypingTextNode),
+            (new Text)->SetText("Error, someting went tewwibwy wong, sowwy! <:3")->SetFont(Text::fontMonospace)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetOverflow(Text::Overflow::wrapScale)->SetWrapLineSpacing(1.1)->SetPreTick(UpdateTypingTextNode),
         }),
 
         // Close button
@@ -361,7 +361,7 @@ Group* Keyboard::CreateKeyboard(std::shared_ptr<Color> customBackgroundColor, st
                 CreateKey('B'),
                 CreateKey('N'),
                 CreateKey('M'),
-                (new Text)->SetSize(screenWidth - keySize * 7.666, keySize)->SetText("USB disconnected")->SetFontSize(12)->SetColor(highlightColor)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateSerialConnectionTextNode),
+                (new Text)->SetSize(screenWidth - keySize * 7.666, keySize)->SetText("USB disconnected")->SetFontSize(12)->SetColor(highlightColor)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetPreTick(UpdateSerialConnectionTextNode),
             }),
             (new Row)->AddChildren({
                 CreateToggleKey("Shift")->SetShallowID("shiftKey")->SetWidth(keySize * (2 + 2.0 / 3.0)),

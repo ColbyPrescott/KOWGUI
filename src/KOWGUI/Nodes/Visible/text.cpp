@@ -6,14 +6,56 @@
 
 using namespace KOWGUI;
 
+// Font in which every character is the same width. Based off of vex::fontType::mono60
+const Text::Font Text::fontMonospace = {
+    vex::fontType::mono60, // vexFont
+    49, // height
+    {
+        -48, // top
+        -37, // ascender
+        -13, // middle
+        0, // baseline
+        12, // descender
+        12, // bottom
+    }
+};
+
+// Font in which characters are placed as close together as possible. Based off of vex::fontType::prop60
+const Text::Font Text::fontProportional = {
+    vex::fontType::prop60, // vexFont
+    54, // height
+    {
+        -57, // top
+        -41, // ascender
+        -15, // middle
+        0, // baseline
+        13, // descender
+        33, // bottom
+    }
+};
+
+// Text::fontProportional, but at a much lower quality. Based off of vex::fontType::cjk16
+const Text::Font Text::fontPixelated = {
+    vex::fontType::cjk16, // vexFont
+    17, // height
+    {
+        -17, // top
+        -13, // ascender
+        -5, // middle
+        0, // baseline
+        4, // descender
+        10, // bottom
+    }
+};
+
 // Set the text to display
 Text* Text::SetText(std::string text) {
     mText = text;
     return this;
 }
 
-// Set the font that should be used. Pick from the KOWGUI::Fonts namespace
-Text* Text::SetFont(font& fontName) {
+// Set the font that should be used. Pick from KOWGUI::Text::fontMonospace, fontProportional, or fontPixelated
+Text* Text::SetFont(const Font& fontName) {
     mpFont = &fontName;
     return this;
 }

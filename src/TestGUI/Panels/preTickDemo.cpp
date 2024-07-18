@@ -12,6 +12,6 @@ void InitGUIPreTickDemo() {
     };
 
     panels.preTickDemo->AddChildren({
-        (new Text)->SetText("This node is animated!")->SetFontAlign(FontAlign::ascender)->SetPreTick(hoverAnimation)
+        (new Text)->SetText("This node is animated!")->SetFontAlign(Text::FontAlign::ascender)->SetPreTick(hoverAnimation)
     });
 }

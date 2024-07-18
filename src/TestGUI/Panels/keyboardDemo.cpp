@@ -52,7 +52,7 @@ void InitGUIKeyboardDemo() {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
 
-            (new Text)->SetText("Open Direct")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
+            (new Text)->SetText("Open Direct")->SetFontSize(16)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle),
         }),
         (new Rectangle)->SetPosition(150, 30)->SetSize(150, 60)->SetFillColor(Color::gray)->AddChildren({
             (new Text)->SetFontSize(12)->SetPreTick(UpdateStringText),
@@ -63,7 +63,7 @@ void InitGUIKeyboardDemo() {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
 
-            (new Text)->SetText("Open With Func")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
+            (new Text)->SetText("Open With Func")->SetFontSize(16)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle),
         }),
         (new Rectangle)->SetPosition(150, 100)->SetSize(150, 60)->SetFillColor(Color::gray)->AddChildren({
             (new Text)->SetShallowID("indirectText")->SetText("Edit this Text node by getting and setting the content")->SetFontSize(12),
@@ -74,10 +74,10 @@ void InitGUIKeyboardDemo() {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
 
-            (new Text)->SetText("418")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateIntegerText),
+            (new Text)->SetText("418")->SetFontSize(16)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetPreTick(UpdateIntegerText),
 
             // Live update info text
-            (new Text)->SetY(14)->SetText("Live Update")->SetFontSize(12)->SetAlignments(HorizontalAlign::center, VerticalAlign::bottom),
+            (new Text)->SetY(14)->SetText("Live Update")->SetFontSize(12)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::bottom),
 
             (new Data)->SetShallowID("integerDemoData")->SetProperty("number", std::make_shared<int>(1810)),
         }),
@@ -87,7 +87,7 @@ void InitGUIKeyboardDemo() {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
 
-            (new Text)->SetText("418")->SetFontSize(16)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetPreTick(UpdateDecimalText),
+            (new Text)->SetText("418")->SetFontSize(16)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetPreTick(UpdateDecimalText),
 
             (new Data)->SetShallowID("decimalDemoData")->SetProperty("number", std::make_shared<double>(3.14159265)),
         }),

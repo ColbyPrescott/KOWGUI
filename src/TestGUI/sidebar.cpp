@@ -27,7 +27,7 @@ void CreateSidebarButton(Group* panel, std::string text, int height) {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
 
-            (new Text)->SetPosition(0, height / 2)->SetText(text)->SetFont(Fonts::proportional)->SetFontSize(12)->SetColor(theme.lightText)->SetFontAlign(FontAlign::middle)->SetHorizontalAlign(HorizontalAlign::center)->SetOverflow(Overflow::wrap)->SetWrapLineSpacing(1.1)
+            (new Text)->SetPosition(0, height / 2)->SetText(text)->SetFont(Text::fontProportional)->SetFontSize(12)->SetColor(theme.lightText)->SetFontAlign(Text::FontAlign::middle)->SetHorizontalAlign(Text::HorizontalAlign::center)->SetOverflow(Text::Overflow::wrap)->SetWrapLineSpacing(1.1)
         })
     );
 
@@ -47,7 +47,7 @@ void CreateSidebarLabel(std::string text, int height) {
     // Add a new node to the draggable node, positioned at it's height
     sidebarDraggable->AddChild(
         (new Group)->SetPosition(-sidebarWidth + sidebarScrollbarWidth, sidebarDraggable->GetHeight())->SetSize(sidebarWidth - sidebarScrollbarWidth, height)->AddChildren({
-            (new Text)->SetY(-10)->SetText(text)->SetFont(Fonts::proportional)->SetFontSize(12)->SetColor(theme.lightText)->SetAlignments(HorizontalAlign::center, VerticalAlign::bottom)->SetOverflow(Overflow::wrap)->SetWrapLineSpacing(1.1),
+            (new Text)->SetY(-10)->SetText(text)->SetFont(Text::fontProportional)->SetFontSize(12)->SetColor(theme.lightText)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::bottom)->SetOverflow(Text::Overflow::wrap)->SetWrapLineSpacing(1.1),
             (new Line)->SetPositions(5, height - 5, sidebarWidth - sidebarScrollbarWidth - 5, height - 5)->SetColor(theme.lightText),
         })
     );

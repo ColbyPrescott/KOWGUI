@@ -40,7 +40,7 @@ void InitGUILineDemo() {
         (new Clickable)->SetPosition(0, 0)->SetSize(30, 30)->SetRelease(AddRandomLine)->AddChildren({
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
-            (new Text)->SetPosition(8, 2)->SetText("?")->SetFontAlign(FontAlign::ascender),
+            (new Text)->SetPosition(8, 2)->SetText("?")->SetFontAlign(Text::FontAlign::ascender),
         }),
     });
 }

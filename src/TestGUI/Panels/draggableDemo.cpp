@@ -47,13 +47,13 @@ using namespace DraggableDemo;
 void InitGUIDraggableDemo() {
     panels.draggableDemo->AddChildren({
         // Function log
-        (new Text)->SetShallowID("stateText")->SetPosition(140, 10)->SetSize(480 - sidebarWidth - 140 - 10, 130)->SetText("State")->SetFontSize(20)->SetAlignments(HorizontalAlign::left, VerticalAlign::top, FontAlign::ascender)->SetOverflow(Overflow::wrap)->SetWrapLineSpacing(1.8)->AddChildren({
+        (new Text)->SetShallowID("stateText")->SetPosition(140, 10)->SetSize(480 - sidebarWidth - 140 - 10, 130)->SetText("State")->SetFontSize(20)->SetAlignments(Text::HorizontalAlign::left, Text::VerticalAlign::top, Text::FontAlign::ascender)->SetOverflow(Text::Overflow::wrap)->SetWrapLineSpacing(1.8)->AddChildren({
             (new Rectangle)->SetY(130)->SetFillColor(Color::black),
             (new Line)->SetY1(140)->SetY2(140)->SetColor(Color::white)->SetLineWidth(2),
         }),
 
         // Percent value info
-        (new Text)->SetShallowID("valueText")->SetPosition(140, 170)->SetText("Value X: xxx%\nValue Y: xxx%")->SetFontSize(20)->SetAlignments(HorizontalAlign::left, VerticalAlign::top, FontAlign::ascender)->SetPreTick(UpdatePercentValues),
+        (new Text)->SetShallowID("valueText")->SetPosition(140, 170)->SetText("Value X: xxx%\nValue Y: xxx%")->SetFontSize(20)->SetAlignments(Text::HorizontalAlign::left, Text::VerticalAlign::top, Text::FontAlign::ascender)->SetPreTick(UpdatePercentValues),
 
         // Highlight for the draggable range
         (new Rectangle)->SetPosition(10, 10)->SetSize(120, 220)->SetOutlineColor(Color::white)->SetOutlineWidth(2),
@@ -61,18 +61,18 @@ void InitGUIDraggableDemo() {
         // Demo draggable
         (new Draggable)->SetShallowID("demoDraggable")->SetPosition(30, 30)->SetSize(80, 80)->SetRange(10, 10, 130, 230)->SetPress(DemoPressed)->SetRelease(DemoReleased)->SetFocus(DemoFocused)->SetUnfocus(DemoUnfocused)->AddChildren({
             (new Rectangle)->SetFillColor(Color::gray)->SetOutlineColor(Color::white),
-            (new Text)->SetText("Drag")->SetFontSize(20)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),
+            (new Text)->SetText("Drag")->SetFontSize(20)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle, Text::FontAlign::middle),
         }),
 
         // Info help button
         (new Clickable)->SetPosition(50, 160)->SetSize(40, 40)->AddChildren({
             (new NSelected)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Selected)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
-            (new Text)->SetPosition(1, 2)->SetText("?")->SetFontSize(25)->SetAlignments(HorizontalAlign::center, VerticalAlign::middle, FontAlign::middle),
+            (new Text)->SetPosition(1, 2)->SetText("?")->SetFontSize(25)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle, Text::FontAlign::middle),
             
             (new Selected)->SetPosition(-50, -160)->SetSize(480 - sidebarWidth, 140)->AddChildren({
                 (new Rectangle)->SetFillColor(Color::gray),
-                (new Text)->SetText("Same features as the Clickable node with some additions:\n\n- Draggables will automatically follow continuous user input while selected.\n- Draggables will try to move even while not focused.\n- Position can be constrained with minimum and maximum X and Y coordinates. Minimum for top / left edge, maximum for bottom / right edge.\n- When a X or Y range is defined, position can be retrieved as a percentage.\n\nTouchscreen input is slow to respond. Dragging slowly works better.")->SetFontSize(10)->SetFontAlign(FontAlign::ascender),
+                (new Text)->SetText("Same features as the Clickable node with some additions:\n\n- Draggables will automatically follow continuous user input while selected.\n- Draggables will try to move even while not focused.\n- Position can be constrained with minimum and maximum X and Y coordinates. Minimum for top / left edge, maximum for bottom / right edge.\n- When a X or Y range is defined, position can be retrieved as a percentage.\n\nTouchscreen input is slow to respond. Dragging slowly works better.")->SetFontSize(10)->SetFontAlign(Text::FontAlign::ascender),
             }),
         }),
     });

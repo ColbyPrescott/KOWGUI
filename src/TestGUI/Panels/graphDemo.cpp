@@ -33,7 +33,7 @@ void InitGUIGraphDemo() {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
 
-            (new Text)->SetPosition(1, 2)->SetText("+")->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
+            (new Text)->SetPosition(1, 2)->SetText("+")->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle),
         }),
 
         // Remove data point button
@@ -41,7 +41,7 @@ void InitGUIGraphDemo() {
             (new NFocused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonNFocused)}),
             (new Focused)->AddChildren({(new Rectangle)->SetFillColor(theme.buttonFocused)}),
 
-            (new Text)->SetText("-")->SetAlignments(HorizontalAlign::center, VerticalAlign::middle),
+            (new Text)->SetText("-")->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle),
         }),
     });
 }
