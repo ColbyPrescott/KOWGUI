@@ -113,3 +113,19 @@ the `delete` keyword.
 Using `delete` on an already rooted node can potentially throw 
 a wrench into frame processing. To safely delete a node that 
 has already been rooted, call its `ScheduleDeletion()` function.
+
+## Contributing
+
+Currently, KOWGUI is a passion project that I enjoy working 
+on by myself. I am also unsure how contributions in GitHub 
+work. If you think of a feature or change you'd like, create 
+a new issue and, so long as it's reasonable, I will do my best 
+to implement it. Feel free to modify the source code for your 
+own projects and fork this repository, but I can not guarantee 
+that I will add any of your own changes.
+
+This status is not permanent. It may change as I become busy 
+with different projects, lose interest, or perhaps when I graduate 
+from high school and lose access to the VEX V5 Robot Brain 
+needed to continue development. For now, however, I enjoy being 
+a solo developer!
