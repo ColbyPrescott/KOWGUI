@@ -4,11 +4,14 @@
 
 # KOWGUI
 
-KOWGUI is a simple yet powerful Graphical User Interface library 
-for the VEX V5 API. It uses basic nodes to create complex systems 
-like Godot, and can arrange code in a compact manner like HTML.
+Knock On Wood Graphical User Interface (pronounced "cow gooey") 
+is a simple yet powerful graphics library for the VEX V5 API. 
+It uses basic nodes to create complex systems like Godot, and 
+can arrange code in a compact manner like HTML.
 
-Out-of-the-box systems range from as simplistic and customizable as rectangles and click detectors to as complicated as a terminal-integrated keyboard and graphs!
+Out-of-the-box systems range from as simplistic and customizable 
+as rectangles and click detectors to as complicated as a terminal-integrated 
+keyboard and graphs!
 
 ## Documentation
 
