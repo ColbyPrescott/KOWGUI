@@ -3,10 +3,6 @@ Remaining TO DO for version 1.0:
 - Documentation
 
 Node types:
-- Rounded rectangle
-  - Width, height, border radius
-  - Drawn with a circle in each corner, then a horizontal and vertical rectangle over the center
-  - For outline, show it on circles and draw lines on outside edges of rectangles
 - Toggleable
   - If supplied an id or something, toggles could store their state on SD card
 - Video / animation

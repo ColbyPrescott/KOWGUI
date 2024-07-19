@@ -117,6 +117,8 @@ throw a wrench into frame processing. To safely delete a node
 that has already been rooted, call its `ScheduleDeletion()` 
 function.</sub></sup>
 
+[comment]: # (TO DO Show example with `Rectangle* rect = parentNode->AddChild[new Rectangle];`)
+
 ## Contributing
 
 Currently, KOWGUI is a passion project that I enjoy working 

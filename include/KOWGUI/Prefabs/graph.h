@@ -3,6 +3,7 @@
 
 #include "KOWGUI/BaseNodes/baseNode.h"
 #include "KOWGUI/Nodes/Basic/group.h"
+#include "KOWGUI/Nodes/Visible/line.h"
 
 #include <memory>
 #include <vector>
@@ -23,6 +24,7 @@ namespace KOWGUI {
         };
 
         void SetTextToDataPoint(BaseNode* thisNode);
+        Line* CreateDefaultGraphLine();
 
         Group* CreateGraph(std::shared_ptr<std::vector<double>> dataVector, Fit fit = Fit::scale); // TO DO Line and dot templates
         // Group* CreateGraph(Fit fit = Fit::scale); // TO DO

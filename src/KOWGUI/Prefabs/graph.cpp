@@ -21,6 +21,31 @@ void Graph::SetTextToDataPoint(BaseNode* thisNode) {
     ((Text*)thisNode)->SetText("(%d, %.1f)", vectorPositionX, vectorPositionY);
 }
 
+// Create a new white Line with a dot and label attatched as well
+Line* Graph::CreateDefaultGraphLine() {
+    const int dotWidth = 6;
+    const int labelButtonWidth = 15;
+    
+    return (new Line)->SetColor(Color::white)->SetLineWidth(1)->AddChildren({
+        // Dot
+        (new Circle)->SetCentered(true)->SetWidth(dotWidth)->SetFillColor(Color::white)->AddChildren({
+            // Toggleable label
+            (new Toggleable)->SetPosition(-labelButtonWidth / 2, -labelButtonWidth / 2)->SetSize(labelButtonWidth, labelButtonWidth)->AddChildren({
+                (new Activated)->AddChildren({
+                    // Background
+                    (new Rectangle)->SetX(labelButtonWidth)->SetWidth(70)->SetFillColor(Color::gray)->AddChildren({
+                        // Label text
+                        (new Text)->SetText("(x, y)")->SetFontSize(12)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetOverflow(Text::Overflow::visible)->SetPreTick(Graph::SetTextToDataPoint),
+                    }),
+
+                    // Visible part of close button
+                    (new Rectangle)->SetFillColor(Color::red),
+                }),
+            }),
+        }),
+    });
+}
+
 namespace {
 
     // Update nodes inside a graph in a way that scales everything to fit the graph area
@@ -77,31 +102,17 @@ namespace {
         int numDataNodeDifference = dataVector.size() - pLineContainer->children.size();
 
         // Create more Line nodes if there's more data than lines
-        int dotWidth = 6;
-        int labelButtonWidth = 15;
         for(int i = 0; i < numDataNodeDifference; i++) {
-            pLineContainer->AddChild(
-                (new Line)->SetShallowID("graphLine")->SetColor(Color::white)->SetLineWidth(1)->AddChildren({ // TO DO Set shallowID automatically once replaced with changable template
-                    // Data for updating the label text
-                    (new Data)->SetShallowID("vectorPositionData")->SetProperty("vectorPositionX", std::make_shared<int>())->SetProperty("vectorPositionY", std::make_shared<double>()), // TO DO Also add this automatically
-                    // Dot
-                    (new Circle)->SetCentered(true)->SetWidth(dotWidth)->SetFillColor(Color::white)->AddChildren({
-                        // Toggleable label
-                        (new Toggleable)->SetPosition(-labelButtonWidth / 2, -labelButtonWidth / 2)->SetSize(labelButtonWidth, labelButtonWidth)->AddChildren({
-                            (new Activated)->AddChildren({
-                                // Background
-                                (new Rectangle)->SetX(labelButtonWidth)->SetWidth(70)->SetFillColor(Color::gray)->AddChildren({
-                                    // Label text
-                                    (new Text)->SetText("(x, y)")->SetFontSize(12)->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetOverflow(Text::Overflow::visible)->SetPreTick(Graph::SetTextToDataPoint),
-                                }),
+            // Create new line from the template and add it to pLineContainer
+            Line* pNewLine = pLineContainer->AddChild(Graph::CreateDefaultGraphLine());
+            // Give the new line an ID so it can be detected in code
+            pNewLine->SetShallowID("graphLine");
 
-                                // Visible part of close button
-                                (new Rectangle)->SetFillColor(Color::red),
-                            }),
-                        }),
-                    }),
-                })
-            );
+            // Give the new line a Data node for storing original vector information. Useful for updating label text
+            Data* pVectorData = pNewLine->AddChild(new Data);
+            pVectorData->SetShallowID("vectorPositionData");
+            pVectorData->SetProperty("vectorPositionX", std::make_shared<int>());
+            pVectorData->SetProperty("vectorPositionY", std::make_shared<double>());
         }
 
         // Delete Line nodes if there's less data than lines
