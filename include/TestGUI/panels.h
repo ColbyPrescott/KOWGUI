@@ -2,6 +2,7 @@
 #define PANELS_H
 
 void InitGUIRectangleDemo();
+void InitGUIRoundedRectangleDemo();
 void InitGUICircleDemo();
 void InitGUILineDemo();
 void InitGUIImageDemo();

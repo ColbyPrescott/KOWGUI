@@ -15,6 +15,7 @@
 #include "KOWGUI/Nodes/Basic/row.h"
 #include "KOWGUI/Nodes/Basic/column.h"
 #include "KOWGUI/Nodes/Visible/rectangle.h"
+#include "KOWGUI/Nodes/Visible/roundedRectangle.h"
 #include "KOWGUI/Nodes/Visible/circle.h"
 #include "KOWGUI/Nodes/Visible/line.h"
 #include "KOWGUI/Nodes/Visible/text.h"

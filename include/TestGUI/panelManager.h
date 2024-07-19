@@ -7,6 +7,7 @@ extern KOWGUI::GUI gui;
 
 struct Panels {
     KOWGUI::Group* rectangleDemo = new KOWGUI::Group;
+    KOWGUI::Group* roundedRectangleDemo = new KOWGUI::Group;
     KOWGUI::Group* circleDemo = new KOWGUI::Group;
     KOWGUI::Group* lineDemo = new KOWGUI::Group;
     KOWGUI::Group* imageDemo = new KOWGUI::Group;
