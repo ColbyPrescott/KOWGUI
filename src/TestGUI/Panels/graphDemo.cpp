@@ -19,13 +19,17 @@ namespace {
         testVector.erase(testVector.begin() + (rand() % testVector.size()));
     }
 
+    Line* CreateExampleGraphLine() {
+        return (new Line)->SetColor(Color::red);
+    }
+
 }
 
 void InitGUIGraphDemo() {
     panels.graphDemo->AddChildren({
         // Graph
         (new Rectangle)->SetPosition(20, 20)->SetSize(200, 200)->SetOutlineColor(Color::white)->AddChildren({
-            Graph::CreateGraph(pTestVector),
+            Graph::CreateGraph(pTestVector, Graph::Fit::scale, CreateExampleGraphLine),
         }),
 
         // Add data point button

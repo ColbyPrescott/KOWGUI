@@ -3,6 +3,7 @@
 #include "KOWGUI/kowgui.h"
 
 #include <bits/stdc++.h>
+#include <functional>
 
 using namespace KOWGUI;
 
@@ -25,7 +26,7 @@ void Graph::SetTextToDataPoint(BaseNode* thisNode) {
 Line* Graph::CreateDefaultGraphLine() {
     const int dotWidth = 6;
     const int labelButtonWidth = 15;
-    
+
     return (new Line)->SetColor(Color::white)->SetLineWidth(1)->AddChildren({
         // Dot
         (new Circle)->SetCentered(true)->SetWidth(dotWidth)->SetFillColor(Color::white)->AddChildren({
@@ -95,6 +96,7 @@ namespace {
         Group* pLineContainer = (Group*)thisNode->FindShallowID("lineContainer");
         // Get specific variables from the graph prefab
         std::vector<double> dataVector = *(std::vector<double>*)pDataNode->GetProperty("dataVector").get();
+        std::function<Line*(void)> linePrefab = *(std::function<Line*(void)>*)pDataNode->GetProperty("linePrefab").get();
         int graphWidth = thisNode->CalculateWidth();
         int graphHeight = thisNode->CalculateHeight();
 
@@ -104,7 +106,7 @@ namespace {
         // Create more Line nodes if there's more data than lines
         for(int i = 0; i < numDataNodeDifference; i++) {
             // Create new line from the template and add it to pLineContainer
-            Line* pNewLine = pLineContainer->AddChild(Graph::CreateDefaultGraphLine());
+            Line* pNewLine = pLineContainer->AddChild(linePrefab());
             // Give the new line an ID so it can be detected in code
             pNewLine->SetShallowID("graphLine");
 
@@ -124,9 +126,9 @@ namespace {
 
 };
 
-Group* Graph::CreateGraph(std::shared_ptr<std::vector<double>> dataVector, Fit fit) {
+Group* Graph::CreateGraph(std::shared_ptr<std::vector<double>> dataVector, Fit fit, Line* (*linePrefab)(void)) {
     return (new Group)->SetPreTick(UpdateGraph)->AddChildren({
-        (new Data)->SetShallowID("data")->SetProperty("dataVector", dataVector),
+        (new Data)->SetShallowID("data")->SetProperty("dataVector", dataVector)->SetProperty("linePrefab", std::make_shared<std::function<Line*(void)>>(linePrefab)),
         (new Group)->SetShallowID("lineContainer"),
     });
 }

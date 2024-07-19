@@ -26,7 +26,7 @@ namespace KOWGUI {
         void SetTextToDataPoint(BaseNode* thisNode);
         Line* CreateDefaultGraphLine();
 
-        Group* CreateGraph(std::shared_ptr<std::vector<double>> dataVector, Fit fit = Fit::scale); // TO DO Line and dot templates
+        Group* CreateGraph(std::shared_ptr<std::vector<double>> dataVector, Fit fit = Fit::scale, Line* (*linePrefab)(void) = CreateDefaultGraphLine); // TO DO I like this not having "custom" before linePrefab. Do the same with colors on the Keyboard?
         // Group* CreateGraph(Fit fit = Fit::scale); // TO DO
 
     }
