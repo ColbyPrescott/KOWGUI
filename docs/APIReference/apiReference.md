@@ -25,6 +25,7 @@
 - Image
 - Line
 - Rectangle
+- RoundedRectangle
 - Text
 
 ### Interactable
@@ -73,6 +74,7 @@
 - Feedback "N" Prefix 
 - Numpad
 - Rectangle
+- RoundedRectangle
 - Row
 - Selected
 - Text
