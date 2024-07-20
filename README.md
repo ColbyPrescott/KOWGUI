@@ -17,6 +17,7 @@ keyboard and graphs!
 
 - [Installation](./docs/installation.md)
 - [API Reference](./docs/APIReference/apiReference.md)
+- [Known Bugs](./docs/knownBugs.md)
 
 ## Utility examples
 
