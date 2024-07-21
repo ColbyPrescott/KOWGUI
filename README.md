@@ -72,7 +72,7 @@ void InitGUIExampleButton() {
             // Background
             (new Rectangle)->SetFillColor(Color::lime),
             // Description
-            (new Text)->SetText("Click")->SetAlignments(HorizontalAlign::center, VerticalAlign::middle)->SetOverflow(Overflow::wrapScale),
+            (new Text)->SetText("Click")->SetAlignments(Text::HorizontalAlign::center, Text::VerticalAlign::middle)->SetOverflow(Text::Overflow::wrapScale),
         })
     );
 }
@@ -103,9 +103,9 @@ void InitGUIExampleButton() {
     Text* description = new Text;
     button->AddChild(description);
     description->SetText("Click");
-    description->SetHorizontalAlignment(HorizontalAlignment::center);
-    description->SetVerticalAlignment(VerticalAlignment::middle);
-    description->SetOverflow(Overflow::wrapScale);
+    description->SetHorizontalAlignment(Text::HorizontalAlignment::center);
+    description->SetVerticalAlignment(Text::VerticalAlignment::middle);
+    description->SetOverflow(Text::Overflow::wrapScale);
 }
 ```
 
@@ -132,8 +132,8 @@ void InitGUIExampleButton() {
             SetFillColor(Color::lime),
         (new Text)->
             SetText("Click")->
-            SetAlignments(HorizontalAlignment::center, VerticalAlignment::middle),
-            SetOverflow(Overflow::wrapScale),
+            SetAlignments(Text::HorizontalAlignment::center, Text::VerticalAlignment::middle)->
+            SetOverflow(Text::Overflow::wrapScale),
     });
 }
 ```
