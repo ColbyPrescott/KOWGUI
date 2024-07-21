@@ -24,7 +24,7 @@
 - Circle
 - Image
 - Line
-- Rectangle
+- [Rectangle](./Visible/rectangle.md)
 - RoundedRectangle
 - Text
 
