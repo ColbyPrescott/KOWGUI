@@ -8,6 +8,7 @@ node's area.
 
 <br>
 
+<a id="basenode-setx"></a>
 ```C++
 Rectangle* SetX(int x)
 ```
@@ -16,6 +17,7 @@ Default is `0`, same position as the parent node.
 
 <br>
 
+<a id="basenode-sety"></a>
 ```C++
 Rectangle* SetY(int y)
 ```
@@ -24,6 +26,7 @@ Default is `0`, same position as the parent node.
 
 <br>
 
+<a id="basenode-setposition"></a>
 ```C++
 Rectangle* SetPosition(int x, int y)
 ```
@@ -31,6 +34,7 @@ Shorthand to set both the local X and Y coordinate of the node.
 
 <br>
 
+<a id="basenode-setwidth"></a>
 ```C++
 Rectangle* SetWidth(int width)
 ```
@@ -40,6 +44,7 @@ is inherited from the parent node.
 
 <br>
 
+<a id="basenode-setheight"></a>
 ```C++
 Rectangle* SetHeight(int height)
 ```
@@ -49,6 +54,7 @@ is inherited from the parent node.
 
 <br>
 
+<a id="basenode-setsize"></a>
 ```C++
 Rectangle* SetSize(int width, int height)
 ```
@@ -56,26 +62,29 @@ Shorthand to set both the width and height of the node.
 
 <br>
 
+<a id="basenode-setid"></a>
 ```C++
 Rectangle* SetID(std::string iD)
 ```
 Set a unique identifier for the node. Attempting to reuse it 
 will fail and produce a warning. <br>
 This ID system has a fast, constant return time. <br>
-See `GUI::FindID(std::string iD)`.
+See `GUI::FindID(...)`.
 
 <br>
 
+<a id="basenode-setshallowid"></a>
 ```C++
 Rectangle* SetShallowID(std::string shallowID)
 ```
 Set a reusable identifier for the node. <br>
 This ID system has a variable return time dependent on how 
 deep the search goes. <br>
-See `BaseNode::FindShallowID(std::string shallowID)`.
+See [`BaseNode::FindShallowID(...)`](#basenode-findshallowid).
 
 <br>
 
+<a id="basenode-setpretick"></a>
 ```C++
 Rectangle* SetPreTick(void (*callback)(BaseNode*))
 ```
@@ -86,6 +95,7 @@ pointer to the node that called it.
 
 <br>
 
+<a id="basenode-setdisabled"></a>
 ```C++
 Rectangle* SetDisabled(bool disabled)
 ```
@@ -94,13 +104,15 @@ during `GUI::Tick()`.
 
 <br>
 
+<a id="basenode-clearpretick"></a>
 ```C++
 Rectangle* ClearPreTick()
 ```
-Remove the node's custom pre-tick function after calling `BaseNode::SetPreTick(void (*callback)(BaseNode*))`
+Remove the node's custom pre-tick function after calling [`BaseNode::SetPreTick(...)`](#basenode-setpretick)
 
 <br>
 
+<a id="basenode-addchildren"></a>
 ```C++
 Rectangle* AddChildren(std::vector<BaseNode*> newChildren)
 ```
@@ -108,6 +120,7 @@ Set a list of nodes to be children of this node.
 
 <br>
 
+<a id="basenode-addchild"></a>
 ```C++
 template <typename T>
 T* AddChild(T* newChild)
@@ -115,11 +128,12 @@ T* AddChild(T* newChild)
 Set a single node to be the child of this node. <br>
 Unlike most other functions, this will return a pointer to 
 the child node instead of this node. If you need to add a single 
-child but return this node, call `BaseNode::AddChildren(std::vector<BaseNode*> newChildren)` 
+child but return this node, call [`BaseNode::AddChildren(...)`](#basenode-addchildren) 
 with a list of only one node. 
 
 <br>
 
+<a id="basenode-getx"></a>
 ```C++
 int GetX()
 ```
@@ -127,6 +141,7 @@ Get the local X coordinate of the node.
 
 <br>
 
+<a id="basenode-calculatex"></a>
 ```C++
 int CalculateX()
 ```
@@ -135,7 +150,7 @@ this and all parent node local positions.
 
 <br>
 
-
+<a id="basenode-gety"></a>
 ```C++
 int GetY()
 ```
@@ -143,6 +158,7 @@ Get the local Y coordinate of the node.
 
 <br>
 
+<a id="basenode-calculatey"></a>
 ```C++
 int CalculateY()
 ```
@@ -151,15 +167,17 @@ this and all parent node local positions.
 
 <br>
 
+<a id="basenode-getwidth"></a>
 ```C++
 int GetWidth()
 ```
 Get the node's internal width variable. <br>
 If never set, it will be `KOWGUI::undefinedNumber`. <br>
-Not the correct function for most applications. See `BaseNode::CalculateWidth()`.
+Not the correct function for most applications. See [`BaseNode::CalculateWidth()`](#basenode-calculatewidth).
 
 <br>
 
+<a id="basenode-calculatewidth"></a>
 ```C++
 int CalculateWidth()
 ```
@@ -167,15 +185,17 @@ Get the node's width on screen, whether stored itself or inherited.
 
 <br>
 
+<a id="basenode-getheight"></a>
 ```C++
 int GetHeight()
 ```
 Get the node's internal height variable. <br>
 If never set, it will be `KOWGUI::undefinedNumber`. <br>
-Not the correct function for most applications. See `BaseNode::CalculateHeight()`.
+Not the correct function for most applications. See [`BaseNode::CalculateHeight()`](#basenode-calculateheight).
 
 <br>
 
+<a id="basenode-calculateheight"></a>
 ```C++
 int CalculateHeight()
 ```
@@ -183,22 +203,25 @@ Get the node's height on screen, whether stored itself or inherited.
 
 <br>
 
+<a id="basenode-getid"></a>
 ```C++
 std::string GetID()
 ```
 Get the ID of the node. <br>
-To find a node from an ID, see `GUI::FindID(std::string iD)`.
+To find a node from an ID, see `GUI::FindID(...)`.
 
 <br>
 
+<a id="basenode-getshallowid"></a>
 ```C++
 std::string GetShallowID()
 ```
 Get the shallow ID of the node. <br>
-To find a node from a shallow ID, see `BaseNode::FindShallowID(std::string iD)`.
+To find a node from a shallow ID, see [`BaseNode::FindShallowID(...)`](#basenode-findshallowid).
 
 <br>
 
+<a id="basenode-getdisabled"></a>
 ```C++
 bool GetDisabled()
 ```
@@ -207,6 +230,7 @@ not it and its children are processed during `GUI::Tick()`.
 
 <br>
 
+<a id="basenode-getrooted"></a>
 ```C++
 bool GetRooted()
 ```
@@ -214,10 +238,11 @@ Get whether or not the node is rooted. That is, whether or
 not following parent nodes and climbing up the node tree will 
 eventually lead to the node of `GUI::root`. <br>
 Nodes must be rooted in order for them to be processed during 
-`GUI::Tick()` and retrievable from `GUI::FindID(std::string iD)`.
+`GUI::Tick()` and retrievable from `GUI::FindID(...)`.
 
 <br>
 
+<a id="basenode-findshallowid"></a>
 ```C++
 BaseNode* FindShallowID(std::string shallowID)
 ```
@@ -228,7 +253,7 @@ direct children, then children of children, etc.
 
 <br>
 
-
+<a id="basenode-scheduledeletion"></a>
 ```C++
 void ScheduleDeletion()
 ```
@@ -242,14 +267,9 @@ instead.
 
 </details>
 
-<!--
-Rectangle* SetFillColor(std::shared_ptr<Color> fillColor);
-Rectangle* SetOutlineColor(std::shared_ptr<Color> outlineColor);
-Rectangle* SetOutlineWidth(int outlineWidth); 
--->
-
 <br>
 
+<a id="rectangle-setfillcolor"></a>
 ```C++
 Rectangle* SetFillColor(std::shared_ptr<Color> fillColor)
 ```
@@ -258,6 +278,7 @@ Default is `Color::transparent`, making it invisible.
 
 <br>
 
+<a id="rectangle-setoutlinecolor"></a>
 ```C++
 Rectangle* SetOutlineColor(std::shared_ptr<Color> outlineColor)
 ```
@@ -266,6 +287,7 @@ Default is `Color::transparent`, making it invisible.
 
 <br>
 
+<a id="rectangle-setoutlinewidth"></a>
 ```C++
 Rectangle* SetOutlineWidth(int outlineWidth)
 ```
