@@ -7,10 +7,6 @@ such as position and ID systems. When a pointer needs to reference
 any node type, polymorphism allows `BaseNode*` to be used, 
 later casted once the specific functionality is known.
 
-Functions with a return type of `[this]` are rewritten in derived 
-node classes to return the type of the derived node instead 
-of `BaseNode`. 
-
 
 <br>
 

@@ -23,7 +23,7 @@ This node inherits from [`BaseNode`](./../baseNode.md).
 
 <a id="circle-setcentered"></a>
 ```C++
-Circle* SetCentered(bool centered)
+[this]* SetCentered(bool centered)
 ```
 Set whether or not the node's position is the center of the 
 circle instead of the top left corner like most other nodes. <br>
@@ -34,7 +34,7 @@ left corner.
 
 <a id="circle-setfillcolor"></a>
 ```C++
-Circle* SetFillColor(std::shared_ptr<Color> fillColor)
+[this]* SetFillColor(std::shared_ptr<Color> fillColor)
 ```
 Set the color that will fill in the circle. <br>
 Default is `Color::transparent`, making it invisible.
@@ -43,7 +43,7 @@ Default is `Color::transparent`, making it invisible.
 
 <a id="circle-setoutlinecolor"></a>
 ```C++
-Circle* SetOutlineColor(std::shared_ptr<Color> outlineColor)
+[this]* SetOutlineColor(std::shared_ptr<Color> outlineColor)
 ```
 Set the color that will outline and draw around the circle. <br>
 Default is `Color::transparent`, making it invisible.
@@ -52,7 +52,7 @@ Default is `Color::transparent`, making it invisible.
 
 <a id="circle-setoutlinewidth"></a>
 ```C++
-Circle* SetOutlineWidth(int outlineWidth)
+[this]* SetOutlineWidth(int outlineWidth)
 ```
 Set the width of the outline around the circle. <br>
 Default is `1` pixel.
@@ -61,7 +61,7 @@ Default is `1` pixel.
 
 <a id="circle-setradius"></a>
 ```C++
-Circle* SetRadius(int radius)
+[this]* SetRadius(int radius)
 ```
 Set the width of the node based on radius. <br>
 If diameter is intended, see [`BaseNode::SetWidth(...)`](./../baseNode.md#basenode-setwidth)

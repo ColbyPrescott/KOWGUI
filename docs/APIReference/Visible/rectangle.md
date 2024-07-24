@@ -20,7 +20,7 @@ This node inherits from [`BaseNode`](./../baseNode.md).
 
 <a id="rectangle-setfillcolor"></a>
 ```C++
-Rectangle* SetFillColor(std::shared_ptr<Color> fillColor)
+[this]* SetFillColor(std::shared_ptr<Color> fillColor)
 ```
 Set the color that will fill in the rectangle. <br>
 Default is `Color::transparent`, making it invisible.
@@ -29,7 +29,7 @@ Default is `Color::transparent`, making it invisible.
 
 <a id="rectangle-setoutlinecolor"></a>
 ```C++
-Rectangle* SetOutlineColor(std::shared_ptr<Color> outlineColor)
+[this]* SetOutlineColor(std::shared_ptr<Color> outlineColor)
 ```
 Set the color that will outline and draw around the rectangle. <br>
 Default is `Color::transparent`, making it invisible.
@@ -38,7 +38,7 @@ Default is `Color::transparent`, making it invisible.
 
 <a id="rectangle-setoutlinewidth"></a>
 ```C++
-Rectangle* SetOutlineWidth(int outlineWidth)
+[this]* SetOutlineWidth(int outlineWidth)
 ```
 Set the width of the outline around the rectangle. <br>
 Default is `1` pixel.
