@@ -7,8 +7,16 @@ node's area.
 <br>
 
 This node inherits from [`BaseNode`](./../baseNode.md).
+- [SetFillColor](#rectangle-setfillcolor)
+- [SetOutlineColor](#rectangle-setoutlinecolor)
+- [SetOutlineWidth](#rectangle-setoutlinewidth)
 
 <br>
+
+---
+
+<br>
+
 
 <a id="rectangle-setfillcolor"></a>
 ```C++

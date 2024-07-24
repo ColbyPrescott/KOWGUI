@@ -11,7 +11,43 @@ Functions with a return type of `[this]` are rewritten in derived
 node classes to return the type of the derived node instead 
 of `BaseNode`. 
 
+
 <br>
+
+- [AddChild](#basenode-addchild)
+- [AddChildren](#basenode-addchildren)
+- [CalculateHeight](#basenode-calculateheight)
+- [CalculateWidth](#basenode-calculatewidth)
+- [CalculateX](#basenode-calculatex)
+- [CalculateY](#basenode-calculatey)
+- [ClearPreTick](#basenode-clearpretick)
+- [FindShallowID](#basenode-findshallowid)
+- [GetDisabled](#basenode-getdisabled)
+- [GetHeight](#basenode-getheight)
+- [GetID](#basenode-getid)
+- [GetRooted](#basenode-getrooted)
+- [GetShallowID](#basenode-getshallowid)
+- [GetWidth](#basenode-getwidth)
+- [GetX](#basenode-getx)
+- [GetY](#basenode-gety)
+- [ScheduleDeletion](#basenode-scheduledeletion)
+- [SetDisabled](#basenode-setdisabled)
+- [SetHeight](#basenode-setheight)
+- [SetID](#basenode-setid)
+- [SetPosition](#basenode-setposition)
+- [SetPreTick](#basenode-setpretick)
+- [SetShallowID](#basenode-setshallowid)
+- [SetSize](#basenode-setsize)
+- [SetWidth](#basenode-setwidth)
+- [SetX](#basenode-setx)
+- [SetY](#basenode-sety)
+
+<br>
+
+---
+
+<br>
+
 
 <a id="basenode-addchild"></a>
 ```C++

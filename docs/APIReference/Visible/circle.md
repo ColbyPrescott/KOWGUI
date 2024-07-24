@@ -8,8 +8,18 @@ by the node's width alone.
 <br>
 
 This node inherits from [`BaseNode`](./../baseNode.md).
+- [SetCentered](#circle-setcentered)
+- [SetFillColor](#circle-setfillcolor)
+- [SetOutlineColor](#circle-setoutlinecolor)
+- [SetOutlineWidth](#circle-setoutlinewidth)
+- [SetRadius](#circle-setradius)
 
 <br>
+
+---
+
+<br>
+
 
 <a id="circle-setcentered"></a>
 ```C++
