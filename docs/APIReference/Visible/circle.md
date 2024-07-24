@@ -22,15 +22,6 @@ left corner.
 
 <br>
 
-<a id="circle-setradius"></a>
-```C++
-Circle* SetRadius(int radius)
-```
-Set the width of the node based on radius. <br>
-If diameter is intended, see [`BaseNode::SetWidth(...)`](./../baseNode.md#basenode-setwidth)
-
-<br>
-
 <a id="circle-setfillcolor"></a>
 ```C++
 Circle* SetFillColor(std::shared_ptr<Color> fillColor)
@@ -55,3 +46,12 @@ Circle* SetOutlineWidth(int outlineWidth)
 ```
 Set the width of the outline around the circle. <br>
 Default is `1` pixel.
+
+<br>
+
+<a id="circle-setradius"></a>
+```C++
+Circle* SetRadius(int radius)
+```
+Set the width of the node based on radius. <br>
+If diameter is intended, see [`BaseNode::SetWidth(...)`](./../baseNode.md#basenode-setwidth)

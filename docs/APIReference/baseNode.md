@@ -13,118 +13,6 @@ of `BaseNode`.
 
 <br>
 
-<a id="basenode-setx"></a>
-```C++
-[this]* SetX(int x)
-```
-Set the local X coordinate of the node. <br>
-Default is `0`, same position as the parent node.
-
-<br>
-
-<a id="basenode-sety"></a>
-```C++
-[this]* SetY(int y)
-```
-Set the local Y coordinate of the node. <br>
-Default is `0`, same position as the parent node.
-
-<br>
-
-<a id="basenode-setposition"></a>
-```C++
-[this]* SetPosition(int x, int y)
-```
-Shorthand to set both the local X and Y coordinate of the node. 
-
-<br>
-
-<a id="basenode-setwidth"></a>
-```C++
-[this]* SetWidth(int width)
-```
-Set the width of the node. <br>
-Default is `KOWGUI::undefinedNumber`, which means that width 
-is inherited from the parent node.
-
-<br>
-
-<a id="basenode-setheight"></a>
-```C++
-[this]* SetHeight(int height)
-```
-Set the height of the node. <br>
-Default is `KOWGUI::undefinedNumber`, which means that height 
-is inherited from the parent node.
-
-<br>
-
-<a id="basenode-setsize"></a>
-```C++
-[this]* SetSize(int width, int height)
-```
-Shorthand to set both the width and height of the node.
-
-<br>
-
-<a id="basenode-setid"></a>
-```C++
-[this]* SetID(std::string iD)
-```
-Set a unique identifier for the node. Attempting to reuse it 
-will fail and produce a warning. <br>
-This ID system has a fast, constant return time. <br>
-See `GUI::FindID(...)`.
-
-<br>
-
-<a id="basenode-setshallowid"></a>
-```C++
-[this]* SetShallowID(std::string shallowID)
-```
-Set a reusable identifier for the node. <br>
-This ID system has a variable return time dependent on how 
-deep the search goes. <br>
-See [`BaseNode::FindShallowID(...)`](#basenode-findshallowid).
-
-<br>
-
-<a id="basenode-setpretick"></a>
-```C++
-[this]* SetPreTick(void (*callback)(BaseNode*))
-```
-Set a custom function to call before any other processing on 
-the node. <br>
-Function must take a `BaseNode*` as a parameter, which is a 
-pointer to the node that called it.
-
-<br>
-
-<a id="basenode-setdisabled"></a>
-```C++
-[this]* SetDisabled(bool disabled)
-```
-Set whether or not this and child nodes should be processed 
-during `GUI::Tick()`.
-
-<br>
-
-<a id="basenode-clearpretick"></a>
-```C++
-[this]* ClearPreTick()
-```
-Remove the node's custom pre-tick function after calling [`BaseNode::SetPreTick(...)`](#basenode-setpretick)
-
-<br>
-
-<a id="basenode-addchildren"></a>
-```C++
-[this]* AddChildren(std::vector<BaseNode*> newChildren)
-```
-Set a list of nodes to be children of this node.
-
-<br>
-
 <a id="basenode-addchild"></a>
 ```C++
 template <typename T>
@@ -138,11 +26,27 @@ with a list of only one node.
 
 <br>
 
-<a id="basenode-getx"></a>
+<a id="basenode-addchildren"></a>
 ```C++
-int GetX()
+[this]* AddChildren(std::vector<BaseNode*> newChildren)
 ```
-Get the local X coordinate of the node.
+Set a list of nodes to be children of this node.
+
+<br>
+
+<a id="basenode-calculateheight"></a>
+```C++
+int CalculateHeight()
+```
+Get the node's height on screen, whether stored itself or inherited.
+
+<br>
+
+<a id="basenode-calculatewidth"></a>
+```C++
+int CalculateWidth()
+```
+Get the node's width on screen, whether stored itself or inherited.
 
 <br>
 
@@ -155,14 +59,6 @@ this and all parent node local positions.
 
 <br>
 
-<a id="basenode-gety"></a>
-```C++
-int GetY()
-```
-Get the local Y coordinate of the node.
-
-<br>
-
 <a id="basenode-calculatey"></a>
 ```C++
 int CalculateY()
@@ -172,21 +68,31 @@ this and all parent node local positions.
 
 <br>
 
-<a id="basenode-getwidth"></a>
+<a id="basenode-clearpretick"></a>
 ```C++
-int GetWidth()
+[this]* ClearPreTick()
 ```
-Get the node's internal width variable. <br>
-If never set, it will be `KOWGUI::undefinedNumber`. <br>
-Not the correct function for most applications. See [`BaseNode::CalculateWidth()`](#basenode-calculatewidth).
+Remove the node's custom pre-tick function after calling [`BaseNode::SetPreTick(...)`](#basenode-setpretick)
 
 <br>
 
-<a id="basenode-calculatewidth"></a>
+<a id="basenode-findshallowid"></a>
 ```C++
-int CalculateWidth()
+BaseNode* FindShallowID(std::string shallowID)
 ```
-Get the node's width on screen, whether stored itself or inherited.
+Search through child nodes and return the first result with 
+a matching shallow ID. <br>
+Search time is dependent on child depth, looking first for 
+direct children, then children of children, etc. 
+
+<br>
+
+<a id="basenode-getdisabled"></a>
+```C++
+bool GetDisabled()
+```
+Get whether or not the node is disabled. That is, whether or 
+not it and its children are processed during `GUI::Tick()`.
 
 <br>
 
@@ -200,38 +106,12 @@ Not the correct function for most applications. See [`BaseNode::CalculateHeight(
 
 <br>
 
-<a id="basenode-calculateheight"></a>
-```C++
-int CalculateHeight()
-```
-Get the node's height on screen, whether stored itself or inherited.
-
-<br>
-
 <a id="basenode-getid"></a>
 ```C++
 std::string GetID()
 ```
 Get the ID of the node. <br>
 To find a node from an ID, see `GUI::FindID(...)`.
-
-<br>
-
-<a id="basenode-getshallowid"></a>
-```C++
-std::string GetShallowID()
-```
-Get the shallow ID of the node. <br>
-To find a node from a shallow ID, see [`BaseNode::FindShallowID(...)`](#basenode-findshallowid).
-
-<br>
-
-<a id="basenode-getdisabled"></a>
-```C++
-bool GetDisabled()
-```
-Get whether or not the node is disabled. That is, whether or 
-not it and its children are processed during `GUI::Tick()`.
 
 <br>
 
@@ -247,14 +127,38 @@ Nodes must be rooted in order for them to be processed during
 
 <br>
 
-<a id="basenode-findshallowid"></a>
+<a id="basenode-getshallowid"></a>
 ```C++
-BaseNode* FindShallowID(std::string shallowID)
+std::string GetShallowID()
 ```
-Search through child nodes and return the first result with 
-a matching shallow ID. <br>
-Search time is dependent on child depth, looking first for 
-direct children, then children of children, etc. 
+Get the shallow ID of the node. <br>
+To find a node from a shallow ID, see [`BaseNode::FindShallowID(...)`](#basenode-findshallowid).
+
+<br>
+
+<a id="basenode-getwidth"></a>
+```C++
+int GetWidth()
+```
+Get the node's internal width variable. <br>
+If never set, it will be `KOWGUI::undefinedNumber`. <br>
+Not the correct function for most applications. See [`BaseNode::CalculateWidth()`](#basenode-calculatewidth).
+
+<br>
+
+<a id="basenode-getx"></a>
+```C++
+int GetX()
+```
+Get the local X coordinate of the node.
+
+<br>
+
+<a id="basenode-gety"></a>
+```C++
+int GetY()
+```
+Get the local Y coordinate of the node.
 
 <br>
 
@@ -265,3 +169,99 @@ void ScheduleDeletion()
 Flag the node to be safely deleted when it is next processed. <br>
 On a node that is not rooted, simply use the `delete` keyword 
 instead. 
+
+<br>
+
+<a id="basenode-setdisabled"></a>
+```C++
+[this]* SetDisabled(bool disabled)
+```
+Set whether or not this and child nodes should be processed 
+during `GUI::Tick()`.
+
+<br>
+
+<a id="basenode-setheight"></a>
+```C++
+[this]* SetHeight(int height)
+```
+Set the height of the node. <br>
+Default is `KOWGUI::undefinedNumber`, which means that height 
+is inherited from the parent node.
+
+<br>
+
+<a id="basenode-setid"></a>
+```C++
+[this]* SetID(std::string iD)
+```
+Set a unique identifier for the node. Attempting to reuse it 
+will fail and produce a warning. <br>
+This ID system has a fast, constant return time. <br>
+See `GUI::FindID(...)`.
+
+<br>
+
+<a id="basenode-setposition"></a>
+```C++
+[this]* SetPosition(int x, int y)
+```
+Shorthand to set both the local X and Y coordinate of the node. 
+
+<br>
+
+<a id="basenode-setpretick"></a>
+```C++
+[this]* SetPreTick(void (*callback)(BaseNode*))
+```
+Set a custom function to call before any other processing on 
+the node. <br>
+Function must take a `BaseNode*` as a parameter, which is a 
+pointer to the node that called it.
+
+<br>
+
+<a id="basenode-setshallowid"></a>
+```C++
+[this]* SetShallowID(std::string shallowID)
+```
+Set a reusable identifier for the node. <br>
+This ID system has a variable return time dependent on how 
+deep the search goes. <br>
+See [`BaseNode::FindShallowID(...)`](#basenode-findshallowid).
+
+<br>
+
+<a id="basenode-setsize"></a>
+```C++
+[this]* SetSize(int width, int height)
+```
+Shorthand to set both the width and height of the node.
+
+<br>
+
+<a id="basenode-setwidth"></a>
+```C++
+[this]* SetWidth(int width)
+```
+Set the width of the node. <br>
+Default is `KOWGUI::undefinedNumber`, which means that width 
+is inherited from the parent node.
+
+<br>
+
+<a id="basenode-setx"></a>
+```C++
+[this]* SetX(int x)
+```
+Set the local X coordinate of the node. <br>
+Default is `0`, same position as the parent node.
+
+<br>
+
+<a id="basenode-sety"></a>
+```C++
+[this]* SetY(int y)
+```
+Set the local Y coordinate of the node. <br>
+Default is `0`, same position as the parent node.
