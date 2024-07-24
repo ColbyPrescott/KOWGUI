@@ -51,12 +51,14 @@
 
 ## Other
 
+- [BaseNode](./baseNode.md)
 - GUI
 - Color
 
 ## Alphabetical
 
 - Activated
+- [BaseNode](./baseNode.md)
 - [Circle](./Visible/circle.md)
 - Clickable
 - Color
