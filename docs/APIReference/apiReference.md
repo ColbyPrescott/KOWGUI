@@ -21,7 +21,7 @@
 
 ### [Visible](./Visible/visible.md)
 
-- Circle
+- [Circle](./Visible/circle.md)
 - Image
 - Line
 - [Rectangle](./Visible/rectangle.md)
@@ -57,7 +57,7 @@
 ## Alphabetical
 
 - Activated
-- Circle
+- [Circle](./Visible/circle.md)
 - Clickable
 - Color
 - Column
@@ -73,7 +73,7 @@
 - Looped
 - Feedback "N" Prefix 
 - Numpad
-- Rectangle
+- [Rectangle](./Visible/rectangle.md)
 - RoundedRectangle
 - Row
 - Selected
